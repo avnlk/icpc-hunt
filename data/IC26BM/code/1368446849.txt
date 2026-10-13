@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+int t;cin>>t;
+const string n[4]={"00","01","10","11"};
+while(t--){
+    long long c[4];
+    for(auto &i:c){
+        cin>>i;
+    }
+    string best;
+    bool has=false;
+    for(int i=0;i<4;i++){
+        if(c[i]==0){continue;}
+        long long v[4]={c[0],c[1],c[2],c[3]};
+        v[i]--;
+        long long a=v[0],b=v[1],cc=v[2],d=v[3];
+        long long x=min(a,b+d);
+        long long dd=min(x,d);
+        d-=dd;
+        b-=(x-dd);
+        long long k=b+d;
+        long long p=min(b,k/2);
+        string s;
+        s.reserve(a+x+cc+2*p+(k-2*p)+2);
+        s.append(a+x+cc,'0');
+        for(long long i=0;i<p;i++){s+="01";}
+        s.append(k-2*p,'1');
+        s+=n[i];
+        if(!has || s<best){best=s;has=true;}
+    }
+    cout<<best<<"\n";
+}
+return 0;
+}

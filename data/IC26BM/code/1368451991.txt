@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main() {
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{
+	    int a,b,c,d;
+	    scanf("%d %d %d %d",&a,&b,&c,&d);
+	    int n=a+b+c+d;
+	    int z= a + c;
+	    int o= b + c + 2 * d;
+	    int remove= n-1;
+	    int r=o < remove ? o : remove;
+	    o-=r;
+	    int len=n+1;
+	    while(len-- > o)
+	    {
+	        printf("0");
+	    }
+	    while(o--)
+	    {
+	        printf("1");
+	    }
+	    printf("\n");
+	    
+	}
+return 0;
+}
+

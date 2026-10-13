@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		int MOD=998244353;
+		int maxn=200005;
+		long[] inv=new long[maxn];
+		long[] h=new long[maxn];
+		inv[1]=1;
+		for(int i=2;i<maxn;i++){
+		    inv[i]=(MOD-MOD/i)*inv[MOD%i]%MOD;
+		}
+		h[0]=0;
+		for(int i=1;i<maxn;i++){
+		    h[i]=(h[i-1]+inv[i]%MOD);
+		}
+		Scanner sc=new Scanner(System.in);
+		if(!sc.hasNextInt()){
+		    sc.close();
+		    return;
+		}
+		int t=sc.nextInt();
+		StringBuilder sb=new StringBuilder();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    long[] a=new long[n+1];
+		    for(int i=1;i<=n;i++){
+		        a[i]=sc.nextLong();
+		    }
+		    long expectedS=0;
+		    for(int i=1;i<=n;i++){
+		        int m=Math.min(i,n-i+1);
+		        long c_i=(m-1+h[n-m])%MOD;
+		        long contribution =(c_i *a[i])%MOD;
+		        expectedS=(expectedS+contribution)%MOD;
+		    }
+		    sb.append(expectedS).append("\n");
+		}
+		System.out.println(sb);
+
+	}
+}

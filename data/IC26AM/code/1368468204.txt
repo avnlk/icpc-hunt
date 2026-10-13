@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX_SIZE = 200005;
+const long long MOD = 9998244353;
+
+long long  expectedContri(const vector<long long>&harmonic, int length, int position, long long value){
+    long long weight = (harmonic[length - position] + harmonic[position - 1]) % MOD;
+    return weight * (value % MOD)%MOD;
+}
+
+vector<long long>buildHarmonicPrefix(int limit){
+    vector<long long> harmonic(limit, 0), inverse(limit);
+    inverse[1] = 1; 
+    int i = 2; 
+    while(i < limit){
+        inverse[i] = (MOD - (MOD/i)* inverse[MOD%i]%MOD )%MOD;
+        i++;
+    }
+    
+    for(int j = 1 ; j<limit ; j++) harmonic[j] = (inverse[j] + harmonic[j-1])% MOD;
+    return harmonic;
+}
+
+
+long long solveCase(const vector<long long>&harmonic, int length){
+    long long total = 0;
+    int position = 1 ; 
+    while(position <= length){
+        long long value; 
+        cin >> value;
+        total = (expectedContri(harmonic, length, position, value) + total)% MOD;
+        position++;
+    }
+    
+    return total;
+}
+
+int main() {
+	// your code goes here
+	
+	cin.tie(nullptr);
+	ios::sync_with_stdio(false);
+	
+	vector<long long> harmonic = buildHarmonicPrefix(MAX_SIZE);
+	int t;
+	
+	cin >> t;
+	
+	while(t--){
+	    int length;
+	    cin >> length;
+	    
+	    cout << solveCase(harmonic, length)  << "\n";
+	}
+	
+	return 0;
+
+}

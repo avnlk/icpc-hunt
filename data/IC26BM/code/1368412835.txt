@@ -1,0 +1,18 @@
+t=int(input())
+for _ in range(t):
+    c=list(map(int,input().split())); n=sum(c); p=['00','01','10','11']
+    if n%2:
+        k=n//2+1;ans=''
+        for i in range(4):
+            x=min(c[i],k);ans+=p[i]*x; k-=x
+    else:
+        z=[]
+        for j in range(4):
+            if c[j]:
+                d=c[:]; d[j]-=1; k=n//2
+                s=p[j][1]
+                for i in range(4):
+                    x=min(d[i],k); s+=p[i]*x; k-=x
+                z.append(s)
+        ans=min(z)
+    print(ans)

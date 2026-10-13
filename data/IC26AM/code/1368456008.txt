@@ -1,0 +1,20 @@
+# cook your dish here
+import sys
+def main():
+    M=998244353
+    d=sys.stdin.buffer.read().split();t=int(d[0]);p=1
+    N=200001
+    inv=[0,1]+[0]*N 
+    for i in range(2,N+1):inv[i]=(M-(M//i)*inv[M%i]%M)%M 
+    H=[0]*(N+1)
+    for i in range(1,N+1):H[i]=(H[i-1]+inv[i])%M 
+    o=[]
+    for _ in range(t):
+        n=int(d[p]);p+=1 
+        s=0 
+        for j in range(n):
+            s+=int(d[p+j])*(H[j]+  H[n-1-j])
+        p+=n
+        o.append(s%M)
+    print("\n".join(map(str,o)))
+main()

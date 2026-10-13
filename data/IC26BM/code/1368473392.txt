@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve()
+{
+	long long a, b, c, d;
+	cin >> a >> b >> c >> d;
+	auto F = [&](long long e, long long g, long long j, long long l){
+	    long long f = 0, h = 0, i = 0, k = 0, m = 0;
+	    g > 0 ? (g--, h++) : l > 0 ? (l-- , m++) : e > 0 ? (e--, f++) : (j--, k++);
+	    auto M = [&](long long &x, long long &y, long long &z){
+	        long long o = min(x, y); x -= o; y-= o; z += o;
+	    };
+	    M(e, l ,f);
+	    M(e, g, f);
+	    M(g, l ,h);
+	    long long r = g / 2; g -= r * 2; h += r;
+	    long long s = f, t = e + j, u = h, v = k, w = g + l, x = m;
+	    string y = x > 0 ? (x--, "11") : (v > 0 ? (v--, "10") : (u > 0 ? (u--, "01") : (s--, "00")));
+	    string ppg = string(s * 2 + t, '0');
+	    while(u--) ppg += "01";
+	    while(v--) ppg += "10";
+	    ppg += string(w, '1');
+	    while(x--) ppg += "11";
+	    return ppg + y;
+	    
+	};
+	cout << F(a,b,c,d) << endl;
+}
+
+int main(){
+    int t;
+    cin >> t;
+    while(t--) solve();
+    return 0;
+}

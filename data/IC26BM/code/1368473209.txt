@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    
+    int c[4], n=0;
+    for(int &x : c)cin >> x, n+=x;
+    
+    vector<int>a;
+    for(int i = 0; i < 4; i++)
+        a.insert(a.end(),c[i], i);
+    
+    int k = n/2;
+    auto s = [](int x){
+        string r;
+        r+='0' + x/2;
+        r += '0' + x%2;
+        return r;
+    };
+    
+    string ans;
+    
+    if(n & 1){
+        for(int i=0;i<=k;i++)
+            ans+=s(a[i]);
+    }else{
+        
+        int j = -1;
+        for(int i = k; i<n;i++)
+            if(a[i] % 2 == 0){
+                j = i;
+                break;
+            }
+        
+        if( j == -1)
+            for(int i = k-1;i>=0;i--)
+                if(a[i] % 2 == 0){
+                    j = i;
+                    break;
+                }
+            
+        ans += j == -1 ? '1' : '0';
+        
+        int m = k+(j >=0 && j < k);
+        
+        for(int i =0;i<m;i++)
+            if(i!=j)ans+=s(a[i]);
+        
+    }
+    
+    cout << ans << endl;
+        
+}
+    
+int main() {
+  
+    int t;
+    cin >> t;
+    while(t--) solve();
+    
+}

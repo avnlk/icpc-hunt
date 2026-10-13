@@ -4,7 +4,7 @@ Read `README.md` (layout, scripts, how to help) and `evidence/README.md` (what t
 
 ## Status
 - Bulk data collected for P8 (`IC26AM`) and P10 (`IC26BM`); P9 (`IC26MM`) only for its 7 solvers. Downloaded code lives
-  in `ccdump/` (git-ignored); copies of every listed submission are in `evidence/code/`.
+  in `ccdump/` (git-ignored); a copy is in `data/` and copies of every listed submission are in `evidence/code/`.
 - Groups to review are in `evidence/README.md` (A-G); five early leads were cleared (same user) and are listed there.
 - The booklet in `leak/` had no hits in P8/P10 code. P7 is the place left to test it.
 

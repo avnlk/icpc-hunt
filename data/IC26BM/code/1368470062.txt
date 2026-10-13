@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+void solve(){ 
+    long long c00,c01,c10,c11;
+    cin>>c00>>c01>>c10>>c11;
+    long long n=c00+c01+c10+c11;
+    if(c00>=(n+1)/2){
+        cout<<string(n+1,'0')<<endl;
+        return;
+    }
+    long long z=min(c00,(n+1)/2);
+    string ans;
+    ans+=string(z,'0');
+    long long r=n+1-z;
+    while(r>0&&c01>0){
+        ans+="01";
+        c01--;
+        r-=z;
+    }
+    while(r>0&&c11>0){
+        ans+="11";
+        c11--;
+        r-=z;
+    
+    if((long long)ans.size()>n+1 ){
+        ans.resize(n+1);
+        cout<<ans<<endl;
+    }
+    
+}
+}
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+int t;
+cin>>t;
+while(t--){
+    solve();
+    
+}
+return 0;
+}

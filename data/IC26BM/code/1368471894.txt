@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    
+    const char* names[4] = {"00","01","10","11"};
+    while(t--){
+        long long c[4];
+        cin>>c[0]>>c[1]>>c[2]>>c[3];
+        long long n = c[0]+c[1]+c[2]+c[3];
+        
+        if(n== 1){
+            for(int i =0;i<4;i++){
+                if(c[i]) puts(names[i]);
+               
+            }
+            continue;
+            
+        }
+        string best;
+        bool have = false;
+        for(int l=0;l<4;l++){
+            if(!c[l]) continue;
+            long long r[4] = {c[0],c[1],c[2],c[3]};
+            r[l]--;
+            long long a = r[0], b= r[1],c = r[2] , d = r[3];
+            
+            long long y00 = min(a,b+d);
+            long long y01 = min(b,(b+d-y00)/2);
+            
+            long long z = a+c +y00;
+            long long p =y01;
+            long long s = (n-1) -z-2*p;
+            
+            string res;
+            res.reserve(n+1);
+            res.append(z,'0');
+            for(long long i=0;i<p;i++){
+                res+="01";
+        
+            }
+            res.append(s,'1');
+            res += names[l];
+            
+            if(!have ||
+            res < best){
+                best = res; have = true;
+            }
+            
+            
+        }
+        puts(best.c_str());
+    }
+}

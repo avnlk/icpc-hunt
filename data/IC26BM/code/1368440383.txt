@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+   ios::sync_with_stdio(false);
+   cin.tie(nullptr);
+   int n;
+   cin>> n;
+   while(n--){
+       long long c00,c01,c10,c11;
+       cin >> c00 >>c01 >> c10 >>c11;
+       long long zeros=c00 + c01;
+       long long ones=c10+c11;
+       
+       string ans;
+       ans.append(zeros,'0');
+       ans.append(ones,'1');
+       if(c01 > 0){
+           ans += '0';
+       }
+       else{
+           ans +='1';
+           
+       }
+       cout << ans << " ";
+   }
+   return 0;
+    //   string answer;
+    //   answer +=string(2 * c00,'0');
+    //   if(c01>0){
+    //       answer +="01";
+    //       c01--;
+    //   }
+       
+    //   answer += string(c01,'0');
+    //   answer +=string(c01,'1');
+       
+    //   answer +=string(2* c11,'1');
+       
+    //   if(c10 > 0){
+    //       answer += "10";
+    //       c10--;
+    //   }
+    //   answer +=string(c10,'1');
+    //   answer +=string(c10,'0');
+    //   cout << answer <<endl;
+    //   }
+    //   return 0;
+}

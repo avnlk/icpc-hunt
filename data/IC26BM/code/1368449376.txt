@@ -1,0 +1,54 @@
+names = ["00", "01", "10", "11"]
+out = []
+
+for _ in range(int(input())):
+    c = list(map(int, input().split()))
+    best = None 
+    
+    for s in range(4):
+        if c[s] == 0:
+            continue
+        
+        z, a, b, o = c 
+        if s == 0:
+            z -= 1
+        elif s == 1:
+            a -= 1 
+        elif s == 2:
+            b -= 1 
+        else:
+            o -= 1 
+        
+        zc = b 
+        p = 0 
+        m = min(o, z)
+        
+        z -= m 
+        o -= m 
+        zc += 2 * m 
+        
+        if o > 0:
+            m = min(o, a)
+            o -= m 
+            a -= m 
+            p += m 
+        
+        elif z > 0:
+            m = min(z, a)
+            z -= m
+            a -= m 
+            zc = 2 * m 
+        
+        k = a // 2
+        p += k 
+        a -= 2 * k 
+        zc += z 
+        
+        F = "0" * zc + "01" * p + "1" * (a + o) + names[s]
+        
+        if best is None or F < best:
+            best = F 
+    
+    out.append(best)
+
+print("\n".join(out))

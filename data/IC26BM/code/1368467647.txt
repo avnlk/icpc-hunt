@@ -1,0 +1,99 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    int a,b,c,d;
+	    cin>>a>>b>>c>>d;
+	    int sum=a+b+c+d;
+	    int rm=sum-1;
+	    int x=rm/2,y=rm%2;
+	   // while(x--){
+	   //     if(d>0){
+	   //         d--;
+	            
+	   //     }
+	   //     else if(c>0){
+	   //         c--;
+	   //     }
+	   //     else if(b>0){
+	   //         b--;
+	   //     }
+	   //    else if(a>0){
+	   //        a--;
+	   //    }
+	   //    if(x>0)
+	   //    {
+	   //        if(d>0)
+	   //        {
+	   //            if(
+	   //        }
+	   //    }
+	            
+	        if(x>0){
+	            if(x-d>0){
+	                x-=d;
+	                d=0;
+	            }
+	            else{
+	                d=d-x;
+	                x=0;
+	               
+	            }
+	        }
+	        if(x>0){
+	            if(x-c>0){
+	                x-=c;
+	                c=0;
+	            }
+	            else{
+	                c=c-x;
+	                x=0;
+	            }
+	        }
+	        if(x>0){
+	            if(x-b>0){
+	                x-=b;
+	                b=0;
+	            }
+	            else{
+	                b=b-x;
+	                x=0;
+	            }
+	        }
+	        if(x>0){
+	            if(x-a>0){
+	                x-=a;
+	                a=0;
+	            }
+	            else{
+	                a=a-x;
+	                x=0;
+	            }
+	        }
+	    
+	    string s="";
+	    if(y==1){
+	        s=s+"0";
+	        c=c-1;
+	       // s=s+"00"*a+"01"*b+"10"*c+"11"*d;
+	    }
+	    for(int i=0;i<a;i++){
+	        s+="00";
+	    }
+	    for(int i=0;i<b;i++){
+	        s+="01";
+	    }
+	    for(int i=0;i<c;i++){
+	        s+="10";
+	    }
+	    for(int i=0;i<d;i++){
+	        s+="11";
+	    }
+	    cout<<s<<endl;
+	}
+
+}

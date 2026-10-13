@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+const ll mod = 998244353LL;
+
+ll modpow(ll a, ll b){
+    ll ans = 1;
+    while(b > 0){
+        if(b&1) ans = (ans * a) %mod;
+        a = (a*a) %mod;
+        b>>=1;
+    }
+    return ans; 
+}
+
+ll inv(ll a){
+    return modpow(a, mod-2);
+}
+
+int main() {
+	// your code goes here
+    vector<ll> prob(200000 + 100, 0);
+    for(int i = 1; i<200000+100; i++){
+        prob[i] = (prob[i-1] + inv(i))%mod;
+    }
+    
+    int ti; cin >> ti;
+    while(ti--){
+        int n; cin>>n;
+        ll sum = 0LL;
+        for(int i = 1; i<=n; i++){
+            ll x; cin >> x;
+            ll count = (prob[i-1] + prob[n-i])%mod;
+            sum = (sum + (count*x)%mod)%mod;
+        }
+        
+        cout << sum << endl;
+    }
+}

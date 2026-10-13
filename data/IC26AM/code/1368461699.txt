@@ -1,0 +1,30 @@
+# cook your dish
+import sys
+from operator import mul
+def main():
+    data=sys.stdin.buffer.read().split()
+    mod=998244353
+    n=200001
+    inv=[0,1]+[0]*(n-1)
+    
+    h=[0]*(n+1)
+    h[1]=1
+    for i in range(2,n+1):
+        inv[i]=(mod-mod//i)*inv[mod%i]%mod
+        h[i]=(h[i-1]+inv[i])%mod
+    
+    
+    t=int(data[0])
+    p=1
+    o=[]
+
+    for _ in range(t):
+        n=int(data[p])
+        a=list(map(int,data[p+1:p+1+n]))
+        p+=1+n
+        s=sum(map(mul,a,h[:n]))+sum(map(mul,a,h[n-1::-1]))
+        o.append(s%mod)
+    print("\n".join(map(str,o)))
+
+main()
+    

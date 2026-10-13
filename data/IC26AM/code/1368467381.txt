@@ -1,0 +1,155 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+const int MOD = 998244353;
+
+int bp(int x, int p)
+{
+    if(p==0) return 1;
+    int q = bp(x, p/2);
+    q *= q;
+    q %= MOD;
+    if(p%2)
+    {
+        q *= x;
+        q %= MOD;
+    }
+    return q;
+}
+
+int mi(int x)
+{
+    x %= MOD;
+    return bp(x, MOD-2);
+}
+
+const int MXN = 200005;
+
+int fact[MXN]{};
+int inv[MXN]{};
+
+int nCr(int n, int r)
+{
+    int ans = fact[n];
+    ans *= inv[r];
+    ans %= MOD;
+    ans *= inv[n-r];
+    ans %= MOD;
+    return ans;
+}
+
+// void solve()
+// {
+//     int n;
+//     cin>>n;
+    
+//     int ans = 0;
+//     vector<int> a(n+1, 0);
+//     for(int i=1; i<=n; i++)
+//     {
+//         cin>>a[i];
+//     }
+    
+//     if(n==1)
+//     {
+//         cout<<0<<"\n";
+//         return;
+//     }
+    
+//     ans += ((bp(2, n-1))*a[1])%MOD;
+//     ans += ((bp(2, n-1))*a[n])%MOD;
+//     ans %= MOD;
+    
+//     for(int i=2; i<=n; i++)
+//     {
+//         int ta = bp(2, n-2);
+//         ta *= nCr(n-1, n-i);
+//         ta %= MOD;
+//         ta *= inv[n-1];
+//         ta %= MOD;
+//         ans += ta;
+//         ans %= MOD;
+//         ans *= a[i];
+//         ans %= MOD;
+//     }
+    
+//     cout<<ans<<"\n";
+    
+    
+// }
+
+void solve()
+{
+    int n, k;
+    cin>>n>>k;
+    
+    vector<int> a(n+1, 0);
+    for(int i=1; i<=n; i++)
+    {
+        cin>>a[i];
+    }
+    if(n==1)
+    {
+        cout<<0<<"\n";
+        return;
+    }
+    
+    vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+    
+    dp[2][1] = 1;
+    dp[2][2] = 1;
+    
+    for(int k=3; k<=n; k++)
+    {
+        dp[k][1] = (1 + dp[k-1][1])%MOD;
+        dp[k][1] *= mi(k-1);
+        dp[k][1] %= MOD;
+        dp[k][k]= dp[k][1];
+        for(int i=2; i<k; i++)
+        {
+            dp[k][i] = 2 + (i-1)*(dp[k-1][i-1]) + (k-i)*(dp[k-1][i]);
+            dp[k][i] %= MOD;
+            dp[k][i] *= mi(k-1);
+            dp[k][i] %= MOD;
+        }
+        
+        // for(int i=1; i<=k; i++)
+        // {
+        //     cout<<dp[k][i]<<" ";
+        // }
+        // cout<<"\n";
+    }
+    
+    int ans = 0;
+    for(int i=1; i<=n; i++)
+    {
+        ans += a[i]*dp[n][i];
+        ans %= MOD;
+    }
+    
+    cout<<ans<<"\n";
+}
+
+signed main() {
+	// your code goes here
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	fact[0] = 1;
+	inv[0] = 1;
+	for(int i=1; i<MXN; i++)
+	{
+	    fact[i] = fact[i-1]*i;
+	    fact[i] %= MOD;
+	    inv[i] = mi(fact[i]);
+	}
+	
+	int t = 1;
+	cin>>t;
+	while(t--)
+	{
+	    solve();
+	}
+}

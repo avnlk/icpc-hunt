@@ -1,0 +1,24 @@
+# cook your dish here
+
+MOD=998244353
+
+t=int(input())
+tests=[]
+emx=0
+for i in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    tests.append((n,a))
+    emx=max(emx,n)
+H=[0]*(emx+1)
+
+
+for i in range(1,emx+1):
+     H[i] = (H[i-1]+pow(i, MOD -2, MOD)) % MOD
+ 
+for n, a in tests:
+    ans = 0 
+    for i in range(n):
+        coep = (H[i] + H[n-i - 1 ]) % MOD 
+        ans = (ans + a[i] *coep) % MOD 
+    print(ans)

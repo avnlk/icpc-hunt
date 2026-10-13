@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int mod=998244353;
+const int maxn=200005;
+vector<long long> inv(maxn), h(maxn);
+void pre(){
+    inv[1]=1;
+    for(int i=2;i<maxn;i++){
+        inv[i]=mod-(mod/i)*inv[mod%i]%mod;
+    }
+    h[0]=0;
+    for(int i=1;i<maxn;i++){
+        h[i]=(h[i-1]+inv[i])%mod;
+    }
+}
+void solve(){
+    int n;
+    cin>>n;
+    long long ans=0;
+    for(int i=1;i<=n;i++){
+        long long a;
+        cin>>a;
+        long long co=(h[i-1]+h[n-i])%mod;
+        ans+=(co*a)%mod;
+    }
+    cout<<ans%mod<<endl;
+}
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    pre();
+    while(t--){
+        solve();
+    }
+    
+}

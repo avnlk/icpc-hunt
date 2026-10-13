@@ -1,0 +1,67 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		String[] T = {"00","01","10","11"};
+		while(t-- > 0){
+		    int[] c = new int[4];
+		    for(int i=0;i<4;i++){
+		        c[i] = sc.nextInt();
+		    }
+		    String best = null;
+		    for(int lt = 0;lt<4;lt++){
+		        if(c[lt]==0){
+		            continue;
+		        }
+		        int a00 = c[0],a01=c[1],a10=c[2],a11=c[3];
+		        if(lt==0){
+		            a00--;
+		        }
+		        else if(lt==1){
+		            a01--;
+		        }
+		        else if(lt==2){
+		            a10--;
+		        }
+		        else{
+		            a11--;
+		        }
+		        int b = a01+a11;
+		        int p = Math.min(a00,b);
+		        int lo = 0;
+		        int hi = a01;
+		        while(lo<hi){
+		            int m  = (lo+hi+1)>>>1;
+		            if(Math.max(0,p+m-a11)+m<=a01&&p+2*m<=b) lo = m;
+		            else hi = m-1;
+		        }
+		        int q = lo;
+		        int g = a00+a10;
+		        int Z = g+p;
+		        int h1 = b-p-2*q;
+		        StringBuilder sb = new StringBuilder(Z+2*q+h1+2);
+		        for(int i=0;i<Z;i++) sb.append('0');
+		        for(int i=0;i<q;i++){
+		            sb.append("01");
+		        }
+		        for(int i=0;i<h1;i++){
+		            sb.append('1');
+		        }
+		        sb.append(T[lt]);
+		        String s = sb.toString();
+		        if(best == null || s.compareTo(best)<0) best = s;
+		        
+		    }
+		    System.out.println(best);
+		    
+		}
+		
+
+	}
+}

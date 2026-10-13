@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+void solve(){
+    ll c0,c1,c2,c3;
+    cin >> c0 >> c1 >> c2 >> c3;
+    
+    ll n = c0+c1+c2+c3;
+    ll sub = n-1;
+    
+    ll used3 = min(c3,sub/2);
+    c3 = c3 - used3;
+    sub = sub - 2*used3;
+    
+    ll used2 = min(c2, sub/2);
+    c2 = c2 - used2;
+    sub = sub - 2*used2;
+    
+    ll used1 = min(c1, sub/2);
+    c1 = c1 - used1;
+    sub = sub-2*used1;
+    
+    ll used0 = min(c0, sub/2);
+    c0 = c0 - used0;
+    sub = sub - 2*used0;
+    
+    if(sub % 2){
+        if(c2){
+            c2--;
+            cout << "0";
+            sub--;
+        }else if(c0){
+            c0--;
+            cout << "0";
+            sub--;
+        }else if(c3){
+            c3--;
+            cout << "1";
+            sub--;
+        }else{
+            c1--;
+            cout << "1";
+            sub--;
+        }
+    }
+    
+    while(c0){
+        cout << "00"; c0--;
+    }
+    while(c1){
+        cout << "01"; c1--;
+    }
+    while(c2){
+        cout << "10"; c2--;
+    }
+    while(c3){
+        cout << "11"; c3--;
+    }
+    
+    cout << endl;
+}
+
+int main() {
+	// your code goes here
+    ll t; cin >> t;
+    while(t--) solve();
+}

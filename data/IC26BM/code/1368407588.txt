@@ -1,0 +1,49 @@
+# cook your dish here
+import sys 
+value= ("00", "01", "10", "11")
+ 
+def fn(a,b,c,e):
+    bx=0 
+    for x in range (a+b+c+e+1):
+        db=x-e if x>e else 0 
+        if db>b:
+            break 
+        fb =x-a if x>a else 0 
+        if fb>b-db:
+            continue 
+        if b+e-x-fb<0:
+            continue 
+        bx=x 
+    fa=a if a<bx else bx 
+    fb=bx-fa 
+    r=b+e-bx-fb 
+    return "0"*(a+c+fa) +"01"*fb +"1"*r  
+    
+def main():
+    data=sys.stdin.read().split()
+    t=int(data[0]); var=1 
+    res=[]
+    for _ in range(t):
+        county=[int(data[var]), int(data[var+1]), int(data[var+2]), int(data[var+3])]
+        var+=4 
+        if sum(county)==1:
+            res.append(value[county.index(1)])
+            continue 
+        best=None 
+        for tt in range(4):
+            if county[tt]==0:
+                continue 
+            county[tt]-=1 
+            s=fn(county[0],county[1],county[2], county[3]) +value[tt]
+            county[tt]+=1 
+            if best is None or s<best:
+                best=s 
+        res.append(best)
+    sys.stdout.write("\n".join(res) +"\n")
+main()
+    
+    
+    
+    
+    
+    

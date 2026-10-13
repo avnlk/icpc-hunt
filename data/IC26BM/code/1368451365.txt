@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string merge_op(const string& a , const string& b){
+    if(a.empty()) return b;
+    return a.substr(1) + b;
+}
+void solve(){
+    int a , b, c, d;if(!(cin>>a>>b>>c>>d)) return;
+    
+    vector<string> seq;
+    if(a==0 && b == 0){
+        while(c>0){ seq.push_back("10");c--;}
+        while(d>0){ seq.push_back("11");d--;}
+    }
+    else{
+        while(d > 0) { seq.push_back("11");d--;}
+        while(c > 0) { seq.push_back("10");c--;}
+        while(a > 0) { seq.push_back("00");a--;}
+        while(b > 0) { seq.push_back("01");b--;}
+    }
+    
+    if(seq.empty()){
+        cout<<endl;
+        return;
+    }
+    
+    string ans = seq[0];
+    for(auto i = 1;i<seq.size();i++){
+        ans = merge_op(ans,seq[i]);
+    }
+    
+    cout<<ans<<endl;
+}
+int main() {
+	int test_case ; cin>>test_case;
+	while(test_case--){
+	    solve();
+	}
+    return 0;
+}

@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int t;
+	cin>>t;
+	while(t--){
+	    int c[4];
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    string ans="";
+	    string type={"001011"};
+	    string p[4]={"00","01","10","11"};
+	    for(int last=0;last<4;last++){
+	        if(c[last]==0){
+	            continue;
+	        }
+	        int a[4]={c[0],c[1],c[2],c[3]};
+	        a[last]--;
+	        int zeros=a[0]+a[2];
+	        int once=a[1]+a[3];
+	        int x=min(a[0],once);
+	        int y=min(a[1],(once-x)/2);
+	        string cur;
+	        cur.reserve(c[0]+c[1]+c[2]+c[3]+1);
+	        cur.append(zeros+x,'0');
+	        while(y--){
+	            cur+="01";
+	        }
+	        cur.append(once-x-2*min(a[1],(once-x)/2),'1');
+	        cur+=p[last];
+	        if(ans.empty() || cur<ans){
+	            ans=cur;
+	            
+	        }
+	        
+	        
+	        
+	    }
+	        
+	     cout<<ans<<endl;   
+	    
+	    }
+
+}

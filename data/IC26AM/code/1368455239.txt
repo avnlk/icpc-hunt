@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MOD=998244353;
+const int MAXN=200005;
+long long inv[MAXN];
+long long H[MAXN];
+void precomp(){
+    inv[1]=1;
+    for(int i=2;i<MAXN;++i){
+        inv[i]=MOD-(MOD/i)*inv[MOD%i]%MOD;
+        
+    }
+    H[0]=0;
+    for(int i=1;i<MAXN;++i){
+        H[i]=(H[i-1]+inv[i])%MOD;
+    }
+   
+}
+void solve(){
+    int n;
+    cin>>n;
+    long long ans=0;
+    for(int i=1;i<=n;++i){
+        long long a;
+        cin>>a;
+        long long coef=(H[i-1]+H[n-i])%MOD;
+        ans=(ans+a*coef)%MOD;
+    }
+    cout<<ans<<"\n";
+}
+int main() {
+	// your code goes here
+   precomp();
+   int t;
+   cin>>t;
+   while(t--){
+       solve();
+   }
+   return 0;
+}

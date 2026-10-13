@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+ll MOD = 998244353;
+ll MAX = 200005;
+ll inv[200005];
+ll H[200005];
+void pre(){
+    inv[1] = 1;
+    for(int i = 2;i<MAX;i++){
+        inv[i] = (MOD-(MOD/i)*inv[MOD%i]%MOD)%MOD;
+        
+    }
+    H[0] = 0;
+    for(int i = 1;i<MAX;i++){
+        H[i] = (H[i-1] + inv[i])%MOD;
+        
+    }
+}
+void solve(){
+    int t;
+    cin>>t;
+    pre();
+  while(t--){
+      int n;
+      cin>>n;
+      ll ans = 0;
+      for(int i = 1;i<=n;i++){
+          ll a;
+          cin>>a;
+          ll coef = (H[i-1] + H[n-i])%MOD;
+          ans = (ans + a%MOD*coef%MOD)%MOD;
+          
+      }
+      cout<<ans<<"\n";
+  }
+}
+int main() {
+	// your code goes here
+	solve();
+
+}

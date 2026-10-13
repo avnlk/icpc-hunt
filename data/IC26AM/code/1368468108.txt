@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+	// your code goes here
+    const int MD = 998244353;
+    const int N = 200005;
+    int h[N];
+    
+    int inv(int i){
+        return i <= 1 ? 1 :(MD-MD/i)* inv(MD % i) % MD;
+        
+    
+    
+}
+
+int32_t main(){
+    for(int i=1;i<N;i++){
+        h[i]=(h[i-1]+ inv(i))% MD;
+        
+    }
+    int t;
+    if(cin>>t){
+        while(t--){
+            int n;
+            cin>>n;
+            
+            int ans=0;
+            for(int i=0;i<n;i++){
+                int v;
+                cin>>v;
+                ans = (ans + v *(h[i]+h[n-1-i])) % MD;
+                
+            }
+            cout<<ans<<"\n";
+        }
+    }
+    return 0;
+}

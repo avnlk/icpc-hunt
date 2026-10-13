@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long 
+#define mod 998244353
+
+int bpow(int x, int y) {
+    int z=1;
+    while(y>0) {
+        if(y%2!=0) {
+            z=(z*x)%mod;
+        }
+        x=(x*x)%mod;
+        y/=2;
+    }
+    return z;
+}
+
+signed main() {
+	// your code goes here
+	int tt;
+	cin>>tt;
+	while(tt--) {
+	    int n;
+	    cin>>n;
+	    vector<int>a(n+1),b(n+1),c(n+1);
+	    for(int i=1;i<=n;i++) {
+	        int k;
+	        cin>>k;
+	        a[i]=b[i]=c[i]=k;
+	    }
+	    vector<int>h(n+2,0);
+	    for(int i=1;i<=n;i++) {
+	        int w=bpow(i,mod-2);
+	        h[i]=(h[i-1]+w)%mod;
+	    }
+	    int s=0;
+	    for(int i=1;i<=n;i++) {
+	        int x=(h[i-1]+h[n-i])%mod;
+	        int v=(a[i]+b[i]+c[i])%mod;
+	        v=(v*bpow(3,mod-2))%mod;
+	        s=(s+(v*x)%mod)%mod;
+	    }
+	    cout<<s<<endl;
+	    
+	}
+
+}

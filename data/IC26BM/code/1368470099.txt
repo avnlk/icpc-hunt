@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ZZ 0, 0
+#define ZO 0, 1
+#define OZ 1, 0
+#define OO 1, 1
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    while(t--){
+        int c00, c01, c10, c11;
+        cin>>c00>>c01>>c10>>c11;
+        int n = c00 + c01 + c10 + c11;
+        int init_c10 = c10;
+        deque<int> dq;
+        if(c00>0) dq = {0,0}, c00--;
+        else if(c01 > 0) dq = {0,1}, c01--;
+        else if(c10 > 0) dq = {1,0}, c10--;
+        else if(c11 > 0) dq = {1,1}, c11--;
+        
+        auto change = [&](int l, int r)->void{
+            if(l==0 && r==0) c00--;
+            else if(l==0 && r==1) c01--;
+            else if(l==1 && r==0) c10--;
+            else if (l==1 && r==1) c11--;
+        };
+        
+        auto addl = [&](int l, int r)->bool{
+            change(l,r);
+            dq.push_front(r);
+            return true;
+        };
+        auto addr = [&](int l, int r){
+            dq.pop_front();
+            change(l,r);
+            dq.push_back(l);
+            dq.push_back(r);
+            return true;
+        };
+        
+        while(c10) addl(OZ);
+        // 10 over
+        
+        while(c11 && c00) addl(OO), addr(ZZ);
+        // either of 11 or 00 over
+        
+        while(c01 && c00) addl(ZO), addr(ZZ);
+        // either of 01 or 00 over
+        
+        while(c00) addr(ZZ);
+        // 00 surely over
+        
+        while(c11 && c01) addl(OO), addr(ZO);
+        
+        if(c11){
+            if(c11 & 1){
+                if(init_c10){
+                    c10++, c11--;
+                    addr(OZ);
+                }
+            }
+            while(c11>1) addl(OO), addr(OO);
+            // if(c11) addr(OO);
+        }else{
+            while(c01>1) addl(ZO), addr(ZO);
+            if(c01) addr(ZO);
+        }
+        // cout<<c00<<" "<<c10<<" "<<c01<<" "<<c11<<endl;
+        for(auto x:dq) cout<<x;
+        cout<<endl;
+    }
+}

@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int T;
+	cin>>T;
+	
+	while (T--){
+	    int c[4];
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    int n=c[0]+c[1]+c[2]+c[3];
+	    string ans;
+	    int z =min(c[0],n-1);
+	    ans +=string(z,'0');
+	    int r = n+1-z;
+	    
+	    if (c[1]&& c[2]){
+	        while(r>0 && c[1] && c[2]){
+	            ans+="01";
+	            c[1]--;
+	            c[2]--;
+	            r-=2;
+	        }
+	    }
+	    while(r-->0){
+	        ans+='1';
+	   cout<<ans<<'\n';
+	    }
+	}
+}
+

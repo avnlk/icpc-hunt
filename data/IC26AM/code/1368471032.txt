@@ -1,0 +1,33 @@
+import sys
+
+def solve():
+    inpd = sys.stdin.read().split()
+    
+    MOD = 998244353
+    MAXN = 200005
+    
+    H = [0] * MAXN
+    
+    for i in range(1, MAXN):
+        H[i] = (H[i - 1] + pow(i, MOD - 2, MOD)) % MOD
+        
+    t = int(inpd[0])
+    idx = 1
+    out = []
+    for _ in range(t):
+        n = int(inpd[idx])
+        idx += 1
+        
+        es = 0
+        for i in range(n):
+            ai = int(inpd[idx])
+            idx += 1
+            
+            ei = (H[i] + H[n - 1 - i]) % MOD
+            es = (es + ai * ei) % MOD
+        
+        out.append(str(es))
+    print('\n'.join(out))
+
+sys.set_int_max_str_digits(200000)
+solve()

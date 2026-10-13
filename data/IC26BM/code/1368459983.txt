@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--)
+	{
+	    int c1, c2, c3, c4, n;
+	    cin >> c1 >> c2 >> c3 >> c4;
+	    n = c1 + c2 + c3 + c4;
+	    string s;
+	    int temp = n - 1 - (c3 ? 1 : 0);
+	    while (temp && c4)
+	    {
+	        if (temp == 1) break;
+	        temp -= 2;
+	        c4--;
+	        s=s+("11");
+	    }
+	    
+	    if (c3) temp++;
+	    while (temp > 0 && (temp & 1) && c3)
+	    {
+	        s+=("10");
+	        c3--;
+	        temp -= 2;
+	    }
+	    while (temp > 0 && temp % 2 == 0 && c2)
+	    {
+	        s+=("01");
+	        c2--;
+	        temp -= 2;
+	    }
+	    
+	    while (c1) 
+	    {
+	        s+=("00");
+	        c1--;
+	    }
+	    
+	    while(c2)
+	    {
+	        s+=("01");
+	        c2--;
+	    }
+	    
+	    while(c3)
+	    {
+	        s+=("10");
+	        c3--;
+	    }
+	    
+	    while(c4--) s+=("11");
+	    reverse(s.begin(), s.end());
+	    for (int i = 0; i < n - 1; i++) s.pop_back();
+	    reverse(s.begin(),s.end());
+	    cout << s << endl;
+	    
+	}
+
+}

@@ -1,0 +1,36 @@
+# cook your dish here
+
+MOD = 998244353
+in_t = int(input())
+pri_t = []
+MAXI_N = 1
+
+for _ in range(in_t):
+    in_n = int(input())
+    in_li = list(map(int, input().split()))
+    pri_t.append(in_li)
+    MAXI_N = max(MAXI_N, in_n)
+    
+pri_inv = [0,1] + [0] * MAXI_N 
+
+for pri in range(2, MAXI_N+1):
+    pri_inv[pri] = (MOD - (MOD // pri) * pri_inv[MOD % pri] % MOD) % MOD
+pri_dp = [0] * (MAXI_N +1)
+
+for pri in range(1, MAXI_N+1):
+    pri_dp[pri] = (pri_dp[pri-1] + pri_inv[pri]) % MOD
+    
+pri_res = []
+for pri_li in pri_t:
+    n = len(pri_li)
+    p_res = 0
+    for i in range(n):
+        p_res += pri_li[i] * (pri_dp[i] + pri_dp[n-1-i])
+    pri_res.append(str(p_res % MOD))
+print("\n".join(pri_res))
+
+
+
+
+    
+    

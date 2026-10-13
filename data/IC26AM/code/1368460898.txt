@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+const long long MOD = 998244353;
+
+int main() {
+    const int N = 200005;
+    vector < long long > inversion(N), height(N);
+    inversion[1] = 1;
+    for (int i = 2; i < N; i++) inversion[i] = (MOD - (MOD / i) * inversion[MOD % i] % MOD) % MOD;
+    height[0] = 0;
+    for (int i = 1; i < N; i++) height[i] = (height[i - 1] + inversion[i]) % MOD;
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        long long ans = 0;
+        for (int j = 1; j <= n; j++) {
+            long long h;
+            cin >> h;
+            ans = (ans + h % MOD * ((height[j - 1] + height[n - j]) % MOD)) % MOD;
+        }
+        cout << ans << endl;
+    }
+    return 0;
+}

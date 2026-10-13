@@ -1,0 +1,113 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+
+string func(string& x, string& y){
+    int i = 0;
+    while(i<x.size() && x[i]==y[i])
+        i++;
+        
+    if(i == x.size())
+        return x;
+    else{
+        int a = x[i] - '0';
+        int b = y[i] - '0';
+        if(a < b){
+            return x;
+        }else{
+            return y;
+        }
+    }
+    
+    return x;
+}
+
+void solve(){
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    int count = (a + b + c + d-1);
+    
+    string s;
+    /*while(a){
+        s += "00";
+        a--;
+    }
+    while(b){
+        s += "01";
+        b--;
+    }
+    while(c){
+        s += "10";
+        c--;
+    }
+    while(d){
+        s += "11";
+        d--;
+    }
+    
+    string x = s;
+    string y = s;
+    for(int i=0; i<cnt-1; i++){
+        x.pop_back();
+    }
+    
+    reverse(y.begin(), y.end());
+    for(int i=0; i<cnt-1; i++){
+        y.pop_back();
+    }
+    reverse(y.begin(), y.end());
+    
+    cout << func(x, y) << "\n";*/
+    while(count>1 && d>0){
+        d--;
+        count-=2;
+    }
+    while(count>0 && c>0){
+        c--;
+        count-=2;
+    }
+    
+    if(count==-1){
+        s+="0";
+    }
+    while(count>1 && b>0){
+        b--;
+        count-=2;
+    }
+    
+    while(count>0 && a>0){
+        a--;
+        count-=2;
+    }
+    if(count==-1){
+        s+="0";
+    }
+    while(a){
+        s+="00";
+        a--;
+    }
+    while(b){
+        s+="01";
+        b--;
+    }
+    while(c){
+        s+="10";
+        c--;
+    }
+    while(d){
+        s+="11";
+        d--;
+    }
+    cout<<s<<endl;
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t = 1;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+}

@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve()
+{
+    vector<int>c(4);
+    for(int &x : c)
+        cin >> x;
+    string p[4] = {"00", "01", "10", "11"};
+    string r, rr;
+    for(int k = 0; k < 4; k++)
+    {
+        if(not c[k])
+            continue;
+        int a= c[0] - (k == 0);
+        int b= c[1] - (k == 1);
+        int d= c[2] - (k == 2);
+        int e= c[3] - (k == 3);
+        
+        int x = min(a, b + e);
+        int y = min(x, e);
+        e -= y;
+        b -= x - y;
+        int z = min(b, (b + e) / 2);
+        string s(a + d + x, '0');
+        for(int i = 0; i < z; i++)
+        {
+            s += "01";
+        }
+        rr = s;
+        s.append(b + e - 2 * z, '1');
+        s += p[k];
+        if(r.empty() or s < r)
+            r = s;
+        // cout << rr << endl;
+    }
+    cout << r << endl;
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--)
+	{
+	    solve();
+	}
+
+}

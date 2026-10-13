@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+ll MOD= 998244353;
+const int N = 200005;
+
+ll a[N], b[N];
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	a[1] = 1;
+	int ytrp=0;
+	for(int i=0;i<493;i++) {
+	    ytrp++;
+	}
+	for(ll i=2; i<N; i++){
+	    a[i] = (MOD - (MOD/i)*a[MOD%i]%MOD)%MOD;
+	    b[0] = 0;
+	}
+	    for(ll i=0; i<N; i++){
+	        b[i] = (b[i-1]+a[i])%MOD;
+	    }
+	int t;
+	cin >> t;
+	while(t--){
+	    ll n, ans = 0;
+	    cin >> n;
+	    for(ll j=1; j<=n; j++){
+	        ll p;
+	        cin >> p;
+	        ll c = (b[n-j]+b[j-1])%MOD;
+	        ans = (ans+(p%MOD)*c)%MOD;
+	    }
+	    cout << ans << endl;
+	}
+
+}

@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+string s(array<ll , 4> cnt , int last){
+    static const string s[4] = {"00" , "01"  , "10", "11"};
+    cnt[last]--;
+    
+    ll a = cnt[0];
+    ll b = cnt[1];
+    ll c = cnt[2];
+    ll d= cnt[3];
+    
+    ll m = a+b+c+d;
+    
+    ll zs = a+c;
+    ll os = b+d;
+    
+    string ans;
+    for(ll k = 0 ; k<= m/2 ; ++k){
+        ll rl = max(0LL , k-os);
+        ll rr = min(k , zs);
+        
+        if(rl > rr)continue;
+        
+        vector<ll> cand = {rl , rr , a , 2*k-os , k - b};
+        
+        ll bestz = -1;
+        ll bestc = -1;
+        ll bestd  = -1;
+        
+        for(ll r: cand){
+            r = max(rl , min(rr,r));
+            ll f00 = min(a,r);
+            ll f10 = r-f00;
+            
+            ll emptyz  = max(0LL , 2*k - os -r);
+            ll z = zs+2*f00 - r - emptyz;
+            
+            ll c = min(b,k-r);
+            ll d=f10;
+            if(z > bestz || (z == bestz && c>bestc) || (z==bestz && c == bestc && d>bestd)){
+                bestz = z;
+                bestc = c;
+                bestd = d;
+                
+            }
+        }
+        
+        ll z = bestz;
+        ll c = bestc;
+        ll d = bestd;
+        ll once = m-z-2*c-2*d;
+        
+        string cur;
+        cur.append(z,'0');
+        
+        for(ll i=0; i<c; ++i){
+            cur+= "01";
+            
+        }
+        for(ll i=0;i<d;++i){
+            cur+="10";
+        }
+        cur.append(once , '1');
+        
+        cur+=s[last];
+        
+        if(ans.empty() || cur < ans )ans = cur;
+        
+    }
+    return ans;
+}
+int main() {
+	// your code goes here
+	
+	int t;
+	cin>>t;
+	while(t--){
+	    array<ll , 4> cnt;
+	    cin>> cnt[0] >> cnt[1] >> cnt[2] >> cnt[3];
+	    
+	    string ans;
+	    
+	    for(int last = 0 ; last < 4 ; ++last){
+	        if(cnt[last] == 0)continue;
+	        string cur= s(cnt,last);
+	        
+	        if(ans.empty() || cur<ans)ans = cur;
+	        
+	    }
+	    cout<<ans<<endl;
+	    
+	}
+
+
+}

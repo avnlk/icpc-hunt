@@ -1,0 +1,42 @@
+# cook your dish here
+import sys
+def main():
+    data = sys.stdin.read().split()
+    t = int(data[0])
+    names = ["00","01","10",'11']
+    out = []
+    pos = 1
+    for _ in range(t):
+        c = [int(x)for x in data[pos:pos+4]]
+        pos += 4
+        if sum(c) == 1:
+            out.append(names[c.index(1)])
+            continue
+        bb = None
+        for li in range(4):
+            if c[li] == 0:
+                continue
+            a,b,cc,d = c
+            arr = [a,b,cc,d]
+            arr[li] -= 1
+            a,b,cc,d = arr
+            k = 0
+            while True:
+                k1 = k+1
+                if max(0,k1-d)+max(0,k1-a)<= b:
+                    k = k1
+                    
+                else:
+                    break
+            ay = min(a,k)
+            by = k - ay
+            bx = max(0,k-d)
+            dx = k-bx
+            zero = (a-ay)+2*ay+cc
+            one = (d-dx)+(b-bx-by)
+            s = "0" * zero +'01'*by + "1"* one + names[li]
+            if bb is None or s <bb:
+                bb = s
+        out.append(bb)
+    print("\n".join(out))
+main()

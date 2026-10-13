@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+int mod = 998244353;
+int m = 500001;
+
+long long inh[500001];
+long long h[500001];
+
+void find(){
+    inh[1] = 1;
+    h[1] = 1;
+    h[0] = 0;
+    for(int i = 2;i<m;i++){
+        inh[i] = (mod - mod/i)*inh[mod%i]%mod;
+        
+        h[i] = (h[i-1] + inh[i])%mod;
+    }
+}
+int main() {
+	int rim;
+	cin >> rim;
+	
+	find();
+	while(rim--){
+	    int nz;
+	    cin >> nz;
+	    
+	    vector<long long> vicky(nz);
+	    
+	    for(auto &x : vicky) cin >> x;
+	    
+	    long long fin = 0;
+	    for(int i = 0;i<nz;i++){
+	        long long temp = (h[i] + h[nz-i-1]) % mod;
+	        
+	        long long temp2 = ((vicky[i]%mod)*temp)%mod;
+	        
+	        fin = (fin+temp2)%mod;
+	    }
+	    
+	    cout << fin << endl;
+	}
+
+}

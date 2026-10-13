@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+void solve() {
+    int c00, c01, c10, c11;
+    cin >> c00 >> c01 >> c10 >> c11;
+    int n = c00 + c01 + c10 + c11;
+    
+    int c0 = c00 * 2, c1 = c11 * 2;
+    
+    int cnt = n - 1;
+    
+    {
+        int x = min(c10, cnt);
+        // cout << "Hi " << x << " " << cnt << endl;
+        cnt -= x;
+        c0 += x;
+        c10 -= x;
+        // cout << c0 << " " << c01 << " " << c10 << " " << c1 << endl;
+    }
+    
+    {
+        int x = min(cnt, c1);
+        c1 -= x;
+        cnt -= x;
+        // cout << c0 << " " << c01 << " " << c10 << " " << c1 << endl;
+    }
+    
+    {
+        int x = min(cnt, c01 * 2) / 2;
+        cnt -= x * 2;
+        c01 -= x;
+        // cout << c0 << " " << c01 << " " << c10 << " " << c1 << endl;
+    }
+    
+    {
+        int x = min(c0, cnt);
+        cnt -= x;
+        c0 -= x;
+        // cout << c0 << " " << c01 << " " << c10 << " " << c1 << endl;
+    }
+    
+    if (cnt > 0) {
+        c01--;
+        c1++;
+        // cout << c0 << " " << c01 << " " << c10 << " " << c1 << endl;
+    }
+    
+    for (int i = 0; i < c0; i++) {
+        cout << "0";
+    }
+    for (int i = 0; i < c01; i++) {
+        cout << "01";
+    }
+    for (int i = 0; i < c10; i++) {
+        cout << "10";
+    }
+    for (int i = 0; i < c1; i++) {
+        cout << "1";
+    }
+    
+    cout << endl;
+}
+
+signed main() {
+	// your code goes here
+    int tt; cin >> tt;
+    while (tt--) {
+        solve();
+    }
+}

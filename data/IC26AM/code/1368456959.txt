@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+const int64 MOD = 998244353;
+
+int main(){
+    
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    
+    vector<int>  ns(t);
+    vector<vector<int64>> a(t);
+    
+    int m = 0;
+    
+    for(int tc= 0;  tc<t;++tc){
+        int n;
+        cin >> n;
+        ns[tc] = n;
+        m  = max(m,n);
+        
+        a[tc].resize(n);
+        
+        for (auto &x: a[tc]) {
+            cin >> x;
+            x%=MOD;
+            
+        }
+    }
+    
+    vector<int64> inv(m +1  ),H(m+1);
+    
+    if(m>=1) inv[1] = 1;
+    
+    for (int i = 2; i<=m; ++i){
+        inv[i] = MOD - (MOD/i) * inv[MOD % i] % MOD;
+    }
+    
+    for(int i = 1; i<=m; ++i){
+        H[i] = (H[i -1] + inv[i]) % MOD;
+    }
+    
+    for (int tc = 0; tc < t; ++tc ){
+        int n = ns[tc];
+        int64 answer = 0;
+        
+        for (int i =0; i<n;  ++i){
+            int64 coeff = (H[i] + H[n-1-i]) % MOD;
+            answer = (answer+a[tc][i] * coeff) %MOD;    
+        }
+        
+        // answer = (answer+a[tc][i] * coeff) % MOD;
+
+        
+    
+    
+    cout << answer << '\n';
+}	
+
+	return 0;
+	
+}

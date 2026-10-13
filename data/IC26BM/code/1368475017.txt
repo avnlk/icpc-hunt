@@ -1,0 +1,125 @@
+for _ in range(int(input())):
+    a, b, c, d = map(int, input().split())
+    if a:
+        
+        x = 2 + c
+        c = 0
+        while d:
+            if a == 1:
+                break
+            d -= 1
+            a -= 1
+            x += 2
+        
+        while b:
+            if a == 1:
+                break
+            b -= 1
+            a -= 1
+            x += 2
+        
+        if d:
+            s = "0" * x
+            while d:
+                if b == 0:
+                    break
+                d -= 1
+                b -= 1
+                s += "01"
+            
+            if b:
+                s += "01" * (b // 2)
+                b %= 2
+            
+            if b:
+                s = s[1:] + "01"
+            
+            if d:
+                s += "11" * (d // 2)
+                d %= 2
+            
+            if d:
+                s = s[1:] + "11"
+        elif b:
+            s = "0" * x + "01" * (b // 2)
+            b %= 2
+            if b:
+                s = s[1:] + "01"
+        else:
+            s = "0" * (x + a - 1)
+            
+        print(s)
+            
+    elif c:
+        if b:
+            s = "0" * (c + 1) + "1"
+            c = 0
+            while d:
+                if b == 1:
+                    break
+                x += "01"
+                d -= 1
+                b -= 1
+            a = 1
+            b -= 1
+            if b:
+                s += "01" * (b // 2)
+                b %= 2
+            if b:
+                s = s[1:] + "01"
+            
+            # a = 1
+            # b -= 1
+            if d:
+                s += "11" * (d // 2)
+                d %= 2
+            if d:
+                s = s[1:] + "11"
+        else:
+            a = 1
+            s = "0" * (c - 1) + "10"
+            c = 0
+            if d:
+                s += "11" * (d // 2)
+                d %= 2
+            if d:
+                s = s[1:] + "11"
+        print(s)
+    else:
+        if b:
+            if d == 0:
+                s = "01"
+                b -= 1
+                if b:
+                    s += "01" * (b // 2)
+                    b %= 2
+                if b:
+                    s = s[1:] + "01"
+            else:
+                s = "01"
+                while d:
+                    if b == 1:
+                        break
+                    s += "01"
+                    d -= 1
+                    b -= 1
+                b -= 1
+                if b:
+                    s += "01" * (b // 2)
+                    b %= 2
+                if b:
+                    s = s[1:] + "01"
+                
+                if d:
+                    s += "11" * (d // 2)
+                    d %= 2
+                if d:
+                    s = "1" + s
+                
+        else:
+            s = "1" * (d + 1)
+        print(s)
+                
+            
+                
+        

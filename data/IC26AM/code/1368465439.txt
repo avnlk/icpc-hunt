@@ -1,0 +1,41 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD =998244353L;
+    static final int MAX =200000;
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        Scanner sc=new Scanner(new BufferedInputStream(System.in));
+        long[] inv =new long[MAX +1];
+        long[] harmonic =new long[MAX+1];
+        
+        inv[1]=1;
+        
+        for(int i=1;i<=MAX;i++){
+            if(i>1){
+                inv[i]=MOD-(MOD/i)*inv[(int)(MOD%i)]%MOD;
+            }
+            harmonic[i]=(harmonic[i-1]+inv[i] %MOD);
+        }
+        int t=sc.nextInt();
+        StringBuilder out =new StringBuilder();
+        
+        while(t-- >0){
+            int n=sc.nextInt();
+            long answer=0;
+            for(int i=0;i<n;i++){
+                long value=sc.nextLong();
+                
+                long coefficient=(harmonic[i]+harmonic[n-1-i])%MOD;
+                answer=(answer+value*coefficient)% MOD;
+            }
+            out.append(answer).append('\n');
+        }
+        System.out.print(out);
+        sc.close();
+	}
+}

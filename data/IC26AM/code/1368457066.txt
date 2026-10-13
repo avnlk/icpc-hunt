@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD = 998244353L;
+    static final int MAXN = 200000;
+    static long[] inv = new long[MAXN+1];
+    static long[] h = new long[MAXN+1];
+    static void precompute(){
+        inv[1] = 1;
+        for(int i=2;i<=MAXN;i++){
+            inv[i] = MOD-(MOD/i) * inv[(int)(MOD%i)]%MOD;
+        }
+        for(int i=1;i<=MAXN;i++){
+            h[i] = (h[i-1]+inv[i])%MOD;
+        }
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		precompute();
+		int t = sc.nextInt();
+		
+		while(t-- > 0){
+		    int n = sc.nextInt();
+		    long ans = 0;
+		    
+		    for(int i=0;i<n;i++){
+		        long a = sc.nextLong();
+		        long coeff = (h[i] + h[n-1-i])%MOD;
+		        ans = (ans + (a%MOD)*coeff)%MOD;
+		    }
+		    System.out.println(ans);
+		    
+		}
+
+	}
+}

@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+int mod = 998244353;
+
+ll pow (ll a , ll b ){
+    if(b == 0) return 1;
+    ll  c = (pow (a , b / 2) * pow (a , b/2)) % mod;
+    if(b%2) c = (c * a ) %mod; 
+    return c;
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<ll> a(n);
+    ll ans = 0;
+    for (int i = 0 ;i < n; i++ ){
+        cin >> a[i];
+        ans = (ans + a[i]) % mod; 
+    }
+    
+    ans  = (ans * n ) % mod;
+    ans  = ans * pow (2, mod - 1);
+    
+    cout << ans << endl;
+    
+    
+    
+    
+}
+
+int main() {
+	// your code goes here
+	
+	int t;
+	cin >> t;
+	
+	while
+	(t-- ){
+	    solve ();
+	}
+	
+
+}

@@ -1,0 +1,30 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    cnt = list(map(int, input().split()))
+    kind = ["00", "01", "10," "11"]
+    ans = None
+    for e in range(len(kind) + 1):
+        if cnt[e] == 0:
+            continue
+        a = cnt[:]
+        a[e] -= 1
+        f00 = min(a[0], a[1] + a[3])
+        a[0] -= f00
+        tk = min(f00, a[3])
+        a[3] -= tk
+        a[1] -= f00 - tk
+        f01 = min(a[1], (a[1] + a[3]) // 2)
+        a[1] -= f01
+        tk = min(f01, a[3])
+        a[3] -= tk
+        a[1] -= f01 - tk
+        zr = 2 * f00 + a[0] + a[2]
+        one = a[1] + a[3]
+        cur = "0" * zr
+        cur += "01" * f01
+        cur += "1" * one 
+        cur += ["00", "01", "10", "11"][e]
+        if ans is None or cur < ans:
+            ans = cur
+    print(ans)

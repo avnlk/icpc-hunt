@@ -1,0 +1,35 @@
+def do(a,b,c,d):
+    val=[a,b,c,d]
+    name=['00','01','10','11']
+    res=None
+    for t in range(4):
+        if val[t]==0:
+            continue
+        aa,bb,cc,dd=val
+        if t==0:
+            aa-=1
+        elif t==1:
+            bb-=1
+        elif t==2:
+            cc-=1
+        else:
+            dd-=1
+        u=min(aa,bb+dd)
+        d3=min(dd,u)
+        d1=u-d3
+        rd=dd-d3
+        rb=bb-d1
+        if rd>=rb:
+            uu=rb
+        else:
+            uu=rd+(rb-rd)//2
+        z=aa+cc+u
+        r=bb+dd+u-2*uu
+        s='0'*z+'01'*uu+'1'*r+name[t]
+        if res is None or s<res:
+            res=s
+    return res
+T=int(input())
+for _ in range(T):
+    a,b,c,d=map(int,input().split())
+    print(do(a,b,c,d))

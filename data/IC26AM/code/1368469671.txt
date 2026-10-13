@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+const int mod =  998244353;
+const int maxn = 200005;
+
+int invt[maxn];
+int h[maxn];
+
+void pre()
+{
+    invt[1] = 1;
+    
+    for(int i=2;i<maxn;i++)
+    invt[i] = (mod-mod/i)* invt[mod%i]%mod;
+    
+    h[0] = 0;
+    
+    for(int i=1;i<maxn;i++)
+    h[i] = (h[i-1]+invt[i])%mod;
+}
+
+
+int32_t main() {
+	// your code goes here
+	pre();
+	int t;cin>>t;
+	
+	while(t--)
+	{
+	    int n;cin>>n;
+	    
+	    int exs = 0;
+	    
+	    for(int i=1;i<=n;i++)
+	    {
+	        int a;
+	        cin>>a;
+	        
+	        int coef = (h[i-1]+h[n-i])%mod;
+	        exs = (exs+a*coef%mod)%mod;
+	    }
+	    cout<<exs<<endl;
+	}
+
+}

@@ -1,0 +1,21 @@
+# cook your dish here
+
+t=int(input())
+ss=['00','01','10','11']
+for _ in range(t):
+    c=list(map(int,input().split()))
+    an=None
+    for z in range(4):
+        if c[z]==0:
+            continue
+        a=c.copy()
+        a[z]=a[z]-1
+        h=a[1]+a[3]
+        f=min(a[0],h)
+        x=min(a[1],(h-f)//2)
+        g=a[0]+a[2]+f
+        os=h-f-2*x
+        cur='0'*g+'01'*x+'1'*os+ss[z]
+        if an is None or cur<an:
+            an=cur
+    print(an)

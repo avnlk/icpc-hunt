@@ -1,0 +1,19 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	 Scanner SC = new Scanner(System.in);
+	 int t = sc.nextInt();
+	 while(t-->0){
+	  int[]sc = new int[4];for(int i=0;i<4;i++)c[i]=sc.nextInt();
+	  List<String>a=new ArrayList<>();
+	  for(inti=o;i<4;i++)while(c[i]-->0)a.add(""+(i/2)+(i%2));
+	  System.out.println(f(a));
+	 }
+
+	}
+}

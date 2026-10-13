@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solve(){
+    long long c00, c01,c10,c11;
+    cin>>c00>>c01>>c10>>c11;
+    
+    string res="00";
+    if (c01>0) res="011";
+    else if(c10>0) res="100";
+    else res="00";
+    
+    cout<<res<<"\n";
+    
+}
+int main() {
+	// your code goes here
+   ios_base::sync_with_stdio(false);
+   cin.tie(NULL);
+   int t;
+   cin>>t;
+   while(t--){
+       solve();
+   }
+   return 0;
+}
+

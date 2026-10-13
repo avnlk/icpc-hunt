@@ -1,0 +1,45 @@
+import sys 
+def solve(c00,c01,c10,c11):
+    c = (c00,c01,c10,c11)
+    mx = (c00+c01+c10+c11-1)//2
+    T = ("00","01","10","11")
+    def build(L,u):
+        r = list(c)
+        r[L]-=1
+        need = u 
+        for t in (3,1,2,0):
+            k = r[t] if r[t]<need else need
+            r[t] -=k 
+            need -=k 
+        g = [0,0,0,0]
+        need = u 
+        for t in (0,1,2,3):
+            k = r[t] if r[t]<need else need
+            g[t]=k 
+            r[t]-=k 
+            need-=k 
+        return ("0"*(r[0]+r[2]+2*g[0])+"01"*g[1]+"10"*g[2])+"1"*(r[1]+r[3]+2*g[3]+T[L])
+        best = None
+        for L in range(4):
+            if c[L]==0:
+                continue
+            lo,hi = 0,mx
+            while lo<hi:
+                mid = (lo+hi)>>1
+                if build(L,mid+1)<build(L,mid):
+                    lo = mid+1
+                else:
+                    hi = mid
+            s = build(L,lo)
+            if best is None or s<best:
+                best = s
+        return best 
+def main():
+    d = sys.stdin.buffer.read().split()
+    t = int(d[0])
+    out = []
+    for i in range(t):
+        a,b,c,e = (int(x)for x in d[1+4*i:5+4*i])
+        out.append(solve(a,b,c,e))
+    sys.stdout.write("\n".join(out)+"\n")   
+main()    

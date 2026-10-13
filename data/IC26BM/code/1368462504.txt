@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+int main() {
+	// your code goes here
+    int t;cin>>t;
+    while(t--){
+        ll c0,c1,c2,c3;cin>>c0>>c1>>c2>>c3;
+        ll m=c0+c1+c2+c3-1,a=2*c3;
+        string s="";
+        if(a>=m){
+            c3-=m/2;m%=2;
+            if(m==1){
+                if(c2>0){
+                    c2--;m=0;s+='0';
+                }
+                else{
+                    if(c0>0){
+                        c0--;m=0;s+='0';
+                    }
+                    else{
+                        c1--;m=0;s+='1';
+                    }
+                }
+            }
+        }
+        else{
+            c3=0;m-=a;
+            if(m&1){
+                ll m1=m+1;
+                if(c2>=m1/2){
+                    c2-=m1/2;m=0;s+='0';
+                }
+                else{
+                    m-=2*c2;c2=0;
+                    if(c1>=m/2){
+                        c1-=m/2;m=1;
+                        if(c0>0){
+                            c0--;m=0;s+='0';
+                        }
+                        else{
+                            c1--;m=0;s+='1';
+                        }
+                    }
+                    else{
+                        m-=2*c1;c1=0;
+                        c0-=(m+1)/2;m=0;s+='0';
+                    }
+                }
+            }
+            else{
+                if(c2>=m/2){
+                    c2-=m/2;m=0;
+                }
+                else{
+                    m-=c2*2;c2=0;
+                    if(c1>=m/2){
+                        c1-=m/2;m=0;
+                    }
+                    else{
+                        m-=c1*2;c1=0;
+                        c0-=m/2;m=0;
+                    }
+                }
+            }
+        }
+        while(c0--){
+            s+='0';s+='0';
+        }
+        while(c1--){
+            s+='0';s+='1';
+        }
+        while(c2--){
+            s+='1';s+='0';
+        }
+        while(c3--){
+            s+='1';s+='1';
+        }
+        cout<<s<<endl;
+    }
+}

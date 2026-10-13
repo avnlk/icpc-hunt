@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define MaaDurga ios_base::sync_with_stdio(false); cin.tie(NULL);
+
+const int mod = 998244353;
+int n;
+vector<int>arr;
+vector<vector<int>>dp;
+vector<vector<int>>ps;
+
+bool check(int x, int l, int r, int p){
+    for(int i = 0; i < ps[x].size(); i++){
+        int id = ps[x][i];
+        bool k = false;
+        if(p <= id && max(0, min(id, r) - l + 1) == (id/2) + 1) k = true;
+        if(p >= id && max(0, r - max(id, l) + 1) == ((n - id + 1)/2) + 1) k = true;
+        if(!k)return false;
+        
+    }
+    return true;
+}
+int mem(int x, int l){
+    if(x == n + 1) return 1;
+    if(dp[x][l] != -1) return dp[x][l];
+    int r = l + n - x;
+    int ans = 0;
+    if(check(x, l , r, l))
+    {ans = (ans + mem(x+ 1, l+1))%mod;}
+    if(x < n && check(x, l , r, r)) ans = (ans + mem(x + 1, l))%mod;
+    return dp[x][l] =  ans;
+    
+}
+
+int main() {
+	// your code goes here
+	MaaDurga
+	ll t;
+	cin >> t;
+	while(t--){
+	    cin>>n;
+	  arr.assign(n + 1, 0);  
+	  ps.assign(n  +1, vector<int>());
+	  dp.assign(n + 1, vector<int>(n + 1, -1));
+	  for(ll i = 1; i <= n; i++){
+	      cin>>arr[i];
+	      ps[arr[i]].push_back(i);
+	      
+	  }
+	  cout<<mem(1, 1)<<endl;
+	  
+	}
+
+}

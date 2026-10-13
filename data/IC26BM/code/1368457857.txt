@@ -1,0 +1,37 @@
+# cook your dish here
+import sys
+def build(cc,r):
+    s=["00","01","10","11"]
+    out=[]
+    for i in range(4):
+        take=min(cc[i],r)
+        out.append(s[i]*take)
+        r-=take
+    return "".join(out)
+
+def main():
+    data=sys.stdin.read().split()
+    t=int(data[0])
+    s=["00","01","10","11"]
+    pos=1
+    res=[]
+    for _ in range(t):
+        c=[int(x) for x in data[pos:pos+4]]
+        pos+=4
+        n=sum(c)
+        if n%2==1:
+            res.append(build(c,(n+1)//2))
+        else:
+            best=None
+            for h in range(4):
+                if c[h]==0:
+                    continue
+                cc=c[:]
+                cc[h]-=1
+                cand=s[h][1]+build(cc,n//2)
+                if best is None or cand<best:
+                    best=cand
+            res.append(best)
+    print("\n".join(res))
+main()
+        

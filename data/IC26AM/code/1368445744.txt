@@ -1,0 +1,23 @@
+# cook your dish here
+
+def solve():
+    n=int(input())
+    ar = list(map(int,input().split()))
+    
+    m= 998244353 
+    
+    def check():
+        h=[0]*(n+1)
+        iv= [0]*(n+1)
+        iv[1]=1
+        
+        for i in range(1, n+1):
+            if i>1:
+                iv[i] = m-(m//i)*iv[m%i]%m
+            h[i] = (h[i-1]+iv[i])%m
+        return sum(ar[i]*(h[i]+h[n-i-1]) for i in range(n))%m
+    return check()
+    
+    
+for _ in range(int(input())):
+    print(solve())

@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+ #define ll long long
+ const ll M=998244353;
+ll binpow(ll a, ll b, ll m= M)
+{
+   a%=m;
+   ll res=1;
+   while(b>0)
+   {
+       if(b&1)
+       {
+           res=res*a%m;
+       }
+       a=a*a%m;
+       b>>=1;
+   }
+   return res;
+}
+
+ll modInverse(ll n, ll m= M)
+{
+    return binpow(n, m-2,m);
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--)
+	{
+	    int n;
+	    cin >> n;
+	    vector<ll> a(n);
+	    ll sum=0;
+	    for (auto &x : a)
+	    {
+	        cin >> x;
+	        sum+=x;
+	    }
+	    ll midsum=0;
+	    for(int i=1; i<n-1; i++){
+	        midsum+=a[i];
+	    }
+	    if (n == 1)
+	    {
+	        cout << "0\n";
+	        continue;
+	    }
+	    ll ans=sum;
+	    if(n==2){
+	        cout<<sum%M<<"\n";continue;
+	    }
+	    ll trak=n-1;
+	    ll loop=n-3;
+	    ll den=(n-1)*(n-2)%M;
+	    ll mul=n-3;
+	    while(loop--){
+	        ans=(ans+(((trak*sum+(trak-1)*midsum)%M)*modInverse(den))%M)%M;
+	        trak+=2;den=den*(mul)%M;mul--;
+	    }
+	    ans=(ans+(sum+midsum)%M*modInverse(n-1)%M)%M;
+	    cout<<ans<<"\n";
+	}
+}

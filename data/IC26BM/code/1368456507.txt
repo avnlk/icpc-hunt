@@ -1,0 +1,44 @@
+# cook your dish here
+def solve_case(c):
+    types = ["00", "01", "10", "11"]
+    n = sum(c)
+    answer = None
+    for last in range(4):
+        if c[last] ==0 "
+        continue
+    
+    cnt = c.copy()
+    cnt[last] -= 1
+    
+    ones = cnt[1] + cnt[3]
+    
+    max_pairs = (n-1)//2
+    
+    p00 = min(cnt[0], ones, max_pairs)
+    ones -= p00
+    max_pairs -= p00
+    
+    p01 = min(cnt[0] + cnt[3] - p00 - 2* p01)
+    
+    cur = (
+        "0" * zero_single +
+        "00" * p00 
+        + "01" * p01 
+        + "1" * one_single
+        + types[last]
+        
+        )
+        
+        if answer is None or cut <answer:
+            answer  = cur
+            
+    return answer
+    
+
+def main():
+    t = int(input())
+    for _ in range(t):
+        c00, c01, c10, c11 = map(int, input().split())
+        print(solve_case([c00, c01, c10, c11]))
+        
+        

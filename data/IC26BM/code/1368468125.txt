@@ -1,0 +1,31 @@
+for _ in range(int(input())):
+    l=list(map(int,input().split()))
+    d={0:'00',1:'01',2:'10',3:'11'}
+    z=[]
+    def add_ele(i):
+        for i in range(l[i]):
+            z.append(d[i])
+    for i in range(len(l)):
+        add_ele(i)
+        
+    def left_shift(l):
+        t=l[0]
+        for i in range(0,len(l)-1):
+            l[i]=l[i+1]
+        l.insert(len(l)-1,t)
+    result=[]
+    for i in range(len(z)):
+        left_shift(z)
+        x=z.copy()
+        while len(x) != 1 and len(x) != 0:
+            c= x[0] + x[1]
+            x.remove(x[1])
+            x.remove(x[0])
+            x.insert(0,c[1:])
+        result.append(x[0])
+    print(sorted(result)[0])
+      
+       
+ 
+    
+    

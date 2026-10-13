@@ -1,0 +1,82 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Scanner scn = new Scanner(System.in);
+		int t = scn.nextInt();
+		String[] name = {"00","01","10","11"};
+		StringBuilder out = new StringBuilder();
+		while(t-->0)
+		{
+		    int cnt[] = new int[4];
+		    int n = 0;
+		    for(int i=0;i<4;i++)
+		    {
+		        cnt[i] = scn.nextInt();
+		        n+=cnt[i];
+		        
+		    }
+		    if(n==1)
+		    {
+		        for(int i=0;i<4;i++)
+		        {
+		            if(cnt[i]==1)
+		            {
+		                out.append(name[i]).append('\n');
+		            }
+		        }
+		        continue;
+		    }
+		    
+		    String best = null;
+		    for(int li =0;li<4;li++)
+		    {
+		        if(cnt[li]==0)
+		        {
+		            continue;
+		        }
+		        int arr[] = cnt.clone();
+		        arr[li]--;
+		        int a = arr[0],b=arr[1],c=arr[2],d=arr[3];
+		        
+		        
+		        int x1 = Math.min(a,d);
+		        int x3 = Math.min(a-x1,b);
+		        int x2 = Math.min(d-x1,b-x3);
+		        int x4 = (b-x3-x2)/2;
+		        int z = a+c+x1+x3;
+		        int p = x2+x4;
+		        int q = (d-x1-x2)+(b-x3-x4-x2-x4);
+		        StringBuilder sb = new StringBuilder();
+		        for(int i=0;i<z;i++)
+		        {
+		            sb.append('0');
+		        }
+		        for(int i=0;i<p;i++)
+		        {
+		            sb.append("01");
+		        }
+		        for(int i=0;i<q;i++)
+		        {
+		            sb.append('1');
+		        }
+		        sb.append(name[li]);
+		        String s = sb.toString();
+		        if(best == null||s.compareTo(best)<0)
+		        {
+		            best = s;
+		        }
+		        
+		        
+		    }
+		    out.append(best).append('\n');
+		}
+		System.out.println(out);
+
+	}
+}

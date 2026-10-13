@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+signed main() {
+	// your code goes here
+	
+	int M = 998244353;
+	
+	int N = 200001;
+	
+	vector<int>v(N+1) , h(N+1, 0);
+	v[1] = 1;
+	
+	for(int i = 2 ; i <= N ; i++){
+	    v[i] = (M - M/i) * v[M % i] % M;
+	}
+	
+	for(int i = 1 ; i <= N ; i++){
+	    h[i] = (h[i-1] + v[i]) % M;
+	}
+	
+	int t, n;
+	cin >> t;
+	
+	while(t--){
+	    cin >> n;
+	    
+	    int r = 0 , x;
+	    
+	    for(int j = 1 ; j <= n ; j++){
+	        cin >> x;
+	        r = (r + x % M  *(( h[j-1] + h[n-j] ) % M )) % M;
+	    }
+	    cout << r << endl;
+	}
+	return 0;
+
+}

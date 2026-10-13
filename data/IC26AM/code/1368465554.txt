@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define MOD 998244353
+int modinv(int x){
+    bitset<32>b(MOD-2);
+    int ans=1;
+    for(int i=31;i>=0;i--){
+        ans*=ans;
+        ans%=MOD;
+        if(b[i]==1){
+            ans*=x;
+            ans%=MOD;
+        }
+    }
+    return ans;
+}
+signed main() {
+	// your code goes here
+    vector<int>dp(200001,0);
+    dp[1]=1;
+    for(int i=2;i<=200000;i++){
+        dp[i]=dp[i-1]+modinv(i);
+        dp[i]%=MOD;
+    }
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int>v;
+        for(int i=0;i<n;i++){
+            int x;
+            cin>>x;
+            v.push_back(x);
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int x=max(n-i-1,i);
+            int y=dp[x];
+            y+=dp[n-1-x];
+            y%=MOD;
+            y*=v[i];
+            y%=MOD;
+            ans+=y;
+            ans%=MOD;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD = 998244353;
+	public static void main (String[] args) throws java.lang.Exception
+	{
+       Scanner sc = new Scanner(System.in);
+       
+       int t = sc.nextInt();
+       while(t-- >0){
+           int n = sc.nextInt();
+           long[] a = new long[n];
+           for(int i = 0;i<n;i++){
+               a[i] = sc.nextLong();
+           }
+               long[] inv = new long[n+1];
+               inv[1] = 1;
+               for(int i = 2;i<=n;i++){
+                   inv[i] = MOD - (MOD/i)*inv[(int)(MOD%i)]%MOD;
+                   
+               }
+               long[] harmonic=new long[n+1];
+               for(int i=1;i<n;i++){
+                   harmonic[i]=(harmonic[i-1]+inv[i])%MOD;
+                   }
+                   long answer=0;
+                   for(int i=0;i<n;i++){
+                       long coefficient=(harmonic[i]+harmonic[n-i-1])%MOD;
+                       answer=(answer+a[i]*coefficient)%MOD;
+                       
+                   }
+                   System.out.println(answer);
+           }
+           sc.close();
+       }
+	}
+

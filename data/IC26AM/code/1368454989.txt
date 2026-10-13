@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 998244353;
+const int mx = 1000005;
+
+long long l[mx];
+long long m[mx];
+
+void solve(){
+    int n ;
+    cin>>n;
+    long long ans = 0;
+    for(int i = 1; i<=n; i++){
+        long long a;
+        cin>>a;
+        a%=mod;
+        if(a<0) a+=mod;
+        long long w = (m[i-1]+m[n-i])%mod;
+        ans = (ans+a*w)%mod;
+    }
+    cout<<ans<<endl;
+}
+
+
+int main(){
+    l[1] = 1;
+    for(int i = 2; i<mx; i++){
+        l[i] = (mod-(mod/i)*l[mod%i]%mod)%mod;
+    }
+    m[0] = 0;
+    for(int i = 1; i<mx; i++){
+        m[i] = m[i-1]+l[i]%mod;
+    }
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+}
+
+

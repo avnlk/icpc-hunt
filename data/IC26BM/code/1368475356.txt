@@ -1,0 +1,71 @@
+def build(c,last,p):
+    rem=c[:]
+    dd=[0]*4
+    r=p
+    for t in (0,1,2,3):
+        k=min(r,rem[t])
+        dd[t]=k
+        rem[t]-=k
+        r-=k
+    if r:
+        return None
+    r = p
+    for t in (3,2,1,0):
+        k = min(r,rem[t])
+        rem[t]-=k
+        r-=k
+    if r:
+        return None
+    zeros = rem[0]+rem[2]+2*dd[0]
+    ones = rem[1]+rem[3]+2*dd[3]
+    return [("0",zeros),("01",dd[1]),("10",dd[2]),("1",ones),(("00","01","10","11")[last],1)]
+    
+def compare(s,t):
+    s=[(p,r*len(p)) for p,r in s if r>0]
+    t = [(p,r*len(p)) for p,r in t if r>0]
+    i=j=oi=oj=0
+    while i<len(s) and j<len(t):
+        ps,ls=s[i]
+        pt,lt=t[j]
+        span=min(ls-oi,lt-oj)
+        for k in range(min(span,2)):
+            x=ps[(oi+k)%len(ps)]
+            y=pt[(oj+k)%len(pt)]
+            if x!=y:
+                return -1 if x<y else 1
+        oi+=span
+        oj+=span
+        if oi==ls:
+            i+=1
+            oi=0
+        if oj==lt:
+            j+=1
+            oj=0
+    return 0
+
+
+t = int(input())
+for _ in range(t):
+    cnt = list(map(int, input().split()))
+    n = sum(cnt)
+    best = None
+    for last in range(4):
+        if cnt[last] == 0:
+            continue
+        c = cnt[:]
+        c[last] -= 1
+        m = n - 1
+        cand = {0, m//2}
+        sums = set()
+        for mask in range(16):
+            s = sum(c[i] for i in range(4) if mask >> i & 1)
+            sums.update((s, s // 2, (s + 1) // 2))
+        for s in sums:
+            for d in range(-2, 3):
+                cand.add(s+d)
+        for p in cand:
+            if 0 <=p <= m //2:
+                cur = build(c,last,p)
+                if cur is not None and (best is None or compare(cur,best) < 0):
+                    best = cur
+        print(''.join(p*r for p, r in best))

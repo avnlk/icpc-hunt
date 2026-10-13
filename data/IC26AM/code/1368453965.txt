@@ -1,0 +1,24 @@
+for _ in range(int(input())):
+    n, c = map(int, input().split())
+    p = list(map(int,input().split()))
+    a = list(map(int,input().split()))
+    v = [0] *n
+    ans = 0
+    for i in range(n):
+        if v[i]:
+            continue
+        q = []
+        x = i
+        while not v[x]:
+            v[x] = 1
+            q.append(x)
+            x = p[x] - 1
+            
+        s = sum(a[x] for x in q)
+        L = len(q)
+        
+        ans += max(0,sum(max(0,a[x] - c)for x in q),
+        s - c*(L - 1)
+        )
+        
+        print(ans)

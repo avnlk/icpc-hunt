@@ -1,0 +1,21 @@
+MOD = 998244353
+MAX = 2000000
+
+inv = [0] * (MAX + 1)
+h = [0] * (MAX + 1)
+
+
+inv[1] = h[1] = 1
+
+for i in range (2, MAX + 1):
+    inv[i] = MOD - (MOD//i)*inv[MOD%i]%MOD
+    
+    h[i] = (h[i - 1] + inv[i]) % MOD
+t = int(input())
+for _ in range (t):
+    n = int(input())
+    a =  list(map(int,input().split()))
+    ans = 0 
+    for i, x in enumerate(a):
+        ans += x*(h[i]+h[n-i - 1 ])
+    print(ans % MOD)

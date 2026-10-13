@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t; cin >> t;
+    while(t--){
+        int c00, c01, c10, c11;
+        cin >> c00 >> c01 >> c10 >> c11;
+        
+        int trailing = c11 - max(0, (c00 + c01 - 1));
+        if(trailing < 0){
+            int total_components = c00 + c01;
+            int components_rem = total_components - c11;
+            int remc01 = components_rem - 1;
+            int usedc01 = c01 - remc01;
+            string s = "";
+            while(c00--){
+                s.push_back('0');
+                s.push_back('0');
+            }
+            while(usedc01--){
+                s.push_back('0');
+                s.push_back('1');
+            }
+            
+            int j = remc01 / 2;
+            while(j--){
+                s.push_back('0');
+                s.push_back('1');
+            }
+            int stidx = 0;
+            if(remc01%2==1) stidx = 1;
+            while(c10--){
+                cout << '0';
+            }
+            for(int k = stidx; k < s.length(); k++){
+                cout << s[k];
+            }
+            
+            cout << '\n';
+        }
+        if(trailing == 0){
+            string s = "";
+            while(c10--) s.push_back('0');
+            while(c00--){
+                s.push_back('0');
+                s.push_back('0');
+            }
+            while(c01--){
+                s.push_back('0');
+                s.push_back('1');
+            }
+            cout << s << '\n';
+        }
+        else {
+            string s;
+            while(c00--){
+                s.push_back('0');
+                s.push_back('0');
+            }
+            while(c01--){
+                s.push_back('0');
+                s.push_back('1');
+            }
+            if(s.empty()){
+                while(c10--){
+                    cout << '0';
+                }
+                for(int i = 0; i < c11 + 1; i++){
+                    cout << '1';
+                }
+                cout << '\n';
+                continue;
+            }
+            while(c11--) s.push_back('1');
+            while(c10--) cout << '0';
+            cout << s <<'\n';
+        }
+    }
+}

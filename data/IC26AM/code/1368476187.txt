@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int mod=1e9+7;
+
+int modexpo(int a,int b){
+    int res=1;
+    while(b){
+        if(b&1){
+            res=(res*a)%mod;
+        }
+        a=(a*a)%mod;
+        b>>=1;
+    }
+    return res;
+}
+
+// vector<int> fact(2e5+5,1);
+
+void solve(){
+    int n; cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    vector<int> v = {1, 1};
+    while(v.size()<n){
+        v.push_back(((v.size()*v.back())%mod + 1)%mod);
+    }
+    vector<int> count = {v.back()};
+    v.pop_back();
+    while(count.size()<(n+1)/2){
+        count.push_back((v.back()+count.back())%mod);
+        v.pop_back();
+    }
+    vector<int> count2 = count;
+    if(count2.size()+count.size()>n) count.pop_back();
+    reverse(count2.begin(), count2.end());
+    for(auto& ele: count2) count.push_back(ele);
+    int res=0;
+    int fact=1;
+    int den=1;
+    while(fact<n){
+        den=(den*fact)%mod;
+        fact++;
+    }
+    for(int i=0;i<count.size();i++){
+        res=(res+(count[i]*a[i])%mod)%mod;
+    }
+    res=(res*modexpo(den,mod-2));
+    cout<<res<<"\n";
+}
+
+int32_t main() {
+    // for)
+    int t; cin>>t;
+    while(t--){
+        solve();
+    }
+}

@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--) {
+	    ll c00,c01,c10,c11;
+	    cin >> c00 >> c01 >> c10 >> c11;
+	    ll n = c00 + c01 + c11 + c10;
+	    ll del = n - 1;
+	    
+	    
+	    ll t0 = 0;
+	    ll t1 = 0;
+	    
+	    ll take = min(del , c10);
+	    c10 -= take;
+	    t0 += take;
+	    del -= take;
+	    
+	    take  = min(del, c11);
+	    c11 -= take;
+	    t1 += take;
+	    del -= take;
+	    
+	    take = min(del , t1);
+	    t1 -= take;
+	    del -= take;
+	    
+	    take = min(del / 2, c01);
+	    c01 -= take;
+	    del -= 2*take;
+	    
+	    take =  min(del,c00);
+	    c00 -= take;
+	    t0 += take;
+	    del -= take;
+	    
+	    take  = min(del , t0);
+	    t0 -= take;
+	    del -= take;
+	    
+	    take = min(del , c01);
+	    c01 -= take;
+	    del -= take;
+	    t1 += take;
+	    
+	    string res = "";
+	    
+	    ll num0 = t0 + 2*c00;
+	    for(int i = 0;i < num0; i++) res += '0';
+	    for(int i = 0;i < c01; i++) res += "01";
+	    for(int i = 0;i < c10; i++) res += "10";
+	    ll num1 = t1 + 2*c11;
+	    for(int i = 0;i < num1; i++) res += '1';
+	    
+	    cout << res << endl; 
+	    
+	   
+	}
+
+}

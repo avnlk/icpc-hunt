@@ -1,0 +1,40 @@
+for _ in range(int(input())):
+    a,b,c,d = map(int, input().split())
+    e = 0
+    f = 0
+    ops = a+b+c+d-1
+    while d>0 and ops > 0:
+        if ops > 1:
+            ops -=2
+            d -= 1
+        elif c > 0:
+            ops -= 1 
+            c -=1
+            e += 1 
+        else:
+            ops -= 1 
+            d -=1 
+            f += 1 
+    while ops > 0 and c > 0:
+        ops -= 1 
+        e += 1 
+        c-=1
+    while ops > 0 and b > 0:
+        if ops > 1:
+            ops -= 2
+            b -= 1 
+        else:
+            b-=1
+            ops -= 1 
+            f += 1 
+    while ops > 0:
+        if e > 0:
+            e -= 1
+            ops -= 1 
+        else:
+            a -= 1 
+            ops -= 1 
+            e += 1
+    # print(a,b,c,d,e,f)
+    ans = a*"00" + e*"0" + b*"01" + c*"10" + d*"11" + f*"1"
+    print(ans)

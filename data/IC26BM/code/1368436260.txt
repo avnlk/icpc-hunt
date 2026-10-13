@@ -1,0 +1,24 @@
+# cook your dish here
+import sys
+
+def solve():
+    I = list(map(int, sys.stdin.read().split()))
+    if not I: return 
+    idx = 1
+    for _ in range(I[0]):
+        R,C = I[idx], I[idx+1]; idx += 2
+        B = [I[idx+i*C : idx +(i+1)*C] for i in range(R)]; idx += R*C
+        
+        
+        ans = 0
+        for r in range(R):
+            for c in range(C):
+                if B[r][c] > 0:
+                    h, cc = 0, c
+                    while cc < C and B [r][cc] > 0: h ++ B[r][cc]; cc += 1
+                    v, rr = 0, r
+                    while rr < R and B[rr][c] > 0: v += B[rr][c]; rr += 1
+                    ans = max(ans, h,v)
+        print(ans)
+        
+solve()

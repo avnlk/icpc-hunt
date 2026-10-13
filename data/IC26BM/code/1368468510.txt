@@ -1,0 +1,27 @@
+def rstring(c00,c01,c10,c11):
+    if tedge==0:
+        return " "
+    out_degree={
+        '0':c00+c01,
+        '1':c10+c11
+    }
+    intdegree={
+        '0':c00+c01,
+        '1':c10+c11
+    }
+    startnode=None
+    diff_0=out_degree['0']-intdegree['1']
+    diff_1=out_degree['0']-intdegree['1']
+    if diff_0==1 and diff_1==-1:
+        startnode='0'
+    elif diff_1==1 and diff_0 ==-1:
+        startnode='1'
+    elif diff_0==0 and diff_1== 0:
+        if out_degree['0']>0:
+            startnode='0'
+        else:
+            startnode='1'
+        diff_0=out_degree['0']-intdegree['1']
+    else:
+        startnode='1'
+        diff_1=out_degree['0']-intdegree['1']

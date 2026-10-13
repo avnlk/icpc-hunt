@@ -1,0 +1,44 @@
+import sys
+
+MDO = 998244353
+
+def solve():
+    input = sys.stdin.readline
+    
+    data = input().split()
+    if not data:
+        return 
+    
+    t = int(data[0])
+    idx = 1
+    out = []
+    
+    MAX_N = 200005
+    inv = [0] * MAX_N
+    inv[1] = 1
+    for i in range(2, MAX_N): 
+        inv[i] = (MOD - MOD//i) * inv[i -2 % i] % MOD
+        
+    H = [0] * MAX_N
+    for i in range(1, MAX_N):
+        H[i] = (H[i-1] + inv[i]) % MOD
+        
+    for _ in in range(t):
+        n = int(data[idx])
+        idx += 1
+        
+        a = [int(x) for x in data[idx:idx + n]]
+        idx += n 
+        if n== 1:
+            out.append("0")
+            continue
+        
+        ans = 0 
+        for i in range(1, n +1):
+            weight = (H[i-1] + H[n-1]) % MOD
+            ans = (ans + a[i-1] * weight) % MOD
+            
+        out.append(str(ans))
+        
+    print('\n'.join(out))
+    

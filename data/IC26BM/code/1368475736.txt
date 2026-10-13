@@ -1,0 +1,40 @@
+# cook your dish here
+def solve():
+    t = int(input())
+    names = ["00","01","10","11"]
+    for _ in range(t):
+        c00,c01,c10,c11 = map(int, input().split())
+        cnt = [c00,c01,c10,c11]
+        b = None
+        for L in range(4):
+            if cnt[L] == 0:
+                continue
+            
+            a1 = c00 - (1 if L == 0 else 0)
+            b1 = c01 - (1 if L == 1 else 0)
+            
+            cap = c01 + c11 - (1 if L == 1 else 0) - (1 if L == 3 else 0)
+            
+            p = min(a1, cap)
+            q = min(b1, (cap-p)//2)
+    
+            z0 = c00 + p - (1 if L == 0 else 0) + c10 - (1 if L == 2 else 0)
+            
+            w = cap - p - 2*q
+            
+            cur = []
+            
+            cur.append("0"*z0)
+            cur.append("01"*q)
+            cur.append("1"*w)
+            cur.append(names[L])
+            
+            s = "".join(cur)
+            
+            if b is None or s < b:
+                b = s 
+                
+        print(b)
+
+solve()
+    

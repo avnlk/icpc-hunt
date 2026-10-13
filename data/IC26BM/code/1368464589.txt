@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define FOR(i, s, n) for (int i = s; i < n; i++)
+
+void solve(){
+    int c00, c01, c10, c11;
+    cin >> c00 >> c01 >> c10 >> c11;
+    int n = c00 + c01 + c10 + c11;
+    string ans;
+    int l = n + 1;
+    if ((n + 1) % 2){
+        if (c10 > 0){
+            ans += "0";
+            c10--;
+        }else if (c00 > 0){
+            ans += "0";
+            c00--;
+        }else if (c11 > 0){
+            ans += "1";
+            c11--;
+        }else{
+            ans += "1";
+            c10--;
+        }
+        l--;
+    }
+    FOR(i, 0, l / 2){
+        if (c00){
+            ans += "00";
+            c00--;
+        }else if (c01){
+            ans += "01";
+            c01--;
+        }else if (c10){
+            ans += "10";
+            c10--;
+        }else{
+            ans += "11";
+            c11--;
+        }
+    }
+    cout << ans << endl;
+}
+
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while (t--){
+        solve();
+    }
+}

@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MOD=998244353;
+static inline bool chk(int x,int l,int r,int i, int s,int n){
+    if(i<=l) return x==i-1+(n-i+2)/2;
+    if(i>n-r) return x==n-i+(i+1)/2;
+    bool p=(l+1==(i+1)/2)&&(s==0||i==n-r);
+    bool si=(r+1==(n-i+2)/2)&&(s==1||i==l+1);
+    return p||si;
+}
+int main() {
+	// your code goes here
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    vector<int> a(n+5,0),st(n+5,0),ps(n+5,0);
+	    for(int i=1;i<=n;i++){
+	        cin>>a[i];
+	        st[a[i]+1]++;
+	        
+	    }
+	    for(int v=1;v<=n+1;v++) st[v]+=st[v-1];
+	    {
+	        vector<int>pos(st.begin(),st.end());
+	        for(int i=1;i<=n;i++){
+	            ps[pos[a[i]]++]=i;
+	        }
+	        
+	    }
+	    vector<int>dp(n+5,0),nd(n+5,0);
+	    dp[0]=1;
+	    long long ans=0;
+	    for(int x=1;x<=n;x++){
+	        int lo=st[x];
+	        int hi=st[x+1];
+	        if(x==n){
+	            for(int l=0;l<x;l++){
+	                if(!dp[l]) continue;
+	                int r=x-1-l;
+	                bool ok=true;
+	                for(int q=lo;q<hi&&ok;q++){
+	                    ok=chk(x,l,r,ps[q],0,n);
+	                }
+	                if(ok) ans+=dp[l];
+	            }
+	            break;
+	        }
+	        fill(nd.begin(),nd.begin()+x+2,0);
+	        for(int l=0;l<x;l++){
+	            if(!dp[l]) continue;
+	            int r=x-1-l;
+	            bool okl=true,okr=true;
+	            for(int q=lo;q<hi&&(okl||okr);q++){
+	                int i=ps[q];
+	                if(okl&&!chk(x,l,r,i,0,n)){
+	                    okl=false;
+	                }
+	                if(okr&&!chk(x,l,r,i,1,n)) okr=false;
+	            }
+	            if(okl) {
+	                nd[l+1]+=dp[l];
+	                if(nd[l+1]>=MOD)nd[l+1]-=MOD;
+	                
+	            }
+	            if(okr){
+	                nd[l]+=dp[l];
+	                if(nd[l]>=MOD) nd[l]-=MOD;
+	            }
+	            
+	        }
+	        swap(dp,nd);
+	       
+	    }
+	    
+	    cout<<ans%MOD<<endl;
+	    
+	}
+	return 0;
+}

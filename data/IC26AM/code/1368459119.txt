@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	const int MOD=998244353;
+	vector<long long>Hor(200006,0);
+	vector<long long>pro(200006,0);
+	pro[1]=1;
+	for(int i=2;i<=200005;i++){
+	    pro[i]=((MOD-MOD/i)*pro[MOD%i])%MOD;
+	}
+	for(int i=1;i<=200005;i++){
+	    Hor[i]=(Hor[i-1]+pro[i])%MOD;
+	    
+	}
+	
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<long long>a(n);
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+        }
+        long long ans=0;
+        for(int k=1;k<=n;k++){
+            long long coeff=(Hor[k-1]+Hor[n-k])%MOD;
+            long long cont=(a[k-1]%MOD*coeff)%MOD;
+            ans=(ans+cont)%MOD;
+            
+        }
+        cout<<(ans+MOD)%MOD<<"\n";
+    }
+}

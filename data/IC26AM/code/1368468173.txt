@@ -1,0 +1,25 @@
+# cook your dish here
+import sys
+def main():
+    MOD = 998244353
+    data=sys.stdin.buffer.read().split()
+    t=int(data[0])
+    pos=1
+    N=200001
+    inv=[0,1]+[0]*(N-1)
+    for i in range(2,N+1):
+        inv[i]=(MOD-(MOD//i)*inv[MOD%i]%MOD)%MOD
+    H=[0]*(N+1)
+    for i in range(1,N+1):
+        H[i]=(H[i-1]+inv[i])%MOD
+    out=[]
+    for _ in range(t):
+        n= int(data[pos]); pos+=1
+        total=0
+        for j in range(1,n+1):
+            a=int(data[pos+j-1])
+            total += a*(H[n-j]+H[j-1])
+        pos+=n
+        out.append(total%MOD)
+    print("\n".join(map(str,out)))
+main()

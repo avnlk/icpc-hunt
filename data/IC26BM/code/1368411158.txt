@@ -1,0 +1,57 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	static String build(int[] a, int l){
+	    int [] c = a.clone();
+	    c[l]--;
+	    int foo = Math.min(c[0], c[1]+c[3]);
+	    c[0]-=foo;
+	    int rem = foo;
+	    int x = Math.min(rem, c[3]);
+	    c[3]-=x;
+	    rem -= x;
+	    c[1]-=rem;
+	    int fo1 = Math.min(c[1], (c[1]+c[3])/2);
+	    c[1]-=fo1;
+	    rem = fo1;
+	    x = Math.min(rem, c[3]);
+	    c[3]-=x;
+	    rem -= x;
+	    c[1] -= rem;
+	    StringBuilder sb = new StringBuilder();
+	    int z = c[0]+c[2]+2*foo;
+	    while(z-->0){
+	        sb.append('0');
+	    }
+	    while(fo1-->0){
+	        sb.append("01");
+	    }
+	    int one = c[1]+c[3];
+	    String [] str = {"00", "01", "10", "11"};
+	    sb.append(str[l]);
+	    return sb.toString();
+	    
+	}
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+		    int [] c = new int [4];
+		    for(int i = 0;i<4;i++){
+		        c[i] = sc.nextInt();
+		    }
+		    String b = null;
+		    for(int i = 0;i<4;i++){
+		        if(c[i] == 0) continue;
+		        String curr = build(c, i);
+		        if(b == null || curr.compareTo(b)<0) b = curr;
+		    }
+		    System.out.println(b);
+		}
+
+	}
+}

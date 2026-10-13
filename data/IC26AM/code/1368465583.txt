@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+static const long long MOD = 998244353;
+const int MAXN = 200000;
+
+int main() {
+	// your code goes here
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    vector<ll> inv(MAXN+1);
+    vector<ll> H(MAXN+1);
+    inv[1] = 1;
+    for(int i=2; i<=MAXN; ++i) inv[i] = MOD - (MOD/i)*inv[MOD%i]%MOD;
+    // H[0] = 0;
+    for(int i=1; i<=MAXN; ++i) H[i] = (H[i-1] + inv[i])%MOD;
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        // ll ans = 0;
+        vector<long long> a(n);
+        for(auto &x: a) cin>>x;
+        long long ans = 0;
+        for(int i=1; i<=n; ++i){
+            ll weight = (H[i-1] + H[n-i]) % MOD;
+            // ans = (ans + a % coefficient) % MOD;
+            ans += (a[i-1] %MOD)*weight%MOD;
+            if(ans >= MOD) ans-=MOD;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

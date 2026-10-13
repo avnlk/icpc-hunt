@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+using ll = long long;
+const ll MOD = 998244353;
+
+int main() {
+	// your code goes here
+       
+       const int maxN = 200000;
+       
+       vector<ll> inv (maxN + 1);
+       
+       inv[1] = 1;
+       
+       for(int i = 2;i <= maxN;i++){
+           inv[i] = MOD - (MOD / i) * inv [MOD % i] % MOD;
+       }
+       
+       vector<ll> H(maxN  +1 ,0);
+       
+       for(int i = 1;i <= maxN;i++){
+           H[i] = (H[i - 1] + inv[i]) % MOD;
+       }
+       
+       
+       int  t;
+       
+       
+       
+       cin >> t;
+       
+       while(t--){
+            int n ;
+            cin >> n;
+            
+            ll ans = 0;
+            for(int i = 1;i <=n ;i++){
+                ll x;
+                cin>> x;
+                ll coef = (H[i - 1] + H[n - i]) % MOD;
+                
+                ans = (ans + x*coef) % MOD;
+            }
+            
+            cout << ans << endl;
+       }
+}

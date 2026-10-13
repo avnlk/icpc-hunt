@@ -1,0 +1,41 @@
+# cook your dish here
+import sys
+def solve():
+    input = sys.stdin.readline
+    t=int(input())
+    strs=["00","01","10","11"]
+    for i in range (t):
+        c=list(map(int,input().split()))
+        n=sum(c)
+        if n%2==1:
+            need=(n+1)//2
+            ans=[]
+            for j in range(4):
+                take=min(c[j],need-len(ans))
+                ans.extend([strs[j]]*take)
+                
+                if len(ans)==need:
+                    break
+            print("".join(ans))
+        else:
+            need=n//2
+            best = None
+        for partial in range(4):
+            if c[partial]==0:
+                continue
+            remaining=c[:]
+            remaining[partial]-=1
+            sufix=[]
+            for k in range(4):
+                take=min(
+                    remaining[k],need=len(sufix))
+                sufix.extend([stra[i]]*take)
+                if len (sufix)==need:
+                    break
+            candidate=strs[partial][1]+"".join(sufix)
+            if best is None or candidate<best:
+                best=candidate
+        print(best)
+        
+if __name__=='__main__':
+    solve()

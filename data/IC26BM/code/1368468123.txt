@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>> t;
+	while(t--){
+	    int a[4];
+	    int n = 0;
+	    for (int i = 0; i < 4; i++) {
+	        cin>> a[i];
+	        n+= a[i];
+	    }
+	    string ans = "";
+	    int x = n-1;
+	        int p = 3;
+	    if(x%2 == 0){
+	        while(x>0){
+	            int dif = max(a[p], x/2);
+	            a[p] -= dif;
+	            x-= 2*dif;
+	            p--;
+	        }
+	    }else{
+	        if(a[2]){
+	            a[2]--;
+	            x--;
+	            ans = "0";
+	        }
+	        while(x>0){
+	            int dif = max(a[p], x/2);
+	            a[p] -= dif;
+	            x-= 2*dif;
+	            p--;
+	        }
+	    }
+	    
+	    vector<string> s = {"00", "01", "10", "11"};
+	    
+	    for(int i = 0; i< 4 ; i++){
+	        for(int j = 0 ; j< a[i]; j++){
+	            ans+= s[i];
+	        }
+	    }
+	    cout << ans.substr(x) << "\n";
+	    
+	}
+
+}

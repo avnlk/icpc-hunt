@@ -1,0 +1,31 @@
+# cook your dish here
+import sys
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return 
+    mod = 998244353
+    maxi = 200005
+    inv = [1]*maxi
+    h = [0]*maxi
+    for i in range(2,maxi):
+        inv[i] = mod-(mod//i)*inv[mod%i]%mod
+    for i in range(1,maxi):
+        h[i] = (h[i-1]+inv[i])%mod
+    out=  []
+    idx = 1
+    t = int(input_data[0])
+    for _ in range(t):
+        n = int(input_data[idx])
+        idx+=1
+        ans = 0
+        for i in range(n):
+            val = int(input_data[idx+i])
+            coeff = (h[i]+h[n-1-i])%mod
+            ans = (ans+val*coeff)%mod
+        idx+=n
+        out.append(str(ans))
+    sys.stdout.write('\n'.join(out)+'\n')
+if __name__=='__main__':
+    solve()
+            

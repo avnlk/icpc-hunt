@@ -1,0 +1,86 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--){
+	    int c00, c01, c10, c11;
+	    cin >> c00 >> c01 >> c10 >> c11;
+	    int tot = c00 + c01 + c10 + c11;
+	    if(tot == c10){
+	        string ans = 0;
+	        for(int i = 1;i < c10;i++) ans += '0';
+	        ans += "10";
+	        cout << ans << "\n";
+	        continue;
+	    }
+	   // int ones = c10 + 2 * c11;
+	   // int ops = tot - 1;
+	   // if(ones >= ops){
+	   //     int z = ops + 2 * c00;
+	   //     string ans = "";
+	   //     for(int i = 0;i < z;i++){
+	   //         ans += '0';
+	   //     }
+	   //     int done = ops
+	   // }
+	   string ans = "";
+	   //for(int i = 0;i < c11;i++){
+	   //    ans += "11";
+	   //}
+	   //for(int i = 0;i < c10;i++){
+	   //    ans += "0";
+	   //}
+	   //for(int i = 0;i < c00;i++){
+	   //    ans += "00";
+	   //}
+	   //for(int i = 0;i < c01;i++){
+	   //    ans += "01";
+	   //}
+	   
+	   int ops = tot - 1;
+	   int rem = ops - c10;
+	   for(int i = 0;i < c10;i++) ans += '0';
+	   int done = rem >> 1;
+	   int rem11 = c11;
+	   if(done >= c11){
+	       rem11 -= done;
+	       rem -= 2 * done;
+	   }
+	   int rem01 = c01;
+	   done = rem >> 1;
+	   if(done >= c01){
+	       rem01 -= done;
+	       rem -= 2 * done;
+	   }
+	   
+	   if(rem) c00 -= rem;
+	   
+	   for(int i = 0;i < c00;i++) ans += "00";
+	   for(int i = 0;i < rem01;i++) ans += "01";
+	   for(int i = 0;i < rem11;i++) ans += "11";
+	   cout << ans << "\n";
+	   
+	   
+	   //int ops = tot - 1;
+	   //int first = -1;
+	   //int len = 2 * tot - ops;
+	   //string fin = ans.substr(ops, len);
+	   //int count = 0;
+	   //for(char& c: fin){
+	   //    if(c == '0') break;
+	   //    count++;
+	   //}
+	   //int sz = fin.size();
+	   //if(count == sz){
+	   //    cout << fin << "\n";
+	   //    continue;
+	   //}
+	   
+	   //int idx = (count & 1 && ) ?
+	   
+	}
+
+}

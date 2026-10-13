@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#define ll long long
+
+
+ll mod = 998244353;
+
+ll binexp(ll a, ll b) {
+    if (b == 0) {
+        return 1;
+    }
+    else {
+        ll res = 1, base = a;
+        while (b)
+        {
+            if (b & 1) res = (res * base) % mod;
+            base = (base * base) % mod;
+            b >>= 1;
+        }
+        return res;
+    }
+}
+
+ll modinv(ll a)
+{
+    return binexp(a, mod - 2);
+}
+
+int main() {
+    // your code goes here
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n, sum = 0;
+        cin >> n;
+        vector < ll > a(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> a[i];
+            sum += a[i];
+            sum%=mod;
+        }
+
+        ll ans = (((n * n + n - 2) % mod) * sum) % mod;
+        ans = (ans * modinv(2 * n)) % mod;
+
+        cout << ans << endl;
+
+    }
+
+}

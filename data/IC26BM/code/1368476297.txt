@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+void solve(){
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    
+    int n = a + b + c + d;
+    int mid = n - 1;
+    
+    string ans;
+    int i = 0;
+    while(i < 2 * n){
+       if(i > mid){
+           if(a){
+               ans += "00";
+               a--;
+           }
+           else if(b){
+               ans += "01";
+               b--;
+           }
+           else if(c){
+               ans += "10";
+               c--;
+           }
+           else if(d){
+               ans += "11";
+               d--;
+           }
+           else break;
+       }
+       else if(i == mid){
+           if(c){
+               ans += "10";
+               c--;
+           }
+           else if(a){
+               ans += "00";
+               a--;
+           }
+           else if(d){
+               ans += "11";
+               d--;
+           }
+           else if(b){
+               ans += "01";
+               b--;
+           }
+           else break;
+       }
+       else{
+           if(d){
+               ans += "11";
+               d--;
+           }
+           else if((mid % 2 == 0 && c > 1)) {
+               ans += "10";
+               c--;
+           }
+           else if(mid % 2 != 0 && c){
+               ans += "10";
+               c--;
+           }
+           else if(mid % 2 == 0 && c == 1 && b == 0){
+               ans += "10";
+               c--;
+           }
+           else if(b){
+               ans += "01";
+               b--;
+           }
+           else if(a){
+               ans += "00";
+               a--;
+           }
+           else break;
+       }
+       i += 2;
+    }
+    for(int j = n - 1; j < 2 * n; j++) cout << ans[j];
+    cout << endl;
+}
+int32_t main() {
+	int t = 1;
+	cin >> t;
+	while(t--) solve();
+
+}

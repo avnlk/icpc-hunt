@@ -1,0 +1,27 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    c = list(map(int, input().split()))
+    typ = ['00', '01', '10', '11']
+    ans = None
+    for f in range(4):
+        if not c[f]:
+            continue
+        r = c[:];r[f] -= 1 
+        x = min(r[0], r[1]+ r[2]+ r[3])
+        e = [0] * 4
+        k = x 
+        for j in (3, 1, 2):
+            e[j] = min(k, r[j]); k-= e[j]
+        r[0] -= x 
+        for j in range(4):
+            r[j] -= e[j]
+        k = (r[1] + r[3])//2
+        a = min(k, r[1]); b = k-a
+        e3 = min(k, r[3]-b)
+        e1 = k-e3
+        s = r[0] + r[2] + 2*x 
+        q = r[1] - a - e1 + r[3] - b - e3 
+        z = '0'*s + '01'*a + '1'*q +'11'*b + typ[f]
+        if ans is None or z<ans: ans = z 
+    print(ans)

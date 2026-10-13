@@ -1,0 +1,22 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    int a = 34;
+	    int b=23;
+	    int c=34;
+	    
+	    if(a>b) {
+	        System.out.println("A is greater");
+	    } else if(b>c) {
+	       System.out.println("B is greater");
+	    } else {
+	        System.out.println("C is greater");
+	    }
+
+	}
+}

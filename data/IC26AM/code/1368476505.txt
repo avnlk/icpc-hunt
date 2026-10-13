@@ -1,0 +1,47 @@
+#include <stdio.h>
+int function(int i, int size, int arr[],int s){
+    s=s+arr[i]+arr[i+1];
+    arr[i]=arr[i]+arr[i+1];
+    for(int j=i+2;j<size;j++)
+    {
+        arr[j-1]=arr[j];
+    }
+    size--;
+    for(int l=0;l<size;l++){
+        if(size==1){
+            return s;
+        }
+        else{
+        return function(l,size,arr,s);
+        }
+    }
+}
+int main() {
+	// your code goes here
+    int t;
+    scanf("%d",&t);
+    for(int k=0;k<t;k++){
+        int n;
+        int s=0;
+        scanf("%d",&n);
+        int arr[n];
+        for(int p=0;p<n;p++){
+            scanf("%d",&arr[p]);
+        }
+        double abc=0;
+        int tempo[n];
+        for(int i=0;i<n-1;i++){
+            for(int x=0;x<n;x++){
+                tempo[x]=arr[x];
+            }
+            abc = abc+function(i,n,tempo,s);
+            s=0;
+        }
+        // int w = (n-1)%998244353;
+        // double u = 1/w;
+        // double g = (abc*u) % 998244353;
+        // printf("%.0lf\n",g);
+        printf("%d\n",abc/(n-1));   
+    }
+}
+

@@ -1,0 +1,21 @@
+# cook your dish here
+import sys 
+def solve():
+    input = sys.stdin.read
+    data = input().split()
+    if not data:
+        return
+    
+    t = int(data[0])
+    indx=1
+    out=[]
+    
+    for _ in range(t):
+        c00=int(data[indx])
+        c01=int(data[indx+1])
+        c10=int(data[indx+2])
+        c11=int(data[indx+3])
+        
+        indx+=4
+        if c01==0 and
+    

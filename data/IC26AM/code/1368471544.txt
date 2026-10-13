@@ -1,0 +1,24 @@
+m=998244353
+t=int(input())
+t1=[]
+Ex=0
+for _ in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    t1.append((n,a))
+    Ex=max(Ex,n)
+i=[0]*(Ex+1)
+if Ex>=1:
+    i[1]=1 
+for j in range(2,Ex+1):
+    i[j]=m-(m//j)*i[m%j]%m
+h=[0]*(Ex+1)
+for k in range(1,Ex+1):
+    h[k]=(h[k-1]+i[k])%m
+for n,a in t1:
+    res=0
+    for l in range(n):
+        cof=(h[l]+h[n-1-l])%m 
+        res=(res+a[l]*cof)%m 
+    print(res)
+        

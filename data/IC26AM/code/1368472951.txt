@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int long long
+
+#define solveT() {int t; cin >> t; while (t--) solve();};
+
+const int MOD = 998244353;
+
+const int N = 2e5;
+
+int fact[N + 1], invfact[N + 1];
+
+int binexp(int a, int b) {
+    int ans{1};
+    while (b) {
+        if (b & 1)
+            ans = (ans * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return ans;
+}
+
+void precomp() {
+    fact[0] = fact[1] = 1;
+    for (int i = 2; i <= N; i++) {
+        fact[i] = (fact[i - 1] * i) % MOD;
+    }
+    invfact[N] = binexp(fact[N], MOD - 2);
+    for (int i = N - 1; i >= 0; i--) {
+        invfact[i] = (invfact[i + 1] * (i + 1)) % MOD;
+    }
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    vector<int> pref(n + 1);
+    vector<int> F(n + 1);
+    F[0] = 0;
+    pref[0] = 0;
+    for (int i = 1; i <= n; i++) {
+        pref[i] = (pref[i - 1] + binexp(i, MOD - 2)) % MOD;
+        F[i] = (pref[i]) % MOD;
+    }
+    vector<int> N(n + 1);
+    for (int i = 0; i <= n; i++) {
+        N[i] = (F[i] + F[n - i - 1]) % MOD;
+    }
+    // cout << "F: ";
+    // for (auto it : F) {
+    //     cout << it << " ";
+    // }
+    // cout << endl;
+    // // cout << endl << "1.5: " << 3 * invfact[2] % MOD << endl;
+    // cout << "155/6: " << 155 * invfact[3] % MOD << endl;
+    // // cout << "24.5: " << 49 * invfact[2] % MOD << endl;
+    // cout << endl << "N: ";
+    // for (auto it : N) {
+    //     cout << it << " ";
+    // }
+    // cout << endl;
+    int ans{0};
+    for (int i = 0; i < n; i++) {
+        ans = (ans + (arr[i] * N[i]) % MOD) % MOD;
+    }
+    // cout << ans << endl;
+    // cout << invfact[n - 1] << endl;
+    cout << ans << endl;
+}
+
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    precomp();
+    solveT();
+    return 0;
+}

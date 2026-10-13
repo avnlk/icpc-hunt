@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve()
+{
+    long long c00,c01,c10,c11;
+    if(!(cin>>c00>>c01>>c10>>c11)) return;
+    
+    long long n=c00+c01+c10+c11;
+    long long l=n+1;
+    
+    if(c00==0 && c01==0 && c10==0){
+        cout<<string(l,'1')<<endl;
+        return;
+    }
+    
+    if(c01==0 && c11==0){
+        if(c00>0){
+            cout<<string(l,'0')<<endl;
+        }else{
+            cout<<string(n-1,'0')+"10\n";
+        }
+        return;
+    }
+    
+    if(c00==0 && c10==0){
+        string ans="";
+        for(int i=0;i<c01 && (long long)ans.length()<l;++i){
+            ans+="01";
+        }
+        if((long long)ans.length() >l){
+            ans.resize(l);
+        }
+        else if((long long)ans.length()<l){
+            ans.append(l-ans.length(),'1');
+        }
+        cout<<ans<<endl;
+        return;
+    }
+    
+    if(c01 >0){
+        long long z=2*c00+c10+1;
+        if(z>=l){
+            cout<<string(l,'0')<<"\n";
+            return;
+        }
+        string ans=string(z,'0')+'1';
+        for(int i=0;i<c01-1 && (long long)ans.length() < l;++i){
+            ans+="01";
+        }
+        if((long long)ans.length()>l){
+            ans.resize(l);
+        }else if((long long)ans.length() <l){
+            ans.append(l-ans.length(),'1');
+        }
+        cout<<ans<<endl;
+    }else{
+        long long z=2*c00+c10;
+        if(z>=l){
+            cout<<string(l,'0')<<endl;
+        }else{
+            cout<<string(z,'0')+string(l-z,'1')<<endl;
+        }
+    }
+}
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+	return 0;
+}

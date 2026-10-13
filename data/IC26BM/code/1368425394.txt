@@ -1,0 +1,38 @@
+import sys
+input_data = list(map(int, sys.stdin.buffer.read().split()))
+t = input_data[0]
+pos = 1
+
+ans_out = []
+types = ["00", "01", "10", "11"]
+
+for _ in range(t):
+    c = input_data[pos:pos + 4]
+    pos += 4
+    best = None
+    for last in range(4):
+        if c[last] == 0:
+            continue
+        x = c.copy()
+        x[last] -= 1
+        
+        k00 = min(x[0], x[1] + x[3])
+        take11 = min(k00, x[3])
+        take01 = k00 - take11
+        
+        x[0] -= k00
+        x[3] -= take11
+        x[1] -= take01
+        
+        k01 = min(x[1], (x[1] + x[3]) // 2)
+        
+        zeros = x[0] + x[2]
+        ones = x[1] + x[3] - 2 * k01
+        
+        cur = (
+            '0' * zeros + '00' * k00 + '01' * k01 + '1' * ones + types[last]
+            )
+        if best is None or cur < best:
+            best = cur
+    ans_out.append(best)
+sys.stdout.write("\n".join(ans_out))

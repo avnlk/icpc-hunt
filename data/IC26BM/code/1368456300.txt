@@ -1,0 +1,18 @@
+from functools import lru_cache
+
+def f(x):
+    if len(x)<2:return x[0]
+    r=None
+    for i in range(len(x)):
+        for j in range(i):
+            y=list(x);a=y.pop(i);b=y.pop(j)
+            y+=[(b+a)[1:]];z=f(tuple(sorted(y)))
+            r=z if r is None or z<r else r 
+            
+        return r 
+        
+    for _ in range(int(input())):
+        a=list(map(int,input().split()))
+        s=['00','01','10','11']
+        
+        print(f(tuple(sorted(sum((s[i]]*a[i]for i in range(4)),[])))))

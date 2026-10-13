@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod = 998244353;
+const int maxn = 200000;
+long long mp(long long a , long long e){
+    long long res = 1;
+    while(e > 0){
+        if(e&1)res = res* a % mod;
+        a = a*a % mod;
+        
+        e >>= 1;
+        
+    }
+    
+    return res;
+}
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	
+	
+	vector<long long> in(maxn+1);
+	in[1] = 1;
+	
+	for(int i=2;i<=maxn;i++){
+	    in[i] = mod-(mod/i) * in[mod%i] % mod;
+	    
+	}
+	
+	vector<long long> h(maxn+1,0);
+	for(int i=1;i<=maxn;i++){
+	    h[i] = (h[i-1] + in[i]) % mod;
+	}
+	while(t--){
+	    int n;
+	    cin>>n;
+	    vector<long long> a(n);
+	    
+	    for(auto &x:a){
+	        cin>>x;
+	    }
+	    long long ans = 0;
+	    
+	    for(int i=0;i<n;i++){
+	        long long coe = (h[i]  + h[n-i-1])%mod;
+	        ans = (ans+a[i] * coe)%mod;
+	    }
+	    cout<<ans<<endl;
+	}
+}

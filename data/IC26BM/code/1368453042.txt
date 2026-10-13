@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+int main() {
+	// your code goes here
+    ll tt;cin>>tt;
+    while(tt--){
+        ll a,b,c,d,sal=0;cin>>a>>b>>c>>d;
+        string ans="";
+        string req[4]={"00","01","10","11"};
+        for(ll i=0;i<4;i++){
+            string temp="";
+            ll cnt[4]={a,b,c,d};
+            if(cnt[i]==0)continue;
+            cnt[i]--;
+            ll A=cnt[0],C=cnt[1],D=cnt[2],B=cnt[3];
+            ll m1=min(A,B),m2=min(A,C),m3=min(B,C);
+            ll p00=0,p01=0;
+            A-=m1;
+            B-=m1;
+            p00+=m1;
+            sal+=m1;
+            A-=m2;
+            C-=m2;
+            p00+=m2;
+            B-=m3;
+            C-=m3;
+            p01+=m3;
+            ll m4=C/2;
+            C-=2*m4;p01+=m4;
+            ll n0=2*p00+A+D;
+            ll n01=p01;
+            ll n1=B+C;
+            temp.reserve(n0+2*n01+n1+2);
+            for(ll x=0;x<n0;x++)temp+="0";
+            for(ll j=0;j<n01;j++)temp+="01";
+            for(ll x=0;x<n1;x++)temp+="1";
+           // temp.append(n1,"01");
+            temp+=req[i];
+            if(ans=="" or temp<ans)ans=temp;
+        }
+        cout<<ans<<endl;
+    }
+}

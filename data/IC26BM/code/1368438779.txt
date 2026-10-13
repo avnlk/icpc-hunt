@@ -1,0 +1,53 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static String makeAnswer(int[] c , int last){
+        int[] a = c.clone();
+        a[last]--;
+        int f00 = Math.min(a[0],a[1]+a[3]);
+        int e11 = Math.min(f00,a[3]);
+        int e01 = f00-e11;
+        int r01 = a[1]-e01;
+        int r11 = a[3]-e11;
+        int f01 = Math.min(r01,(r01+r11)/2);
+        int zeros = a[0]+a[2]+f00;
+        int ones = (a[0]+a[1]+a[2]+a[3])-zeros - 2 * f01;
+        StringBuilder ans = new StringBuilder();
+        for(int i =0;i<zeros;i++)
+        ans.append('0');
+        for(int i =0;i<f01;i++)
+        ans.append("01");
+        for(int i =0;i<ones;i++)
+        ans.append('1');
+        ans.append(new String[]{"00","01","10","11"}[last]);
+        return ans.toString();
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    Scanner ch = new Scanner(System.in);
+	    int t = ch.nextInt();
+	    while(t-->0){
+	       int[] c = new int[4];
+	       c[0]= ch.nextInt();
+	       c[1]= ch.nextInt();
+	       c[2]= ch.nextInt();
+	       c[3]= ch.nextInt();
+	       String ans = null;
+	       for(int last =0;last<4;last++){
+	           if(c[last]==0)
+	           continue;
+	           String cur = makeAnswer(c,last);
+	           if(ans == null || cur.compareTo(ans)<0)
+	           ans = cur;
+	       }
+	       
+	       
+	       
+	        System.out.println(ans);
+	    }
+
+	}
+}

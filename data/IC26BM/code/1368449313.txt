@@ -1,0 +1,32 @@
+# cook your dish here
+import sys
+def main():
+    data= sys.stdin.buffer.read().split()
+    t=int(data[0]); out=[];pos=1
+    strs=("00","01","10","11")
+    for _ in range(t):
+        cnt=[int(data[pos]),int(data[pos+1]),int(data[pos+2]),int(data[pos+3])]
+        pos+=4 
+        best = None
+        for k in range(4):
+            if cnt[k]==0: continue
+            a,b,c,d = cnt 
+            if k==0: a-=1 
+            elif k ==1: b-=1 
+            elif k==2: c-=1 
+            else:d-=1
+            lo,hi=0,a+b+d
+            while lo<hi:
+                mid=(lo+hi+1)>>1 
+                if max(0,mid-a)+max(0,mid-d)<=b: lo=mid 
+                else: hi=mid-1
+            m=lo
+            w00=min(a,m);w01=m-w00 
+            d11=min(d,m);d01=m-d11
+            Z=a+w00+c 
+            O=(b-w01-d01)+(d-d11)
+            F="0"*Z+"01"*w01+"1"*0+strs[k]
+            if best is None or F< best: best=F
+        out.append(best)
+    sys.stdout.write("\n".join(out)+"\n")
+main()

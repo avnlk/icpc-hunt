@@ -1,0 +1,31 @@
+# cook your dish here
+import heapq
+t = int(input())
+def str_to_num(x):
+    multi = 2^(len(x)-1)
+    ans = 0
+    for i in x:
+        if i == '1':
+            ans += multi
+        multi //= 2 
+    return ans
+        
+for _ in range(t):
+    c00, c01, c10, c11 = map(int,input().split())
+    
+    min_heap_1 = [(0,"00")]*c00+[(1,"01")] *c01 
+    min_heap_2 = [(2,"10")]*c10+[(3,"11")] *c11 
+    while min_heap_1 and min_heap_2:
+        a = min_heap_1.pop()
+        b = min_heap_2.pop()
+        c = b[1] + a[1]
+        c = c[1:]
+        if c[0] == '0':
+            heapq.heappush(min_heap_1,(str_to_num(c),c))
+        else:
+            heapq.heappush(min_heap_2,(str_to_num(c),c))
+    if min_heap_1:
+        print(min_heap_1.pop()[1])
+    else:
+        print(min_heap_2.pop()[1])
+    

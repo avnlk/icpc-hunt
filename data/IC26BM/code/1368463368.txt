@@ -1,0 +1,49 @@
+# cook your dish here
+t = int(input())
+bi = ['00','01','10','11']
+for _ in range(t):
+    a1, a2, a3, a4 = map(int, input().split())
+    cnt = [a1,a2,a3,a4]
+    ans = None
+    for i in range(4):
+        if cnt[i]==0:
+            continue
+        # c = [a1,a2,a3,a4]
+        a1, a2, a3, a4 = cnt.copy()
+        if i==0:
+            a1-=1 
+        elif i==1:
+            a2-=1 
+        elif i==2:
+            a3-=1 
+        else:
+            a4-=1 
+    
+            
+        ans0 = 0
+        ans1 = 0 
+        q = min(a1,a4)
+        ans0+=q
+        a1-=q
+        a4-=q
+        
+        q=min(a1,a2)
+        ans0+=q
+        a1-=q
+        a2-=q
+        
+        q=min(a2,a4)
+        ans1+=q
+        a2-=q
+        a4-=q
+        
+        q = a2//2 
+        ans1+=q
+        a2 -= 2*q
+        
+        z = a1+a3+2*ans0
+        o = a2+a4  
+        curr = ('0'*z+'01'*ans1+'1'*o+bi[i])
+        if ans is None or curr<ans:
+            ans = curr
+    print(ans)

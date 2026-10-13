@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int mod=998244353;
+int modpow(int a,int b){
+    if(b==0) return 1;
+    if(b==1) return a;
+    int base=modpow(a,b/2);
+    int res=(base*base)%mod;res%=mod;
+    if(b&1) res=(res*a)%mod;
+    return res;
+}
+int modinv(int a){
+    return modpow(a,mod-2);
+}
+int MAX_N=1e6;
+vector<int> fac(MAX_N+1), rfac(MAX_N+1);
+void prep(){
+    for(int i=1;i<MAX_N;i++){
+        fac[i] = (fac[i-1]*i)%mod;
+    }
+    rfac[MAX_N-1] = modinv(fac[MAX_N-1]);
+    for(int i=MAX_N-2;i>=0;i--){
+        rfac[i] = ((i+1)*rfac[i+1])%mod;
+    }
+}
+int c(int n, int r){
+    return ((n<r || r<0) ? 0:((fac[n]*rfac[r])%mod*rfac[n-r])%mod);
+}
+int32_t main() {
+	// your code goes here
+	fac[0]=1;
+	rfac[0]=1;
+	prep();
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int temp=c(n-2,i+1);
+            temp=(temp+c(n-2,n-i))%mod;
+            temp=(temp*modinv(c(n-1,i)))%mod;
+            temp=1-temp;
+            temp=(temp+2*mod)%mod;
+            temp=(temp*a[i])%mod;
+            ans=(ans+temp)%mod;
+        }
+        cout<<ans<<'\n';
+    }
+}

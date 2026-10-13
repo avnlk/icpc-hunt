@@ -1,0 +1,187 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll=long long;
+struct block{
+    int type;
+    ll cnt;
+    
+};
+
+int len(int t){
+    return (t==0 ||t==1)?1:2;
+}
+
+char getchar(int t,ll pos){
+    if(t==0) return '0';
+    if(t==1) return '1';
+    
+    if(t==2) return pos%2==0?'0':'1';
+    
+    
+}
+
+vector<block> make(ll q00 , ll q01,ll q10, ll q11, ll r){
+    ll c00=q00, c01=q01, c10=q10, c11=q11;
+    
+    ll zero=0, one=0;
+    
+    ll x=min(r, c10);
+    zero+=x;
+    c10-=x;
+    r-=x;
+    x=min(r, c00);
+    zero+=x;
+    c00-=x;
+    r-=x;
+    
+    x=min(r,c11);
+    one+=x;
+    c11-=x;
+    r-=x;
+    
+    x=min(r, c01);
+    one+=x;
+    c01-=x;
+    r-=x;
+    
+    ll n=q00+q01+q10+q11;
+    
+    ll d2=(n-1-(zero+one))/2;
+    
+    x=min(d2,c11);
+    c11-=x;
+    d2-=x;
+    
+    x=min(d2,c10);
+    c10-=x;
+    d2-=x;
+    
+    x=min(d2,c01);
+    c01-=x;
+    d2-=x;
+    
+    x=min(d2, c00);
+    c00-=x;
+    
+    vector<block> v;
+    
+    if(zero) v.push_back({0, zero});
+    if(one) v.push_back({1,one});
+    if(c00) v.push_back({0,2*c00});
+    
+    if(c01) v.push_back({2, c01});
+    
+    if(c10) v.push_back({3,c10});
+    if(c11) v.push_back({1,2*c11});
+    
+    return v;
+}
+
+
+bool lessb(const vector<block>& a, const vector<block>& b){
+    int i=0,j=0;
+    ll pa=0, pb=0;
+    
+    while(i<(int)a.size() && j<(int)b.size()){
+        ll ra =1LL * len(a[i].type)*a[i].cnt-pa;
+        
+        ll rb= 1LL * len(b[j].type)*b[j].cnt-pb;
+        
+        ll lim=min({ra, rb, 4LL});
+        
+        bool diff=false;
+        
+        for(ll k=0;k<lim;k++){
+            char x= getchar(a[i].type, pa+k);
+            char y= getchar(b[j].type, pb+k);
+            if(x!=y){
+                return x<y;
+            }
+        }
+        
+        if(lim<4){
+            if(ra==lim){
+                i++;
+                pa=0;
+                
+            }else{
+                pa+=lim;
+            }
+            if(rb==lim){
+                j++;
+                pb=0;
+            }else{
+                pb+=lim;
+            }
+        } else{
+            ll skip=min(ra,rb);
+            
+            if(ra==skip){
+                i++;
+                pa=0;
+                
+            }else{
+                pa+=skip;
+                
+            }if(rb==skip){
+                j++;
+                pb=0;
+            }else{
+                pb+=skip;
+            }
+            
+        }
+    }
+    
+    return i==(int) a.size() && j!=(int)b.size(); 
+}
+
+
+void printblocks(const vector<block>& v){
+    for(auto &b: v){
+        if(b.type==0){
+            cout<< string(b.cnt, '0');
+            
+        }else if(b.type==1){
+            cout<<string(b.cnt, '1');
+        }else if(b.type==2){
+            for(ll i=0;i< b.cnt;i++){
+                cout<< "01";
+            }
+            }else{
+                for(ll i=0;i<b.cnt;i++){
+                    cout<<"10";
+                }
+            }
+            } cout<<endl;
+        
+    
+}
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    ll q00,q01,q10,q11;
+	    cin>>q00>>q01>>q10>>q11;
+	    
+	    ll n=q00+q01+q11+q10;
+	    
+	    
+	    vector<block> best;
+	    bool f=true;
+	    
+	    ll start=(n-1)& 1LL;
+	    
+	    for(ll r=start;r<=n-1;r+=2){
+	        vector<block> cur=make(q00,q01,q10,q11,r);
+	        
+	        if(f || lessb(cur, best)){
+	            best=move(cur);
+	            f=false;
+	        }
+	    } printblocks(best);
+	} return 0;
+
+}

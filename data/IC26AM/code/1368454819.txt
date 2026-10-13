@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+
+using i32 = int;
+using i64 = long long;
+
+static constexpr i32 M = 998'244'353;
+
+i64 add(i64 a, i64 b) {
+    return (a + b) % M;
+}
+
+i64 mul(i64 a, i64 b) {
+    return (a * b) % M;
+}
+
+i64 binpow(i64 a, i64 n) {
+    i64 r = 1, y = a % M;
+    for (; n; n >>= 1, y = mul(y, y))
+        if (n & 1) r = mul(r, y);
+    
+    return r;
+}
+
+i64 inv(i64 a) {
+    return binpow(a, M - 2);
+}
+
+static constexpr i32 N = 200'000;
+
+static std::vector<i64> h(N + 1);
+
+void solve() {
+    i32 n;
+    std::cin >> n;
+    
+    std::vector<i64> a(n);
+    for (auto &&x : a) std::cin >> x;
+    
+    i64 ans = 0;
+    for (i32 i = 0; i < n; ++i) {
+        ans = add(ans, mul(a[i], add(h[i], h[n -i - 1])));
+    }
+    
+    std::cout << ans << '\n';
+}
+
+i32 main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    h[1] = 1;
+    for (i32 i = 2; i <= N; ++i) 
+        h[i] = add(h[i - 1], inv(i));
+        
+    i32 t;
+    std::cin >> t;
+    
+    while (t--) {
+        solve();
+    }
+}

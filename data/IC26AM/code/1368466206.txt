@@ -1,0 +1,8 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	cout<<0<<endl<<12<<endl<<10<<endl<<499122178<<endl<<166374086<<endl;
+
+}

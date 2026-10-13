@@ -1,0 +1,141 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Rep{
+    int z,a,b,o,x,last;
+};
+struct Seg{
+    int type,first,len;
+};
+std::vector<Seg>build(const Rep& s){
+    vector<Seg>v;
+    auto add=[&](int type,int first,int len){
+        if(len)v.push_back({type,first,len});
+    };
+    add(0,0,s.z);
+    add(1,0,2*s.a);
+    add(1,1,2*s.b);
+    add(0,1,s.o);
+    add(0,1,2*s.x);
+    
+    add(0,s.last/2,1);
+    add(0,s.last%2,1);
+    vector<Seg>w;
+    for(auto q:v){
+        if(!w.empty() && q.type==0 && w.back().type==0 && q.first==w.back().first){
+            w.back().len+=q.len;
+        }else{
+            w.push_back(q);
+        }
+    }
+    return w;
+}
+int getChar(const Seg & s, int p){
+    if(s.type ==0){return s.first;}
+    return s.first^(p&1);
+}
+bool lessRep(const Rep & A, const Rep& B){
+    auto  a=build(A);
+    auto b=build(B);
+    
+    int i=0,j=0;
+    int pa=0,pb=0;
+    while(i<(int)a.size() && j<(int) b.size()){
+        int ra=a[i].len-pa;
+        int rb=b[j].len-pb;
+        int m=min(ra,rb);
+        int lcp=0;
+        
+        if(a[i].type==0 && b[j].type==0){
+            if(a[i].first==b[j].first)lcp=m;
+            }else if(a[i].type==1 && b[j].type==1){
+                if(a[i].first==b[j].first)lcp=m;
+            }else{
+                int ca=getChar(a[i],pa);
+                int cb=getChar(b[j],pb);
+                if(ca==cb)lcp=min(1,m);
+            }
+            if(lcp<m){
+                return getChar(a[i],pa+lcp)<getChar(b[j],pb+lcp);
+            }
+            pa+=m;
+            pb+=m;
+            if(pa==a[i].len){
+                ++i;
+                pa=0;
+            }
+            if(pb==b[j].len){
+                ++j;
+                pb=0;
+            }
+        
+    }
+    return false;
+}
+int main() {
+	// your code goes here
+    int T;
+    cin>>T;
+    while(T--){
+        std::array<int, 4>c;
+        cin>>c[0]>>c[1]>>c[2]>>c[3];
+        int n=c[1]+c[2]+c[0]+c[3];
+        
+        Rep best{    };
+        bool found=false;
+        for(int last=0;last<4;++last){
+            if(!c[last])continue;
+            
+            auto r=c;
+            --r[last];
+            int c00=r[0];
+            int c01=r[1];
+            int c10=r[2];
+            int c11=r[3];
+            
+            int R0=c00+c10;
+            int R1=c01+c11;
+            
+            for(int k=0;k<=(n-1)/2;++k){
+                int L=max(0,k-R1);
+                int U=min(k,R0);
+                
+                if(L>U){
+                    continue;
+                }
+                vector<int>xs={L,U};
+                for(int v:{c00,2*k-R1,k-c01}){
+                    v=max(L,min(U,v));
+                    xs.push_back(v);
+                }
+                std::sort(xs.begin(), xs.end());
+                xs.erase(unique(xs.begin(),xs.end()),xs.end());
+                for(int x:xs){
+                    int d00=min(c00,x);
+                    int d10=x-d00;
+                    int d01=min(c01,k-x);
+                    int d11=k-x-d01;
+                    int hidden1=min(k,R1-(k-x))
+;
+int z=R0-k+d00-d10+hidden1;
+                    int ones=max(0,R1-2*k+x);
+                    Rep cur{
+                        z,d01,d10,ones,d11,last
+                    };
+                    if(!found|| lessRep(cur,best)){
+                        best=cur;
+                        found=true;
+                    }
+                }
+            }
+        }
+        auto out =build(best);
+        for(auto s:out)
+            for(int i=0;i<s.len;++i)
+                cout<<char('0'+getChar(s,i));
+                cout<<'\n';
+                
+            } 
+        
+    return 0;
+
+}

@@ -1,0 +1,40 @@
+t = int(input())
+for z in range(t):
+    a, b, c, d = map(int, input().split())
+    n = a+b+c+d
+    lim = n-1
+    add0start = False
+    add1start = False
+    while lim > 1:
+        if d > 0:
+            d -= 1
+        elif c > 0:
+            c -= 1
+        elif b > 0:
+            b -= 1
+        else:
+            a -= 1
+        lim -= 2
+    if lim == 1:
+        if c >= 1:
+            c -= 1
+            add0start = True
+        elif a >= 1:
+            a -= 1
+            add0start = True
+        elif d >= 1:
+            d -= 1
+            add1start = True
+        elif b >= 1:
+            b -= 1
+            add1start = True
+    res = []
+    if add0start == True:
+        res = ["0"]
+    if add1start == True:
+        res = ["1"]
+    res.extend(["00"]*a)
+    res.extend(["01"]*b)
+    res.extend(["10"]*c)
+    res.extend(["11"]*d)
+    print("".join(res))

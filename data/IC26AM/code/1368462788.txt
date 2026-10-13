@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MOD = 998244353;
+const int MAX_N = 200005;
+long long inv[MAX_N];
+long long H[MAX_N];
+
+void preComp (){
+    inv[1] = 1;
+    for(int i = 2 ; i < MAX_N ; i++){
+        inv[i] = (MOD - MOD/i)*inv[MOD%i]%MOD;
+    }
+    H[0] = 0;
+    for(int i = 1 ; i < MAX_N ; i++){
+        H[i] = (H[i-1] + inv[i] )%MOD;
+    }
+    
+}
+
+void solve(){
+    int n;
+    cin>>n;
+    std::vector<long long>a(n) ;
+    for(int i = 0 ; i < n ;i++){
+        cin>>a[i];
+    }
+    
+    if(n == 1) {
+        cout<<0<<endl;
+        return ;
+    }
+    
+    long long expt = 0;
+    for(int p = 1 ; p <= n ; p++){
+        long long coff = (H[p-1] + H[n-p])%MOD;
+        long long term =( a[p-1]%MOD)*coff%MOD;
+        expt = (expt + term )%MOD;
+    }
+    cout<<expt<<endl;
+}
+int main() {
+	// your code goes here
+	preComp();
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+	
+    
+}

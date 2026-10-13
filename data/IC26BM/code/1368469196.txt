@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void solve(){
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    ll x=2*a,y=2*d; //x=0s,y=1s
+    ll z=a+b+c+d-1;
+    ll t;
+    if(z>0){
+        t=min(c,z);
+        x+=t;
+        z-=t;
+        c-=t;
+    }
+    if(z>0){
+        t=min(y,z);
+        y-=t;
+        z-=t;
+    }
+    if(z>0){
+        t=min(z/2,b);
+        z-=2*t;
+        b-=t;
+    }
+    if(z>0){
+        t=min(x,z);
+        x-=t;
+        z-=t;
+    }
+    while(x--) cout<<"0";
+    while(b--) cout<<"01";
+    while(c--) cout<<"10";
+    while(y--) cout<<"1";
+    cout<<endl;
+}
+
+int main() {
+	// your code goes here
+	ll t; cin>>t;
+	while(t--){
+	    solve();
+	}
+}

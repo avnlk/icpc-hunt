@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int c00, c01, c10, c11;
+    cin>>c00>>c01>>c10>>c11;
+    string ans = "";
+    if(c00+c01+c10+c11==1){
+        if(c00==1)cout<<"00\n";
+        if(c01==1)cout<<"01\n";
+        if(c10==1)cout<<"10\n";
+        if(c11==1)cout<<"11\n";
+        return;
+    }
+    for(int i=0;i<c10;i++){
+        ans+="0";
+    }
+    if(c00+c01+c11==1){
+        if(c00==1)ans+="00";
+        if(c01==1)ans+="01";
+        if(c11==1)ans+="11";
+        cout<<ans<<"\n";
+        return;
+    }
+    if(c00+c01-1==c11){
+        string s2 = "";
+        for(int i=0;i<c00;i++)s2+="00";
+        for(int i=0;i<c01;i++)s2+="01";
+        ans+=s2;
+        cout<<ans<<"\n";
+        return;
+    }
+    if(c00+c01-2==c11){
+        int extra = 2;
+        string s2 = "";
+        for(int i=0;i<c00;i++)s2+="00";
+        for(int i=0;i<c01;i++)s2+="01";
+        for(int i=0;i<extra;i++)s2+="1";
+        s2 = s2.substr(1);
+        ans+=s2;
+        cout<<ans<<"\n";
+        return;
+    }
+    if(c00+c01-1<c11){
+        int extra = c11-(c00+c01-1);
+        string s2 = "";
+        for(int i=0;i<c00;i++)s2+="00";
+        for(int i=0;i<c01;i++)s2+="01";
+        for(int i=0;i<extra;i++)s2+="1";
+        ans+=s2;
+        cout<<ans<<"\n";
+        return;
+    }
+    
+    int extra = (c00+c01-1)-c11;
+    string s2 = "";
+    if(extra==2*c01){
+        for(int i=0;i<c00;i++)s2+="00";
+        ans+=s2;
+        cout<<ans<<"\n";
+        return;
+    }
+    if(extra-1==2*c01){
+        s2+="01";
+        for(int i=0;i<c00;i++)s2+="00";
+        s2.substr(1);
+        ans+=s2;
+        cout<<ans<<"\n";
+        return;
+    }
+    if(extra<2*c01){
+        for(int i=0;i<c01;i++)s2+="01";
+        s2 = s2.substr(extra);
+        for(int i=0;i<c00;i++)s2+="00";
+        ans+=s2;
+    }
+    else{
+        int extra2 = extra-2*c01;
+        for(int i=0;i<c00;i++)s2+="00";
+        s2 = s2.substr(extra2);
+        ans+=s2;
+    }
+    cout<<ans<<"\n";
+}
+
+int main() {
+	int t;cin>>t;
+	while(t--)solve();
+
+}

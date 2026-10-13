@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+const int mod = 998244353;
+const int N = 200005;
+
+int inv[N];
+int H[N];
+
+void pre() {
+    inv[1] = 1;
+    for(int i=2;i<N;i++) {
+        inv[i] = (mod - mod / i) * inv[mod % i] % mod;
+    }
+    H[0] = 0;
+    for(int i=1;i<N;i++) {
+        H[i] = (H[i-1] + inv[i]) % mod;
+    }
+}
+
+void solve() {
+     int n;
+     cin >> n;
+     
+     int ex = 0;
+     for(int i=1;i<=n;i++) {
+         int curr;
+         cin >> curr;
+         
+         int ex1 = (H[i-1] + H[n-i]) % mod;
+         ex = (ex + curr*ex1 % mod) % mod;
+     }
+     cout << ex << "\n";
+}
+
+int32_t main() {
+	// your code goes here
+	pre();
+	int t;
+	cin >> t;
+	while(t--) {
+	    solve();
+	}
+}
+

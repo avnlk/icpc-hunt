@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string L[] ={"00" , "01" , "10", "11" };
+
+bool build(long long a,long long b, long long c, long long d, int x , string &s){
+    long long q [] = {a,b,c,d};
+    
+    if(!q[x]) return 0;
+    
+    q[x] --;
+    a = q[0];
+    b = q[1];
+    c = q[2];
+    d = q[3];
+    
+    s = "";
+    
+    
+    if(a > b + d){
+        s.append(a + b+ d + c, '0');
+    }else{
+        long long  k = min(b, (b + d - a)/2);
+        s.append(2 * a + c, '0');
+        for(int i=0; i<k; i++) s+= "01";
+        s.append(d +b-k-a-k, '1');
+    }
+    
+    s += L[x];
+    return 1;
+}
+
+
+
+int main() {
+
+    int t;
+    cin>> t;
+    
+    
+    while(t--){
+        long long a,b,c,d;
+        cin>> a >>b >> c>> d;
+        string ans, s;
+        
+        for(int i=0; i<4; i++){
+            if(build(a,b,c,d,i,s) && (ans.empty() || s < ans)){
+                ans = s;
+            }
+            
+            
+        }
+        
+        
+        cout<< ans << endl;
+        
+    }
+
+
+}

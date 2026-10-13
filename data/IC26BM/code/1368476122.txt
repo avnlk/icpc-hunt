@@ -1,0 +1,31 @@
+# cook your dish here
+t=int(input())
+for i in range(t):
+    a,b,c,d=map(int,input().split())
+    res=[]
+    if a==0 and b==0:
+        res.append('1'*(d+1))
+        cur='1'
+    else:
+        res.append('0'*(a+1))
+        cur='0'
+    while b>0 or c>0 or(cur=='1'and d>0):
+        if cur=='0':
+            if b>0:
+                b-=1
+                if d>0:
+                    res.append('1'*d)
+                    d=0
+                res.append('1')
+                cur=1
+            else:
+                break
+        else:
+            if c>0:
+                c-=1
+                res.append('0')
+                cur='0'
+            else:
+                break
+    print("".join(res))
+            

@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define f(i, m, n)  for(int i = m; i<=n; i++)
+#define rep(i, n)   for(int i = 0; i<n; i++)
+
+#define mod 998244353
+
+const int MAXN = 200005;
+ll invn[MAXN];
+ll H[MAXN];
+
+void inv_codesniperman(){
+    invn[1] = 1;
+    f(i, 2, MAXN - 1)   invn[i] = mod - (mod/i)*invn[mod%i]%mod;
+    
+    H[0] = 0;
+    f(i, 1, MAXN-1) H[i] = (H[i-1]+invn[i])%mod;
+}
+
+void solve(){
+    int n; cin >> n;
+    
+    ll ans = 0;
+    f(i, 1, n){
+        ll v; cin >> v;
+        ll expected1 = (H[i-1] + H[n-i]) % mod;
+        
+        ans = (ans + v*expected1)%mod;
+    }
+    
+    cout << ans << "\n";
+}
+
+int main() {
+	// your code goes here
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    
+    inv_codesniperman();
+    
+    ll t; cin >> t;
+    while(t--){
+        solve();
+    }
+    
+    return 0;
+}

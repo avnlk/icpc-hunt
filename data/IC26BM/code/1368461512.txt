@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main() {
+	// your code goes here
+    ll tt;cin>>tt;
+    while(tt--){
+        ll a,b,c,d;
+        cin>>a>>b>>c>>d;
+        
+        ll n=a+b+c+d;
+        ll dels=n-1;
+        string s="";
+        ll d1=min(d,dels/2);
+        for(int i=0;i<d1;i++){
+            s+='1';
+            s+='1';
+            
+        }
+        d-=d1;
+        dels-=2*d1;
+        d1=min(c,dels/2);
+        for(int i=0;i<d1;i++){
+            s+='1';
+            s+='0';
+        }
+        c-=d1;
+        dels-=2*d1;
+        if(c&&dels){
+            c--;
+            s+='1';
+            s+='0';
+            dels--;
+        }
+        for(int i=0;i<a;i++){
+            s+='0';
+            s+='0';
+        }
+        for(int i=0;i<b;i++){
+            s+='0';
+            s+='1';
+        }
+        for(int i=0;i<c;i++){
+            s+='1';
+            s+='0';
+        }
+        for(int i=0;i<d;i++){
+            s+='1';
+            s+='1';
+        }
+        
+        string ans="";
+        for(int i=n-1;i<s.length();i++){
+            ans+=s[i];
+        }
+        
+        cout<<ans<<"\n";
+        
+        
+        
+    }
+}

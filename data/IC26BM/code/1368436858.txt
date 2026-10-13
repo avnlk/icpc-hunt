@@ -1,0 +1,30 @@
+from collections import deque
+
+for _ in range(int(input())):
+    c00, c01, c10, c11 = map(int, input().split())
+    m = ["00"] * c00 + ["01"] * c01 + ["10"] * c10 + ["11"] * c11
+    
+    q = deque([tuple(sorted(m))])
+    vis = {tuple(sorted(m))}
+    ans = None 
+    
+    while(q):
+        c = list(q.popleft())
+        
+        if(len(c) == 1):
+            if(ans is None or c[0] < ans):
+                ans = c[0]
+            continue
+        
+        for i in range(len(c)):
+            for j in range(len(c)):
+                if(i != j):
+                    new_string = (c[i] + c[j])[1:]
+                    new_multi = c[:i] + c[i + 1: j] + c[j + 1:] if(i < j) else c[:j] + c[j + 1:i] + c[i + 1:]
+                    
+            new_multi.append(new_string)
+            state = tuple(sorted(new_multi))
+            if(state not in vis):
+                vis.add(state)
+                q.append(state)
+    print(ans)

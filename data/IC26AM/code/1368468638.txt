@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#define ll long long 
+using namespace std;
+
+const ll M=998244353,MAXI=2e5+6;
+ll inv[MAXI];
+ll b[MAXI];
+
+void pre(){
+    inv[1]=1;
+    for(ll i=2;i<MAXI;i++){
+        inv[i]=(M-(M/i)*inv[M%i]%M)%M;
+    }
+    b[0]=0;
+    for(ll i=1;i<MAXI;i++){
+        b[i]=(b[i-1]+inv[i])%M;
+    }
+}
+
+int main() {
+	// your code goes here
+	ll tt;cin>>tt;
+	pre();
+	while(tt--){
+       ll n,ans=0;cin>>n;
+       vector<ll>a(n);
+       for(auto &i:a)cin>>i;
+       for(ll i=0;i<n;i++){
+           ll cf=(b[i]+b[n-1-i])%M;
+           ans=(ans+a[i]*cf)%M;
+       }
+       cout<<ans<<endl;
+	}
+}

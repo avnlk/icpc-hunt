@@ -1,0 +1,51 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    Scanner ch = new Scanner(System.in);
+	    int t = ch.nextInt();
+	    while(t-->0){
+	        int c00 = ch.nextInt();
+	        int c01 = ch.nextInt();
+	        int c10 = ch.nextInt();
+	        int c11 = ch.nextInt();
+	        int n = c00 + c01 + c10 + c11;
+	        if(n==1){
+	            if ( c00 ==1 ) System.out.println("00");
+	            else if (c01==1) System.out.println("01");
+	            else if (c10==1) System.out.println("10");
+	            else System.out.println("11");
+	            continue;
+	        }
+	        StringBuilder ans = new StringBuilder();
+	        int zeros = c00 + c10;
+	        while(c00 >0){
+	            ans.append("00");
+	            c00--;
+	        }
+	        while(c10 >0){
+	            ans.append("0");
+	            c10--;
+	        }
+	        while(c01 >0 && c11 >0){
+	            ans.append("01");
+	            c01--;
+	            c11--;
+	        }
+	        while(c01 >0){
+	            ans.append("01");
+	            c01--;
+	        }
+	        while(c11 >0){
+	            ans.append("11");
+	            c11--;
+	        }
+	        System.out.println(ans);
+	    }
+
+	}
+}

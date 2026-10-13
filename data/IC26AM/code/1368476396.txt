@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const long long MOD = 998244353;
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	vector<pair<int,vector<long long>>> te(t);
+	int mx = 0;
+	for(auto &[n, a] : te) {
+	    cin >> n;
+	    a.resize(n);
+	    for(auto &i : a) {
+	        cin >> i;
+	    }
+	    mx = max(mx, n);
+	}
+	vector<long long> xx(mx + 1), h(mx + 1);
+	if(mx >= 1) xx[1] = 1;
+	for(int i = 2; i <= mx; ++i) {
+	    xx[i] = MOD - (MOD / i) * xx[MOD % i] % MOD;
+	}
+	for(int i = 1; i <= mx; ++i) {
+	    h[i] = (h[i - 1] + xx[i]) % MOD;
+	}
+	for(auto &[n, a] : te) {
+	    long long ans = 0;
+	    for(int i = 0; i < n; ++i) {
+	        long long cff = (h[i] + h[n - i - 1]) % MOD;
+	        ans = (ans + a[i] * cff) % MOD;
+	    }
+	    cout << ans << endl;
+	}
+}
+

@@ -1,0 +1,24 @@
+# cook your dish here
+t = int(input())
+
+for _ in range(t):
+    c00, c01, c10, c11= map(int, input().split())
+    
+    z = c00+ c10
+    o = c01+ c11
+    
+    ans = []
+    
+    if c00:
+        ans.append('0' *(z-1)+ '1' * o + '00')
+        
+    if c01:
+        ans.append('0' * z+'1' * (o-1)+'01')
+        
+    if c10:
+        ans.append('0' * (z-1) + '1' * o + '10')
+        
+    if c11:
+        ans.append('0' * z +'1' * (o-1) +'11')
+        
+print(min(ans))

@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+const int MODI= 998244353;
+const int MAXN = 200005;
+
+ll invMod[MAXN];
+ll matrix[MAXN];
+
+void precompute(){
+    invMod[1] = 1;
+    for(int i = 2; i < MAXN; i++){
+        invMod[i] = (MODI - MODI/i) * invMod[MODI % i] % MODI;
+    }
+    
+    matrix[0] = 0;
+    for(int i = 1; i < MAXN; i++){
+        matrix[i] = (matrix[i-1] + invMod[i])% MODI;
+    }
+}
+
+void solve(){
+    int n;
+    cin >> n;
+    vector<ll> arr(n);
+    
+    for(int i = 0; i < n; i++){
+        cin >> arr[i];
+    }
+    
+    if(n == 1){
+        cout << 0 << endl;
+        return;
+    }
+    
+    ll answer = 0;
+    
+    for(int i = 0; i < n; i++){
+        ll coef = (matrix[i] + matrix[n-1-i])% MODI;
+        answer = (answer + (arr[i] % MODI) * coef) % MODI;
+    }
+    
+    cout << answer << endl;
+}
+
+int main() {
+	// your code goes here
+    precompute();
+    
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+}

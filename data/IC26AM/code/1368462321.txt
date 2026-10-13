@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MOD = 998244353;
+
+int main() {
+    vector<long long > inv(200005);
+    inv[1]=1;
+    for(int i=2;i<200005;i++){
+        inv[i]=(MOD-MOD/i)*(inv[MOD%i])%MOD;
+    }
+    vector<long long> P(200005,0);
+    for(int i=1;i<200005;i++){
+        P[i]=(P[i-1]+inv[i])%MOD;
+    }
+    
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    long long sum=0;
+	    for(int i=0;i<n;i++){
+	        long long b;
+	        cin>>b;
+	        long long cuff = (P[i]+P[n-1-i])%MOD;
+	        sum=(sum+b%MOD*cuff)%MOD;
+	    }
+	    cout<<sum<<endl;
+	}
+
+}

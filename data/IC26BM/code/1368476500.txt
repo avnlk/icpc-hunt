@@ -1,0 +1,22 @@
+# cook your dish here
+
+T = int(input())
+
+for t in range(T):
+    c00, c01, c10, c11 = map(int, input().split())
+    
+    z = c00 + c10
+    o = c01 + c11
+    
+    if c00:
+        ans = '0' * (z-1) + '1'*o + '00'
+    elif c10:
+        ans = '0'*(z-1) + '1'*o + '10'
+    elif c01:
+        ans = '1'*(o-1) + '01'
+    else:
+        ans = '1'*(o-1) + '11'
+        
+    print(ans)
+    
+    

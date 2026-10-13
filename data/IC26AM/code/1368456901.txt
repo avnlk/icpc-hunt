@@ -1,0 +1,24 @@
+# cook your dish here
+MOD=998244353
+t=int(input())
+tests=[]
+mx=0
+for _ in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    tests.append((n,a))
+    mx=max(mx,n)
+inv=[0]*(mx+1)
+inv[1]=1
+for i in range(2,mx+1):
+    inv[i]=MOD-(MOD//i)*inv[MOD%i]%MOD
+h=[0]*(mx+1)
+for i in range(1,mx+1):
+    h[i]=(h[i-1]+inv[i])%MOD
+for n,a in tests:
+    ans=0
+    for i ,x in enumerate(a):
+        ans=(ans+x*(h[i]+h[n-i-1]))%MOD
+    print(ans)
+    
+    

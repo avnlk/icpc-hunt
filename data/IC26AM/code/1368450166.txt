@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int mod=998244353;
+int maxi=200005;
+vector<long long>inv(maxi,0);
+vector<long long>modi(maxi,0);
+
+int main() {
+	// your code goes here
+	inv[1]=1;
+	for(int i=2;i<maxi;i++){
+	    inv[i]=mod-(mod/i)*inv[mod%i]%mod;
+	}
+	modi[0]=0;
+	for(int i=1;i<maxi;i++){
+	    modi[i]=(modi[i-1]+inv[i])%mod;
+	}
+	int t,n;
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    long long tot=0;
+	    for(int i=1;i<=n;i++){
+	        long long x;
+	        cin>>x;
+	        long long coef=(modi[i-1]+modi[n-i])%mod;
+	        tot=(tot+x*coef)%mod;
+	    }
+	    cout<<tot<<endl;
+	}
+}

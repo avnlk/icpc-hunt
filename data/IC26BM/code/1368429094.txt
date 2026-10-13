@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	scanf("%d", &t);
+	const char*S[4] = {"00", "01", "10", "11"};
+	while(t--){
+	    long long c[4];
+	    scanf("%lld %lld %lld %lld", &c[0], &c[1], &c[2], &c[3]);
+	    long long n = c[0] + c[1] + c[2] + c[3];
+	    if(n == 1){
+	        for(int i = 0; i < 4; i++) if(c[i]) puts(S[i]);
+	        continue;
+	    }
+	    string best;
+	    bool have = false;
+	    for(int T = 0; T < 4; T++){
+	        if(!c[T]) continue;
+	        long long cnt[4] = {c[0], c[1], c[2], c[3]};
+	        cnt[T]--;
+	        long long a = cnt[0], b = cnt[1], cc = cnt[2], d = cnt[3];
+	        long long B = b + d;
+	        vector<pair<long long, long long>> cands;
+	        cands.push_back({min(a, B), 0});
+	        if(b >= 1 && B >= 2){
+	            long long p = min(a, B - 2);
+	            long long u = min(b, (B - p) / 2);
+	            cands.push_back({p, u});
+	        }
+	        for(auto &pr : cands){
+	            long long p = pr.first, u = pr.second;
+	            long long P = a + p + cc;
+	            long long s = b + d - p - 2 * u;
+	            string r;
+	            r.reserve(n + 1);
+	            r.append(P, '0');
+	            for(long long i = 0; i < u; i++){
+	                r += "01";
+	            }
+	            r.append(s, '1');
+	            r += S[T];
+	            if(!have || r < best){ best = r; have = true;}
+	        }
+	    }
+	    puts(best.c_str());
+	}
+}

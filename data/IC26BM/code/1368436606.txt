@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string build(vector<int> c, int f){
+    static string s[4] = {"00","01","10","11"};
+    
+    c[f]--;
+    
+    int a = c[0];
+    int b = c[1];
+    int x = c[2];
+    int d = c[3];
+    
+    int g = min({a+b, b+d, (a+b+d)/2});
+    
+    int p = min(a,g);
+    int q=g-p;
+    
+    string r;
+    
+    r.append(a+x+p,'0');
+    
+    for(int i=0;i<q;i++)r+="01";
+    
+    r.append(b+d-g-q,'1');
+    
+    r+=s[f];
+    
+    return r;
+}
+
+int main() {
+	// your code goes here
+	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+	
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    vector<int> c(4);
+	    
+	    for(int &x:c)cin>>x;
+	    
+	    string ans;
+	    bool ok=false;
+	    
+	    for(int i=0;i<4;i++){
+	        if(!c[i])continue;
+	        
+	        string cur = build(c,i);
+	        
+	        if(!ok || cur<ans){
+	            ans=cur;
+	            ok=true;
+	        }
+	    }
+	    cout<<ans<<'\n';
+	}
+	return 0;
+
+}

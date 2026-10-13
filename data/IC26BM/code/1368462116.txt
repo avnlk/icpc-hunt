@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    vector<int>meow(4);
+	    int n=0;
+	    for(int i=0;i<4;i++){
+	        cin>>meow[i];
+	        n+=meow[i];
+	    }
+	    
+	    vector<string> s={"00","01","10","11"};
+	    string ans="";
+	    
+	    for(int i=0;i<4;i++){
+	        if(meow[i]==0){
+	            continue;
+	        }
+	        meow[i]--;
+	        int x=min(meow[0],meow[1]+meow[3]);
+	        int y= min(meow[1],(meow[1]+meow[3]-x)/2);
+	        int z= meow[0]+meow[2]+x;
+	        int o =meow[1]+meow[3]-x-2*y;
+	        
+	        string cur(z,'0');
+	        cur.reserve(n+1);
+	        for(int j=0;j<y;j++){
+	            cur+="01";
+	        }
+	        cur+=string(o,'1');
+	        cur+=s[i];
+	        if(ans.empty() || cur<ans){
+	            ans=cur;
+	        }
+	        meow[i]++;
+	    }
+	    cout<<ans<<"\n";
+	}
+	return 0;
+
+}

@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+#include<iostream>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  
+  int n;
+  long long x;
+  cin>>n>>x;
+  
+  unordered_set<long long> seen;
+  for(int i = 0; i<n;i++)
+  {
+    long long a;
+    cin>>a;
+    if(seen.count(x-a))
+    {
+      cout<<"YES\n";
+      return 0;
+    }
+    seen.insert(a);
+  }
+  
+  cout<<"NO\n";
+  return 0;
+  
+}

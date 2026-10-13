@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;cin>>t;
+	while(t--) {
+	    ll c0,c1,c2,c3;
+	    cin>>c0>>c1>>c2>>c3;
+	    ll n = c0 + c1 + c2 + c3;
+	    
+	    ll k = 2 * c0 + c2;
+	    string ans = "";
+	    while(ans.length() < n + 1 && k > 0)
+	    {
+	        ans.push_back('0');
+	        k--;
+	    }
+	    
+	    ll len = n + 1 - ans.length();
+	    if(len - 1 > 2 * c1)
+	    {
+	        for(int i = 0; i < c1; i++)
+	        {
+	            ans.push_back('0');
+	            ans.push_back('1');
+	        }
+	        while(ans.length() < n + 1)
+	            ans.push_back('1');
+	    }
+	    else
+	    {
+	        if(len%2 == 0)
+	        {
+	            while(ans.length() < n + 1)
+	            {
+	                ans.push_back('0');
+	                ans.push_back('1');
+	            }
+	        }
+	        else
+	        {
+	            while(ans.length() < n)
+	            {
+	                ans.push_back('1');
+	                ans.push_back('0');
+	            }
+	            ans.push_back('1');
+	        }
+	    }
+	    
+	    
+	    cout << ans << endl;
+	    
+	   //string ans="";
+	   //if(c0+c1>=2*c3) {
+	   //    for(int i=0;i<)
+	   //}
+	   
+	}
+}

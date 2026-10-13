@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define ll long long
+#define loop(i,a,c) for(int i = a; i < c ; i++)
+#define rof(i,a,c) for(int i = a; i >= c; i--)
+#define vi vector<int>
+#define vll vector<ll>
+#define sz(x) x.size()
+#define input(x) loop(i,0,sz(x)) cin >> x[i];
+#define input1(x) loop(i,1,sz(x)) cin >> x[i];
+#define forr(i,a,b) for(int i = a; i <= b; i++)
+
+vi hn(200010, 0);
+
+int mod = 998244353;
+int powMod(int x, int n){
+    int ans = 1;
+    int p = x;
+    while(n > 0){
+        if(n & 1){
+            ans = (ans * p) % mod;
+        }
+        p = p * p % mod;
+        n /= 2;
+    }
+    return ans;
+}
+
+int modinv(int x){
+    return powMod(x, mod-2);
+}
+
+void solve(){
+    int n; cin >> n; 
+    vi a(n+1);
+    forr(i,1,n) cin >> a[i];
+    int ans = 0;
+    forr(i,1,n){
+        ans += (a[i] * ((hn[i-1] + hn[n-i])%mod))%mod;
+        ans %= mod;
+    }cout << ans << '\n';
+}
+
+int32_t main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+	int t;
+	cin >> t;
+	
+	forr(i,1,200009){
+	    hn[i] = (hn[i-1] + modinv(i))%mod;
+	}
+	
+	while(t--){
+	    solve();
+	}
+}

@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const long long mod = 998244353;
+
+int l = 200000;
+
+vector<long long>r(l+1);
+vector<long long>f(l+1);
+
+void fun(){
+    r[1]=1;
+    for(int i=2;i<=l;i++){
+        r[i] = (mod-(mod/i)*r[mod%i]%mod)%mod;
+    }
+    
+    for(int i=1;i<=l;i++){
+        f[i] = (f[i-1]+r[i])%mod;
+        if(f[i]>=mod)
+            f[i]-=mod;
+        
+    }
+}
+
+
+int main() {
+    fun();
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    vector<int>a(n);
+	    
+	    for(int i=0;i<n;i++)
+	        cin>>a[i];
+	        
+	    long long ans = 0;
+	    
+	    for(int i=0;i<n;i++){
+	        long long temp = (f[i]+f[n-i-1])%mod;
+	        if(temp>=mod){
+	            temp -=mod;
+	        }
+	        
+	        ans = (ans + (a[i]%mod)*temp)%mod;
+	    }
+	    
+	    cout<<ans<<endl;
+	}
+	
+
+}

@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+void solve(){
+    long long c00,c01,c10,c11;
+    cin>>c00>>c01>>c10>>c11;
+    long long h00=c00,f00=0;
+    long long h01=c01,f01=0;
+    long long h10=c10,f10=0;
+    long long d11=c11,h11=0,f11=0;
+    long long tgt=1+c11;
+    long long tk=min(tgt,h00);
+    h00-=tk;
+    f00+=tk;
+    tgt-=tk;
+    tk=min(tgt,h01);
+    h01-=tk;
+    f01+=tk;
+    tgt-=tk;
+    tk=min(tgt,d11);
+    d11-=tk;
+    h11+=tk;
+    tgt-=tk;
+    tk=min(tgt,h11);
+    h11-=tk;f11+=tk;tgt-=tk;
+    tk=min(tgt,h10);
+    h10-=tk;f10+=tk;tgt-=tk;
+    string bst ="";
+    auto chk=[&](int t){
+        long long cf00=f00,cf01=f01,cf10=f10,cf11=f11;
+        string lst ="";
+        if(t==0) {
+           if (!cf00) return; cf00--; lst="00";
+        }
+        if(t==1) {
+            if(!cf01) return; cf01--; lst="01";
+        }
+        if(t==2) {
+           if (!cf10) return; cf10--; lst="10";
+        }
+        if(t==3) {
+           if (!cf11) return; cf11--; lst="11";
+        }
+        long long z=cf00*2 +h00+ h10;
+        long long o=cf11*2 + h01 +h11;
+        string c="";
+        c.reserve(z+cf01*2* +cf10*2 +o+2);
+        c.append(z,'0');
+        for(long long i=0;i<cf01;++i) c+="01";
+        for(long long i=0;i<cf10;++i) c+="10";
+        c.append(o,'1');
+        c+=lst;
+        if(bst==""||c<bst) bst=c;
+        
+    };
+    chk(0);
+    chk(1);
+    chk(2);
+    chk(3);
+    cout<<bst<<"\n";
+}
+int main() {
+	// your code goes here
+	int t;
+	if(cin>>t){
+	    while(t--) solve();
+	}
+   return 0;
+}

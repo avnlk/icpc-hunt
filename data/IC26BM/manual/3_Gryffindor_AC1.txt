@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	const char* s[4]={"00","01","10","11"};
+	while(t--)
+	{
+	    long long c[4];
+	    for(int i=0;i<4;i++)
+	    {
+	        cin>>c[i];
+	    }
+	    
+	    string best;
+	    bool flag=false;
+	    
+	    for(int l=0;l<4;l++)
+	    {
+	        if(!c[l])
+	        {
+	            continue;
+	        }
+	        long long a=c[0],b=c[1],d=c[2],e=c[3];
+	        if(l==0)
+	        {
+	            a--;
+	        }
+	        else if(l==1)
+	        {
+	            b--;
+	        }
+	        else if(l==2)
+	        {
+	            d--;
+	        }
+	        else
+	        {
+	            e--;
+	        }
+	        
+	        long long w0=min(a,b+e);
+	        long long w1=min(b,(b+e-w0)/2);
+	        long long z=a+d+w0;
+	        long long o=b+e-w0-2*w1;
+	        
+	        string r;
+	        r.reserve(z+2*w1+o+2);
+	        r.append(z,'0');
+	        for(long long i=0;i<w1;i++)
+	        {
+	            r+="01";
+	        }
+	        r.append(o,'1');
+	        r+=s[l];
+	        
+	        if(!flag || r<best)
+	        {
+	            best=r;
+	            flag=true;
+	        }
+	    }
+	    cout<<best<<endl;
+	}
+
+}

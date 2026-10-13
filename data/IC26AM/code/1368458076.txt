@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long
+const ll MOD=998244353;
+const int MAXN=200005;
+int main() {
+	vector<ll>inv(MAXN);
+	inv[1]=1;
+	for(int i=2;i<MAXN ; i++){
+	    inv[i]=MOD-(MOD/i)*inv[MOD%i]%MOD;
+	}
+	vector<ll>H(MAXN,0);
+	for(int i=1;i<MAXN;i++){
+	    H[i]=(H[i-1]+inv[i])%MOD;
+	}
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    ll ans=0;
+	    for(int i=0;i<n;i++){
+	        ll x;
+	        cin>>x;
+	        ll prob=(H[i]+H[n-i-1])%MOD;
+	        ans=(ans+x*prob)%MOD;
+	    }
+	    cout<<ans<<endl;
+	}
+}

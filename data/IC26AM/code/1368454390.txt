@@ -1,0 +1,27 @@
+# cook your dish here
+import sys
+from functools import cmp_to_key
+
+def solve():
+    data=sys.stdin.read().split()
+    if not data:
+        return
+    try:
+        n=int(data[0])
+        strings=data[1:n+1]
+    except ValueError:
+        strings=data
+    def compare(a:str,b:str) -> int:
+        ab=a+b
+        ba=b+a
+        if ab<ba:
+            return -1
+        elif ab>ba:
+            return 1
+        return 0
+    strings.sort(key=cmp_to_key(compare))
+    result="".join(strings)
+    print(result)
+    
+if __name__ == "__main__":
+    solve()

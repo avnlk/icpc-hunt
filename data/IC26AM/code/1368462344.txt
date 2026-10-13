@@ -1,0 +1,35 @@
+# cook your dish here
+import sys
+
+
+def solve(t):
+    mod=998244353
+    d=sys.stdin.read().split()
+    p=0
+    res=[]
+    mx=200005
+    iv=[0,1]+[0]*(mx-2)
+    for i in range(2,mx):
+        iv[i]=(mod-(mod//i)*iv[mod%i]%mod)%mod
+    h=[0]*mx
+    for i in range(1,mx):
+        h[i]=(h[i-1]+iv[i])%mod
+    for i in range(t):
+        n=int(d[p])
+        p+=1
+        ans=0
+        for j in range(1,n+1):
+            a=int(d[p+j-1])
+            ans=(ans+a*((h[j-1]+h[n-j])%mod))%mod
+        p+=n
+        res.append(ans)
+    for i in res:
+        print(i)
+    
+def my():
+    n=int(sys.stdin.readline())
+    solve(n)
+
+
+my()
+        

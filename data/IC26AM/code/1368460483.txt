@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<long long int> inv(200005), h(200005);
+    
+    inv[1] = 1;
+    long long int i = 2;
+    while (i < 200005) {
+        inv[i] = (998244353 - (998244353 / i) * inv[998244353 % i] % 998244353) % 998244353;
+        i = i + 1;
+    }
+    
+    h[0] = 0;
+    i = 1;
+    while (i < 200005) {
+        h[i] = (h[i - 1] + inv[i]) % 998244353;
+        i = i + 1;
+    }
+    
+    long long int t;
+    cin>>t;
+    
+    while (t--) {
+        long long int n;
+        cin >> n;
+        
+        long long int ans = 0;
+        
+        i = 1;
+        while (i<=n) {
+            long long int x;
+            cin >> x;
+            
+            long long int coef = (h[i - 1] + h[n-i]) % 998244353;
+            ans = (ans + x % 998244353 * coef) % 998244353;
+            
+            i = i + 1;
+        }
+        
+        cout <<ans<<endl;
+    }
+    
+    return 0;
+}

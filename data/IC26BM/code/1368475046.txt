@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	
+	vector<string>endings = {"00" , "01" , "10" , "11"};
+	while(t--){
+	    vector<int>count(4);
+	    for(int i = 0 ; i<4 ; i++){
+	        cin>>count[i];
+	    }
+	    string ans = "";
+	    
+	    for(int last = 0 ; last<4 ; last++){
+	        if(count[last] == 0){
+	            continue;
+	            
+	        }
+	        vector<int>rem = count;
+	        rem[last]--;
+	        
+	        int pairzz = min(rem[0] , rem[1] + rem[3]);
+	        int removeO = min(pairzz , rem[3]);
+	        rem[3] -= removeO;
+	        rem[1] -= pairzz - removeO;
+	        int zeroes = rem[0] + rem[2] + pairzz;
+	        
+	        int pairZO = min(rem[1] , (rem[1] + rem[3])/2);
+	        int onez = rem[1] + rem[3] - 2*pairZO;
+	        string current = "";
+	        
+	        for(int i = 0 ; i<zeroes ; i++){
+	            current += '0';
+	            
+	        }
+	        for(int i = 0 ; i<pairZO ; i++){
+	            current += "01";
+	            
+	        }
+	        for(int i = 0 ; i<onez ; i++){
+	            current += '1';
+	        }
+	        
+	        current+= endings[last];
+	        
+	        if(ans.empty() || current<ans){
+	            ans = current;
+	        }
+	        
+	        
+	    }
+	    
+	    cout<<ans<<endl;
+	    
+	    
+	}
+	
+	return 0;
+}

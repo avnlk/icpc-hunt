@@ -1,0 +1,120 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define rp(n) for(ll i=0;i<n;i++)
+int main() {
+	ll tests;
+	cin>>tests;
+	while(tests--)
+	{
+	    ll c00,c01,c10,c11;
+	    cin>>c00>>c01>>c10>>c11;
+	string s="";
+	if(c00)
+	{
+	    s="00";
+	    c00--;
+	}
+	else if(c01)
+	{
+	    s="01";
+	    c01--;
+	}
+	else if(c11)
+	{
+	    s="11";
+	    c11--;
+	}
+	else if(c10)
+	{
+	    s="10";
+	    c10--;
+	}
+	while(c00)
+	{
+	    if(c11)
+	    {
+	        s+="00";
+	        c11--;
+	    }
+	    else if(c01)
+	    {
+	        s+="00";
+	        c01--;
+	    }
+	    else if(c00>1)
+	    {
+	        s+="00";
+	        c00--;
+	    }
+	    else if(c00)
+	    {
+	        s+="0";
+	    }
+	    c00--;
+	}
+	while(c01)
+	{
+	    if(c11)
+	    {
+	        s+="01";
+	        c11--;
+	    }
+	    else if(c01==3)
+	    {
+	        s+="101";
+	        c01-=2;
+	    }
+	    else if(c01>1)
+	    {
+	        s+="01";
+	        c01--;
+	    }
+	    else if(c01)
+	    {
+	        string p="";
+	        for(int i=1;i<s.size();i++)
+	        {
+	            p+=s[i];
+	        }
+	        s=p+"01";
+	    }
+	    c01--;
+	}
+	while(c11)
+	{
+	    if(c11==3)
+	    {
+	        s+="111";
+	        c11-=2;
+	    }
+	    else if(c11>1)
+	    {
+	        s+="11";
+	        c11--;
+	    }
+	    else if(c11)
+	    {
+	        string p="";
+	        for(int i=1;i<s.size();i++)
+	        {
+	            p+=s[i];
+	        }
+	        s=p+"11";
+	    }
+	    c11--;
+	}
+	string ans="";
+	while(c10)
+	{
+	    ans+="0";
+	    c10--;
+	}
+	ans+=s;
+	cout<<ans<<endl;
+	}
+	
+	
+	
+
+}

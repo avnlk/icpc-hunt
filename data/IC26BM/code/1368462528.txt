@@ -1,0 +1,48 @@
+# cook your dish here
+def smaller(a,b):
+    z1,p1,o1,m1 =a
+    z2,p2,o2,m2=b
+    if z1!= z2:
+        return z1>z2
+    if p1==p2:
+        if o1 != o2:
+            return o1<o2
+        return m1<m2
+    if p1<p2:
+        return o1==0 and m1[0]=='0'
+    return o2>0 or m2[0]=='1'
+t=int(input())
+for _ in range(t):
+    c00,c01,c10,c11=map(int,input().split())
+    n=c00+c01+c10+c11
+    best=None
+    ss=['00','01','10','11']
+    for k in range((n-1)//2+1):
+        x=min(c00,k)
+        lo=max(0,2*k-c01-x)
+        hi=min(k,c11)
+        if lo>hi:
+            continue
+        p=k-x 
+        base0=c00-x+c10
+        base1=c01+c11-2*k+x 
+        
+        for m in range(4):
+         possible =[
+             c00-x>0,
+             c01-2*k+x+hi>0,
+             c10 >0,
+             c11-lo>0
+             ][m]
+             
+         if not possible:
+                 continue
+             
+         z=2*x+base0 - (m in [0,2])
+         o= base1 - (m in [1,3])
+             
+         cur = (z,p,o,ss[m])
+         if best is None or smaller(cur,best):
+                 best = cur
+    z,p,o,last=best
+    print('0' * z + '01' * p + '1' * o + last)

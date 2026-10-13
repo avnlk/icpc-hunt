@@ -1,0 +1,31 @@
+# cook your dish here
+t = int(input())
+
+for i in range(t):
+    num = list(map(int, input().split()))
+    l = num[0] + num[1] + num[2] + num[3]
+    s = ["00" for _ in range(num[0])] + ["01" for _ in range(num[1])] + ["10" for _ in range(num[2])] + ["11" for _ in range(num[3])]
+    
+    if l==1:
+        print(s[0])
+    elif l==2:
+        new = s[0]+s[1]
+        new = new[1:]
+        print(new)
+    else:
+        new = s[-1]+s[0]
+        new = new[1:]
+        s = s[1:-1]
+        l -=2
+        
+        while (l > 0):
+            if new[0] == "1":
+                new = new + s[0]
+                new = new[1:]
+                s = s[1:]
+            else:
+                new = s[-1] + new
+                new = new[1:]
+                s = s[:-1]
+            l -=1
+        print (new)

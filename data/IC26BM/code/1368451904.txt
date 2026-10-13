@@ -1,0 +1,59 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        Scanner sc=new Scanner(System.in);
+        StringBuilder out=new StringBuilder();
+        String[] p={"00","01","10","11"};
+        int t=sc.nextInt();
+        
+        while(t-- >0){
+            int[] c=new int[4];
+            int n=0;
+            
+            for(int i=0;i<4;i++){
+                c[i]=sc.nextInt();
+                n+=c[i];
+            }
+            
+            String ans=null;
+            
+            for(int i=0;i<4;i++){
+                if(c[i]==0) continue;
+                
+                c[i]--;
+                
+                int z=Math.min(n-1,2*c[0]+c[2]);
+                int r=n-1-z;
+                int q=Math.min(c[1],r/2);
+                
+                StringBuilder s=new StringBuilder(n+1);
+                
+                for(int j=0;j<z;j++)
+                    s.append('0');
+                    
+                for(int j=0;j<q;j++)
+                    s.append("01");
+                    
+                for(int j=0;j<r-2*q;j++)
+                    s.append('1');
+                    
+                s.append(p[i]);
+                String v=s.toString();
+                
+                if(ans==null || v.compareTo(ans)<0)
+                    ans=v;
+                    
+                c[i]++;
+            }
+            out.append(ans).append('\n');
+        }
+        System.out.print(out);
+        sc.close();
+	}
+}

@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const ll M = 998244353;
+const int N = 200005;
+
+ll inv[N], H[N];
+
+void precompute(){
+    inv[1] = 1; H[1] = 1;
+    for(int i=2;i<N;i++){
+        inv[i] = (M - M/i) * inv[M % i] % M;
+        H[i] = (H[i-1] + inv[i]) % M;
+    }
+}
+
+void solve(){
+    
+    int n;
+    cin >> n;
+    ll ans = 0;
+    for(int j=1;j<=n;j++){
+        ll x;
+        cin >> x;
+        ans = (ans+ x % M * ((H[n-j] + H[j-1]) % M)) % M;
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+	ios::sync_with_stdio(0),cin.tie(0);
+	precompute();
+	int t;
+	cin >> t;
+	while(t--){
+	    solve();
+	}
+	return 0;
+}

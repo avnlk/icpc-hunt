@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int tt; cin >> tt;
+    while(tt--) {
+    int n = 4; 
+    // cin >> n; 
+    vector<int> a(4);
+    vector<string> ss = {"11", "10", "01", "00"};
+    for (auto &i : a) cin >> i;
+    n = a[0] + a[1] + a[2] + a[3];
+    reverse(a.begin(), a.end());
+    string s = "";
+    int sub = n - 1;
+    
+    while (sub > 0) {
+        if (sub == 1) {
+            if (a[1]) {
+                a[1]--;
+                s += "10";
+            } else if (a[3]) {
+                a[3]--;
+                s += "00";
+            } else if (a[0]) {
+                a[0]--;
+                s += "11";
+            } else {
+                a[2]--;
+                s += "01";
+            }
+            break;
+        }
+        for (int i = 0; i < 4; i++) {
+            if (a[i]) {
+                a[i]--;
+                s += ss[i];
+                sub -= 2;
+                break;
+            }
+        }
+    }
+    
+
+    for (int i = 3; i >= 0; i--) {
+        while(a[i]--) {
+            s += ss[i];
+        }
+    }
+    string ans = "";
+    for (int i = n - 1; i < s.length(); i++) ans += s[i];
+    if (ans[0] == '1' && ans[1] == '0') swap(ans[1],ans[0]);
+    cout << ans << endl;
+    }
+}

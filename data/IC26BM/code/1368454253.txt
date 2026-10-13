@@ -1,0 +1,17 @@
+import sys
+D=sys.stdin.read().split()
+for i in range(int(D[0])):
+    a,b,c,d=map(int,D[4*i+1:4*i+5]);r=[]
+    for u,v in (0,0),(1,0),(0,1):
+        k=u+v;B=b+d-v-k+1 
+        if u>c or v>d or B<0:
+            continue
+        m=min(a,B)
+        for p in {m,m-1,0}:
+            n=min(b,(B-p)//2)
+            for q in {n,n-1,0}:
+                if p<0 or q<0 or p+q+k<1:
+                    continue
+                l=["00"]*p+["01"]*q+["10"]*u+["11"]*v 
+                r.append("0"*(a-p+c-u)+"".join(l[:-1])+"1"*(B-2*q-p)+l[-1])
+    print(min(r) if r else "")

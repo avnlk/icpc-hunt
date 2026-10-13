@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 998244353;
+int main() {
+	// your code goes here
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        vector<int> a(n+1);
+        vector<vector<int>> pos(n+1);
+        for(int i  = 1;i<=n;i++){
+            cin>>a[i];
+            pos[a[i]].push_back(i);
+        }
+        vector<int> ways(n+1),nextWays(n+1,0);
+        ways[0] = 1;
+        for(int i = 1;i<=n;i++){
+            fill(nextWays.begin(),nextWays.end(),0);
+            for(int j = 0;j<i;j++){
+                if(!ways[j]) continue;
+                int choices = i == n? 1:2;
+                for(int k = 0;k<choices;k++){
+                    int newL = j + (k==0);
+                    int newR = i - newL;
+                    int placedAt = k == 0? newL : n - newR + 1;
+                    bool valid = true;
+                    for(int idx:pos[i]){
+                        int prefCount = min(idx,newL) + max(0,idx-(n-newR));
+                        int beforeCount = min(idx-1,newL) + max(0,idx-1-(n-newR));
+                        bool matchedPref = placedAt <= idx && prefCount == (idx+1)/2;
+                        bool matchedSuff = placedAt >= idx && i - beforeCount == (n-idx+2)/2;
+                        if(!matchedPref && !matchedSuff) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    if(valid){
+                        nextWays[newL] += ways[j];
+                    if(nextWays[newL] >= MOD) nextWays[newL] -= MOD;
+                    }
+                    
+                }
+            }
+            ways.swap(nextWays);
+        }
+        int total = 0;
+        for(int c:ways){
+            total += c;
+            if(total>=MOD) total%=MOD;
+        }
+        
+        cout<<total<<"\n";
+    }
+}

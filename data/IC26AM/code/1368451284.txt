@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int md = 998244353;
+const int mx = 200000;
+
+vector<int64_t> inv, h;
+
+void precompute() {
+    inv.assign(mx + 1, 0);
+    h.assign(mx + 1, 0);
+    inv[1] = 1;
+    for (int i = 2; i <= mx; i++) {
+        inv[i] = (md - (md / i) * inv[md % i] % md) % md;
+    }
+    for (int i = 1; i <= mx; i++) {
+        h[i] = (h[i - 1] + inv[i]) % md;
+    }
+}
+
+int64_t weight(int j, int n) {
+    return (h[j - 1] + h[n - j]) % md;
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    auto addmod = [](int64_t a, int64_t b) {
+        return (a + b) % md;
+    };
+    int64_t ans = 0;
+    for (int j = 1; j <= n; j++) {
+        int64_t x;
+        cin >> x;
+        ans = addmod(ans, x % md * weight(j, n) % md);
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	precompute();
+	int t;
+	cin >> t;
+	while (t--) {
+	    solve();
+	}
+    return 0;
+}

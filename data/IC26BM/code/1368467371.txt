@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string fun(int a,int b,int c,int d){
+        string s;
+	    while(a){
+	        if(d){
+	            s+="00";
+	            d--;a--;
+	        }else if(b){
+	            s+="00";
+	            b--;a--;
+	        }else{
+	            s+="0";
+	            a--;
+	        }
+	    }
+	    while(c){
+	        s+='0';
+	        c--;
+	    }
+	    string s2="";
+	    while(b&&d){
+	        s2+="01";
+	        b--;d--;
+	    }
+	    while(b){
+	        s2+='1';
+	        b--;
+	    }while(d){
+	        s2+='1';
+	        d--;
+	    }
+	    s+=s2;
+	    return s;
+}
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b,c,d;
+        cin>>a>>b>>c>>d;
+        string s2="";
+        string s1="";
+        string s="";
+        if(a){
+            s1="00";
+            s=fun(a-1,b,c,d)+s1;
+            if(s2=="")s2=s;
+        }
+        if(b){
+            s1="01";
+            s=fun(a,b-1,c,d)+s1;
+            if(s2=="")s2=s;
+            else{
+                if(s2>s)s2=s;
+            }
+        }
+        if(c){
+            s1="10";
+            s=fun(a,b,c-1,d)+s1;
+            if(s2=="")s2=s;
+            else{
+                if(s2>s)s2=s;
+            }
+        }
+        if(d){
+            s1="11";
+            s=fun(a,b,c,d-1)+s1;
+            if(s2=="")s2=s;
+            else{
+                if(s2>s)s2=s;
+            }
+        }
+        cout<<s2<<endl;
+    }
+}

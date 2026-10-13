@@ -1,0 +1,43 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	static String solve(int[] c){
+	    String best=null;
+	    String s[]={"00","01","10","11"};
+	    for(int i=0;i<4;i++){
+	        if(c[i]==0)continue;
+	        
+	        int a=c[0];
+	        int b=c[1];
+	        int cc=c[2];
+	        int d=c[3];
+	        a-=(i==0?1:0);
+	        b-=(i==1?1:0);
+	        cc-=(i==2?1:0);
+	        d-=(i==3?1:0);
+	        int x=Math.min(a,b+d);
+	        int y=Math.min(b,(b+d-x)/2);
+	        String res="0".repeat(a+cc+x)+"01".repeat(y)+"1".repeat(b+d-x-2*y)+s[i];
+	        if(best==null || res.compareTo(best)<0)best=res;
+	        
+	    }
+	    return best;
+	    
+	}
+	public static void main(String args[]){
+	    Scanner sc=new Scanner(System.in);
+	    int t=sc.nextInt();
+	    while(t-->0){
+	        int c[]=new int[4];
+	        for(int i=0;i<4;i++){
+	            c[i]=sc.nextInt();
+	            
+	        }
+	        System.out.println(solve(c));
+	    }
+	}
+
+}

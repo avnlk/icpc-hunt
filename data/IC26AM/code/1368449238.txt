@@ -1,0 +1,20 @@
+import sys
+MOD=998244353
+input= sys.stdin.buffer.readline
+t=int(input())
+tests=[]
+mx=0
+for _ in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    tests.append((n,a))
+    mx=max(mx,n)
+h=[0]*mx
+
+for i in range(1,mx):
+    h[i]=(h[i-1]+pow(i,MOD-2,MOD))%MOD
+for n,a in tests:
+    ans=0
+    for i in range(n):
+        ans+=a[i]*(h[i]+h[n-1-i])
+    print(ans%MOD)

@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+const int MOD = 998244353;
+
+const int MAXN = 200005+1;
+vector<long long> pre(MAXN,0);
+long long power(ll base,ll exp,ll MOD){
+    ll res = 1;
+    base %=MOD;
+    while(exp>0){
+        if(exp%2==1) res = (res*base)%MOD;
+        base = (base*base)%MOD;
+        exp/=2;
+    }
+    return res;
+}
+ll modinv(ll a,ll m){
+    return power(a,m-2,m);
+}
+
+void precompute(){
+    pre[0] = 0;
+    for(int i = 1;i<=MAXN;i++){
+        pre[i] = (pre[i-1]+modinv(i,MOD))%MOD;
+    }
+}
+
+int main() {
+	// your code goes here
+    int t;cin>>t;
+    precompute();
+    while(t--){
+        ll n;cin>>n;
+        ll arr[n];
+        for(int i = 0;i<n;i++){
+            cin>>arr[i];
+        }
+        if(n==1){
+            cout<<"0\n";continue;
+        }
+        ll ans = 0;
+        for(int i = 0;i<n;i++){
+            ll temp = i+1;
+            ll temp1 = (pre[temp-1]+pre[n-temp])%MOD;
+            ll temp2 = (arr[i]%MOD*temp1)%MOD;
+            ans = (ans+temp2)%MOD;
+        }
+        cout<<ans<<"\n";
+    }
+}

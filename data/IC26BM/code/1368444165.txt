@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll =long long;
+string solveCase(array<int,4>c){
+    const string s[4]={"00","01","10","11"};
+    string answer;
+    for(int last=0;last<4;++last){
+        if(c[last]==0)continue;
+        array<int,4>C=c;
+        --C[last];
+        int m=C[0]+C[1]+C[2]+C[3];
+        array<int,4>q{};
+        int rem=m;
+        q[0]=min(2*C[0],rem);
+        rem-=q[0];
+        q[2]=min(2*C[0],rem);
+        rem-=q[2];
+        int pairs01=min(C[1],rem/2);
+        q[1]=2*pairs01;
+        rem-=2*pairs01;
+        int extra10=min(C[2]-q[2],rem);
+        q[2]+=extra10;
+        rem-=extra10;
+        int extra01=min(2*C[1]-q[1],rem);
+        q[1]+=extra01;
+        rem-=extra01;
+        if(rem>0){
+            q[3]=rem;
+            rem=0;
+        }
+        array<int,4>full{};
+        array<int,4>one{};
+        full[0]=q[0]/2;
+        one[0]=q[0]%2;
+        full[1]=q[1]/2;
+        one[1]=q[1]%2;
+        one[2]=min(q[2],C[2]);
+        full[2]=q[2]-one[2];
+        one[3]=min(q[3],C[3]);
+        full[3]=q[3]-one[3];
+        int zeroes=one[0]+2*full[0]+one[2];
+        int cnt01=full[1];
+        int cnt10=full[2];
+        int ones=one[1]+one[3]+2*full[3];
+        
+        string cur;
+        cur.append(zeroes,'0');
+        for(int i=0;i<cnt01;++i)cur+="01";
+        for(int i=0;i<cnt10;++i)cur+="10";
+        cur.append(ones,'1');
+        cur+=s[last];
+        if(answer.empty()||cur<answer)answer=cur;
+    }
+    return answer;
+    
+        
+    
+}
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+int t;
+cin>>t;
+while(t--){
+    array<int,4>c;
+    cin>>c[0]>>c[1]>>c[2]>>c[3];
+    cout<<solveCase<<'\n';
+}return 0;
+}

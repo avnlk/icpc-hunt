@@ -1,0 +1,137 @@
+#include <stdio.h>
+
+#define MAX 200005
+
+char answer[MAX];
+
+int smaller(char a[],char b[]){
+    
+    int i=0;
+    while(a[i]!='\0'  && b[i]!='\0'){
+        if(a[i]<b[i])
+        return 1;
+        
+        if(a[i]>b[i])
+        return 0;
+        
+        i++;
+    
+    }
+    return a[i]=='\0';
+    
+    
+    
+}
+
+
+void build(long long c[],int last,char s[]){
+    long long x00=c[0];
+    long long x01=c[1];
+    long long x10=c[2];
+    long long x11=c[3];
+    
+    
+}
+
+
+if(last==0)
+x00--;
+
+else if(last==1)
+x01--;
+
+
+else if(last==2)
+x10--;
+
+
+else 
+x11--;
+
+
+long long m=x00+x01+x10+x11;
+
+long long h=m/2;
+
+long long q=x01+x11;
+
+long long g=x00;
+
+
+if(g>h)
+g=h;
+
+if(g>q)
+g=q;
+
+
+
+long long f=x01;
+long long temp=h-g;
+if(f>temp)
+f=temp;
+
+
+long long zeros=x00+x10+g;
+
+long long ones=q-g-2*f;
+
+
+int pos=0;
+
+for(long long i=0;i<zeros;i++)
+s[pos++]='0';
+
+
+for(long long i=0;i<f;i++){
+    s[pos++]='0';
+    
+    s[pos++]='l';
+    
+    
+}
+
+
+
+
+
+for(long long i=0;i<ones;i++)
+s[pos++]='l';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

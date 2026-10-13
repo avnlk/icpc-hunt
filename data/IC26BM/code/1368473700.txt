@@ -1,0 +1,30 @@
+# cook your dish here
+import sys
+def solve(a,b,c,d):
+    n=a+b+c+d
+    names=["00","01","10","11"]
+    if n==1:
+        return names[[a,b,c,d].index(1)]
+        best=None
+        for L in range(4):
+            cnt=[a,b,c,d]
+            if cnt[L]==0:
+                continue
+            cnt[L]-=1
+            a1,b1,c1,d1=cnt
+            o=b1+d1
+            p=min(a1,o)
+            q=min(b1,(o-p)//2)
+            s='0'*(a1+c1+p)+ '01'*q+'1'*(o-p-2*q)+names[L]
+            if best is None or s<best:
+                best=s
+        return best
+def main():
+    data=sys.stdin.read().split()
+    t=int(data[0])
+    out=[]
+    for i in range(t):
+        a,b,c,d=map(int,data[1+4*i:5+4*i])
+        out.append(solve(a,b,c,d))
+    print("\n".join(str(x) for x in out))
+main()

@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int c00 ,c01,c10,c11 ; cin >> c00 >>c01 >>c10 >>c11 ;
+    int n  = c11+c10+c01+c00; 
+    int cmp = n-1 ;
+    string out = "";
+    if(2*c11>(cmp)){
+        if((cmp)%2==0){
+            c11-= (cmp)/2 ;
+            cmp = 0;
+        }else{
+            c11-=(cmp)/2 ;
+            c10--;
+            out+='0';
+            cmp = 0;
+        }
+    }else{
+        cmp -= 2*c11 ;
+        c11 =0 ;
+        if(2*c10 - 1 > cmp ){
+            c10 -= cmp/2 ;
+            if(cmp%2){out+='0';}
+            cmp = cmp%2 ;
+        }else{
+            if(cmp%2){out+='0';}
+            cmp = cmp - 2*c10 +1 ;
+            c10 = 0;
+            if(2*c01 > cmp){
+                c01 -= cmp/2 ;
+                cmp = cmp%2 ;
+            }else{
+                cmp = cmp -2*c01 ;
+                c01 = 0;
+            }
+        }
+    }
+    for(int i = 0 ; i< c00 ; i++){
+        out+='0';out +='0';
+    }
+    for(int i = 0 ; i <c01 ; i++){
+        out+='0' ; out +='1';
+    }
+    for(int i = 0 ; i < c10 ; i++){
+        out+='1'; out+='0';
+    }
+    for(int i = 0 ; i < c11 ;i++){
+        out+='1';out+='1';
+    }
+    
+    cout << out << '\n';
+}
+
+
+int main() {
+      int t ; cin >> t ; 
+      while(t--){
+          solve();
+      }
+    
+    	// your code goes here
+
+}

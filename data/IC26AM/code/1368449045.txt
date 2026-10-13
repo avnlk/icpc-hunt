@@ -1,0 +1,26 @@
+# cook your dish here
+MOD=998244353
+t=int(input())
+max_n=200005
+inv=[0]*(max_n+2)
+H=[0]*(max_n+2)
+PH=[0]*(max_n+2)
+inv[1]=1
+for i in range(2,max_n+2):
+    inv[i]=MOD-(MOD//i) * inv[MOD%i] % MOD
+for i in range(1,max_n+2):
+    H[i]=(H[i-1]+inv[i])%MOD
+    
+
+
+
+
+
+for _ in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    ans=0
+    for i in range(1,n+1):
+        coeff=(H[i-1]+H[n-i])%MOD
+        ans=(ans+a[i-1]*coeff)%MOD
+    print(ans)

@@ -1,0 +1,12 @@
+t = int(input())
+for _ in range(t):
+    a , b , c , d = map(int,input().split())
+    z, o = a + c, b + d
+    
+    x =[]
+    
+    if a: x.append('0'*(z-1) + '1'*o + '00')
+    if b: x.append('0'*z + '1'*(o -1) + '01')
+    if c: x.append('0'*(z-1) + '1'*o + '10')
+    if d: x.append('0'*z + '1'*(o-1) + '11')
+    print(min(x))

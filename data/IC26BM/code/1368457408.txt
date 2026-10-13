@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--){
+        int c00, c01, c10, c11;
+        cin >> c00 >> c01 >> c10 >> c11;
+        
+        int n = c00 + c01 + c10 + c11, len = n + 1;
+        int c1000 = 2 * c00 + c10;
+        
+        string ans;
+        if(c1000 >= len){
+            ans = string(len, '0');
+        }
+        else{
+            int right = len - c1000;
+            
+            if(right == 1){
+                if(c01 > 0){
+                    ans = string(c1000, '0') + "1";
+                }
+                else if(c10 > 0){
+                    ans = string(c1000 - 1, '0') + "10";
+                }
+                else{
+                    ans = string(c1000 - 1, '0') + "11";
+                }
+            }
+            else{
+                int k = right/2;
+                
+                if(k > c01) k = c01;
+                
+                int t1 = right - 2 * k;
+                ans = string(c1000, '0');
+                
+                if(t1 == 1 && k > 0){
+                    for(int i = 0; i < k - 1; i++){
+                        ans += "01";
+                    }
+                    ans += "101";
+                }
+                else{
+                    for(int i = 0; i < k; i++){
+                        ans += "01";
+                    }
+                    
+                    ans += string(t1, '1');
+                }
+            }
+        }
+        
+        cout << ans << "\n";
+    }
+}

@@ -1,0 +1,24 @@
+import sys
+def solve(c):
+    best=None
+    T=["00","01","10","11"]
+    for i in range(4):
+        if c[i]==0: 
+            continue
+        cc=c[:];cc[i]-=1
+        A,B,C,D=cc
+        x=min(A,B+D)
+        y=min(B,(B+D-x)//2)
+        Z=A+C+x
+        r=B+D-x-2*y
+        s="0"*Z+"01"*y+"1"*r+T[i]
+        if best is None or s<best:best=s
+    return best
+def main():
+    d=sys.stdin.read().split()
+    t=int(d[0]); o=[]
+    for i in range(t):
+        c=[int(v) for v in d[1+4*i:5+4*i]]
+        o.append(solve(c))
+    print("\n".join(o))
+main()

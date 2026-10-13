@@ -1,0 +1,32 @@
+t = int(input())
+
+for _ in range(t):
+    c00, c01, c10, c11 = map(int, input().split())
+    
+    if c00 + c01 + c10 + c11 == 1:
+        if c00:
+            print("00")
+        elif c01:
+            print("01")
+        elif c10:
+            print("10")
+        else:
+            print("11")
+        continue
+    
+    ans = "0" * (2 * c00)
+    
+    if c01 and c10:
+        ans += "0" * (c01 + c10 - 1)
+        ans += "1" * (c11 + 1)
+        
+    elif c01:
+        ans += "0" * c01 + "1" * (c11 + 1)
+    elif c10:
+        ans += "0" * c10 + "1" * (c11 + 1)
+    else:
+        ans += "1" * (2 * c11)
+        
+    print(ans)
+        
+        

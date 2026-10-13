@@ -1,0 +1,50 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static class Pair implements Comparable < Pair > {
+        int a,
+        b;
+        Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+        public int compareTo(Pair p) {
+            return Integer.compare(a, p, a);
+        }
+        static int upperBound(Pair[] a, int x) {
+            int l = 0, r = a.length;
+            while (l < r) {
+                int m = (l + r) / 2;
+                if(a[m].a<=x)l=m+1;
+                else r=m;
+            }
+        }
+        return l;
+        
+    }
+    public static void main(String[] args) throws java.lang.Exception
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t--> 0) {
+            int n = sc.nextInt(), q = sc.nextInt();
+            pair[] p = new pair[n];
+            for (int i = 0; i < n; i++) p[i] = new pair(sc.nextInt(), 0);
+            for (int i = 0; i < n; i++) p[i].b = sc.nextInt();
+            Arrays.sort(p);
+            long[] pre = new long[n + 1];
+            for (int i = 1; i <= n; i++) pre[i] = pre[i - 1] + p[i - 1].b;
+            while (q--> 0) {
+                int x = sc.nextInt();
+                System.out.print(pre[upperBound(p, x)] + "");
+
+            }
+            System.out.println();
+        }
+        
+    }
+    
+}

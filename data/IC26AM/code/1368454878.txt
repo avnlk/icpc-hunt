@@ -1,0 +1,32 @@
+# cook your dish here
+MOD = 998244353
+
+def solve():
+    ip = int(input())
+    tests = []
+    big_n = 0
+    for i in range(ip):
+        n = int(input())
+        arr = list(map(int , input().split()))
+        tests.append((n,arr))
+        big_n = max(big_n , n)
+    
+    harmonic = [0]*(big_n+1)
+    inverse = [0]*(big_n +1)
+    
+    if big_n >= 1:
+        inverse[1] = 1
+    for i in range(2,big_n+1):
+        inverse[i] = MOD - (MOD//i)*inverse[MOD%i]%MOD
+    for i in range(1,big_n+1):
+        harmonic[i] = (harmonic[i-1]+inverse[i])%MOD
+    for n,arr in tests:
+        expected = 0
+        for i,value in enumerate(arr):
+            left = harmonic[i]
+            right = harmonic[n-1-i]
+            
+            contribution = value*(left+right)
+            expected = (expected+contribution)%MOD
+        print(expected)
+solve()

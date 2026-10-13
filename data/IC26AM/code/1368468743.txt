@@ -1,0 +1,68 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD = 998244353L;
+    static class FastScanner{
+        private final InputStream in = System.in;
+        private final byte[] buffer = new byte[1 << 16];
+        private int ptr = 0, len = 0;
+        
+        private int read() throws IOException {
+            if (ptr >= len) {
+                len = in.read(buffer);
+                ptr = 0;
+                if (len == -1) return -1;
+            }
+            return buffer[ptr++];
+        }
+        int nextInt() throws IOException {
+            int c;
+            do{
+                c = read();
+            }while (c <= ' ');
+            int res = 0; 
+            while (c > ' '){
+                res = res * 10 + (c-'0');
+                c = read();
+            }
+            return res;
+        }
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    FastScanner fs = new FastScanner();
+	    StringBuilder out = new StringBuilder();
+	    
+	    int t = fs.nextInt();
+	    
+	    while (t-- > 0){
+	        int n = fs.nextInt();
+	        
+	        long[] a = new long[n];
+	        for (int i=0; i<n; i++){
+	            a[i] = fs.nextInt();
+	        }
+	        long[] inv = new long[n+1];
+	        long[] h = new long[n+1];
+	        
+	        if (n>=1) {inv[1] = 1;}
+	        
+	        for (int i=2; i<=n; i++){
+	            inv[i] = MOD - (MOD/i)* inv[(int)(MOD%i)]%MOD;
+	        }
+	        for (int i =1; i<=n; i++){
+	            h[i] = (h[i-1] + inv[i]) % MOD;
+	        }
+	        long ans = 0;
+	        for (int i=0; i<n; i++){
+	            long coefficient = (h[i] + h[n-1-i]) % MOD;
+	            ans = (ans + a[i]*coefficient) % MOD;
+	        }
+	        out.append(ans).append('\n');
+	    }
+        System.out.print(out);
+	}
+}

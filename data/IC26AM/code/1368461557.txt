@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const long long MOD = 998244353;
+const int N = 200005;
+long long inv_[N], H[N];
+int main() {
+	// your code goes here
+	ios:: sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	/*vector<long long> H(N, 0);
+	for(int k = 1; k<N; k++){
+	    H[k] = (H[k - 1] * power(k, MOD - 2)) % MOD;
+	}*/
+	inv_[1] = 1;
+	for(int i = 2; i < N; i++){
+	    inv_[i] = (MOD - (MOD/i) * inv_[MOD%i]%MOD) % MOD;
+	}
+	for(int i = 1; i < N; i++){
+	    H[i] = (H[i-1] + inv_[i])%MOD;
+	    
+	}
+	int t ;
+	cin>>t;
+	while(t--){
+	    int n ;
+	    cin>>n;
+	    long long ans = 0;
+	    for(int j = 1; j <= n; j++){
+	        long long a;
+	        cin>> a;
+	        long long expD = (H[j - 1] + H[n - j]) % MOD;
+	        ans = (ans + a % MOD * expD) % MOD;
+	    }
+	    
+	    cout<<ans<<endl;
+	}
+ return 0;
+}

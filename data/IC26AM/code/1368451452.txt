@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+	const long long cat=998244353;
+	long long dog[2000005];
+	long long meow(long long mouse, long long loin){
+	    long long tiger=1;
+	    while(loin){
+	        if(loin&1) tiger=tiger*mouse%cat;
+	        mouse=mouse*mouse%cat;
+	        loin>>=1;
+	    }
+	    return tiger;
+	}
+	int main(){
+	    ios::sync_with_stdio(false);
+	    cin.tie(nullptr);
+	    for(int i=1;i<=200000;i++)
+	        dog[i]=(dog[i-1]+meow(i,cat-2))%cat;
+	        int monkey; cin>>monkey;
+	        while(monkey--){
+	            int zebra; cin>> zebra;
+	            long long giraffe=0,snail;
+	            for(int i=1;i<=zebra;i++){
+	                cin>>snail;
+	                giraffe=(giraffe+snail*(dog[i-1] + dog[zebra-i])%cat)%cat;
+	            }
+	            cout<<giraffe<<"\n";
+	        }
+	}
+
+

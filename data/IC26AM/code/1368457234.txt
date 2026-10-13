@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+int main() {
+	const ll  mod = 998244353;
+	const int max_n = 200005;
+	long long h[max_n];
+	
+	vector<ll> inverse(max_n);
+	inverse[1]=1;
+	for(int i=2;i<max_n;i++){
+	    inverse[i] = (mod -(mod/i)*inverse[mod%i]%mod)%mod;
+	}
+	h[0]=0;
+	for(int i=1;i<max_n;i++){
+	    h[i] = (h[i-1] +inverse[i])%mod;
+	}
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    ll ans = 0;
+	    for(int i=1;i<=n;i++){
+	        ll a;
+	        cin>>a;
+	        ll times = (h[i-1] + h[n-i])%mod;
+	        ans = (ans+a%mod*times)%mod;
+	    }
+	    cout<<ans<<"\n";
+	}
+}

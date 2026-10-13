@@ -1,0 +1,18 @@
+# cook your dish here
+t = int(input())
+bs = ['00','01','10','11']
+for i in range(t):
+    copy = list(map(int,input().split()))
+    s = sum(copy)
+    arr = ''
+    for i in range(4):
+        if copy[i] != 0:
+            for j in range(copy[i]):
+                arr += bs[i]
+    if (s==1):
+        print(arr)
+        continue
+    d = list(arr)
+    for i in range(s-1):
+        d.remove('1')
+    print(''.join(d))

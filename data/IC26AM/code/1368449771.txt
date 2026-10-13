@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+const ll M=998244353,
+N=200001;
+
+
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(0);cin.tie(0);
+	vector<ll> h(N),iv(N);
+	iv[1]=1;
+	for(int i=2;i<N;i++)iv[i]=M-M/i*iv[M%i]%M,h[i]=(h[i-1]+iv[i]%M);
+
+	int T,n;cin>>T;
+	while(T--){
+	    cin>>n;ll z=0;
+	    ll a;
+	    for(int i =1;i<=n;i++)cin>>a,z=(z+a*(h[i-1]+h[n-i]))%M;
+	    cout<<z<<"\n";
+	}
+
+}

@@ -1,0 +1,12 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    b=int(input())
+    p=int(input().split())
+    if I in b:
+        print("yes")
+    if I in p:
+        print("no")
+    else:
+        print("not sure")
+    

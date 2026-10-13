@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+    int t;
+    cin>>t;
+    const char* T[4]={"00","01","10","11"};
+    while(t--){
+        long long c[4];
+        scanf("%lld %lld %lld %lld", &c[0],&c[1],&c[2],&c[3]);
+        string best;
+        for(int I=0;I<4;++I){
+            if(!c[I]) continue;
+            c[I]--;
+            long long a=c[0],b=c[1],z=c[2],d=c[3];
+            long long u=min(a,b+d),v=min(b,(b+d-u)/2);
+            string s(a+z+u,'0');
+            for(int i=0;i<v;++i) s+="01";
+            s+=string(b+d-u-2*v,'1')+T[I];
+            if(best.empty() || s<best) best=s;
+            c[I]++;
+        }
+        puts(best.c_str());
+    }
+
+}

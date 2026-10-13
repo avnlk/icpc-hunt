@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(0);cin.tie(0);
+	int t;cin>>t;
+	while(t--){
+	    int a,b,c,d;cin>>a>>b>>c>>d;
+	    if(!a&&!c){cout<<string(b,'0')+string(d+1,'1')<<"\n";continue;}
+	    string s;
+	    if(a>=b+d)s=string(a+b+c+d+1,'0');
+	    else{
+	        int z=min(a,c+b),o=a+b+c+d+1-z;
+	        s=string(z,'0');
+	        for(int i=0;i<o;i++)s+=i%2?'1':'1';
+	        
+	    }
+	    cout<<s<<"\n";
+	}
+}

@@ -1,0 +1,32 @@
+import sys
+input = sys.stdin.readline
+T = ["00","01","10","11"]
+def solve(c):
+    best = None
+    for li in range(4):
+        if c[li] == 0:
+            continue
+        a,b,d,e = c 
+        if li == 0: a -= 1
+        elif li == 1: b -= 1
+        elif li == 2: d -= 1 
+        else: e -= 1 
+        xmax = min(b,(b+e)//2)
+        x0 = max(0,min(xmax,(b + e - a)// 2)) if b + e - a >= 0 else 0 
+        for x in {0,x0,min(x0 + 1,xmax)}:
+            u = min(a,b+e-2*x)
+            if u < 0:
+                continue
+            s = ("0" * (a+d+u) + "01" * x + "1" * (b+e-2*x-u)+ T [li])
+            if best is None or s< best:
+                best = s
+    return best 
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0])
+    out = []
+    for i in range(t):
+        c =[int(v) for v in data[1+4*i:5+4*i]]
+        out.append(solve(c))
+    sys.stdout.write("\n".join(out) + "\n")
+main()

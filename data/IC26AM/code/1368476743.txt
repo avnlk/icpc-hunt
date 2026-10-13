@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long 
+#define vec vector
+
+const ll mod = 998244353;
+
+ll binpow(ll a,ll b){
+   ll res = 1;
+   while(b){
+       if(b%2==1) res=res*a;
+       res%=mod;
+       a=a*a;
+       a=a%mod;
+       b=b/2;
+   }
+   return res;
+}
+
+ll modinv(ll a){
+    return binpow(a,mod-2);
+}
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    while(t--){
+        ll n;
+        cin>>n;
+        vec<ll> a(n);
+        ll s=0;
+        for(int i = 0 ;  i < n ; i++){
+            ll v;
+            cin>>v;
+            s+=2*v;
+            if(i==0 || i==n-1) s-=v;
+            s%=mod;
+        }
+        ll ac =0;
+        for(ll i = n-1 ; i >= 1 ; i--){
+            ac+=modinv(i);
+            ac%=mod;
+        }
+        cout<<(ac*s)%mod<<endl;
+    }
+}

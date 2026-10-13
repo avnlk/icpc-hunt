@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+const ll MOD = 998244353;
+
+vector<ll> v,h;
+
+void solve(){
+    int n;
+    cin>>n;
+    
+    vector<ll> a(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    
+    ll ans = 0;
+    
+    for(int i=0;i<n;i++){
+        ll cf = (h[i] + h[n - i - 1])%MOD ;
+        ans = (ans + a[i] * cf)%MOD;
+    }
+    
+    cout<<ans<<'\n';
+}
+
+int main() {
+	// your code goes here
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int T;
+    cin>>T;
+    
+    int m = 200000;
+    
+    v.resize(m+1);
+    h.resize(m+1);
+    
+    v[1] = 1;
+    
+    for(int i=2;i<=m;i++){
+        v[i] = MOD - (MOD/i)*v[MOD%i]%MOD;
+    }
+    
+    for(int i=1;i<=m;i++){
+        h[i] = h[i-1] + v[i]) %MOD; 
+    }
+    
+    while(T--){
+        solve();
+    }
+}

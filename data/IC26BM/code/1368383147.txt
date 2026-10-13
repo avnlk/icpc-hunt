@@ -1,0 +1,23 @@
+def sol():
+    c00,c01,c10,c11 = map(int,input().split())
+    n = c00 + c01+ c10+c11
+    if c00 > 0:
+        r = min(c00,1+c01+c11)
+        a = c00 + c10 + r
+        b = min(c01,(c01 + c11 + 1 - r) // 2)
+        c = 0
+    elif c01 + c11 > 0:
+        a = c10
+        b = min(c01,(c01 + c11 + 1)// 2)
+        c = 0
+    else:
+        a = max(0,c10 - 1)
+        b = 0
+        c= 1
+    d = n + 1 - a - 2 * b - 2*c
+    print('0' * a + '01' * b + '10' * c + '1' * d)
+t = int(input())
+while(t):
+    sol()
+    t -= 1
+        

@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+	// your code goes here
+    ll t;
+    cin>>t;
+    ll mod = 998244353;
+    while(t--){
+        ll n;
+        cin>>n;
+        vector<ll>a(n);
+        for(ll i=0;i<n;i++){
+            cin>>a[i];
+        }
+        ll sum = 0;
+        for(ll i=0;i<n-1;i++){
+            ll val = (a[i] + a[i+1])%mod;
+            a[i+1] = val%mod;
+            sum = ((sum +mod)+ val%mod) % mod;
+        }
+        cout<<sum<<"\n";
+    }
+}

@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int mod = 998244353;
+
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1) res = (res * a) % mod;
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return res;
+}
+
+vector<long long> h;
+
+void precompute() {
+    int N = 1e6;
+    h.assign(N + 1, 1);
+    h[0] = 0;
+    for (int i = 2; i <= N; i++) {
+        h[i] = (h[i - 1] + binpow(i, mod - 2)) % mod;
+    }
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    
+    long long sum = 0;
+    for (int i = 0; i < n; i++) sum = (sum + a[i]) % mod;
+    
+    
+    cout << (((h[n - 1] * sum) % mod) + (((n - 2) * binpow(n - 1, mod - 2)) % mod) * (sum - a[0] - a[n - 1] + mod) % mod) % mod << endl;
+    
+    
+}
+
+int main() {
+	int t;
+	cin >> t;
+	precompute();
+	while (t--) {
+	    solve();
+	}
+}

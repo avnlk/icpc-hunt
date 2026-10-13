@@ -3,12 +3,12 @@
 is byte-identical to the downloaded file, that every submission id in every markdown file is a correct link,
 and re-compute the headline numbers quoted in the write-ups.
 
-    python3 analysis/verify_evidence.py          (needs ccdump/ for the P8/P10 checks)
+    python3 analysis/verify_evidence.py          (reads ccdump/ if present, else data/)
 """
 import difflib, hashlib, re, subprocess, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ROOT, load, toks, grams
+from common import ROOT, DATA, load, toks, grams
 
 ok = True
 def check(cond, msg):
@@ -37,7 +37,7 @@ for sid, url, verdict, team, user, label, path in rows:
     want = f"{s['team']} (#{s['rank']})" if s and s["rank"] else "need to verify"
     good = good and team == want
     cp = ROOT / "evidence" / path
-    src = ROOT / "ccdump" / ("IC26BM" if P == "P10" else "IC26AM") / "code" / f"{sid}.txt"
+    src = DATA / ("IC26BM" if P == "P10" else "IC26AM") / "code" / f"{sid}.txt"
     good = good and cp.exists() and src.exists() and hashlib.sha1(cp.read_bytes()).digest() == hashlib.sha1(src.read_bytes()).digest()
     if not good:
         bad += 1; print("   mismatch:", sid, verdict, team, user)

@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+ll mod = 998244353;
+
+ll update_ans(ll ans_, ll x, ll coef){
+    return (ans_ + (x % mod)  * coef) % mod;
+}
+
+int main() {
+	int t; cin >> t;
+	ll inv[300001];
+	ll h[300001];
+	
+	inv[1] = 1;
+	for(int i = 2; i < 300001; i++){
+	    inv[i] = (mod - (mod /i) * inv[mod % i] % mod) % mod;
+	}
+	
+	h[0] = 0LL;
+	for(int i= 1; i < 300001; i++){
+	    h[i] = (h[i-1] + inv[i]) % mod;
+	}
+	
+	while(t--){
+	    int n; cin >> n;
+	    ll ans = 0;
+	    for(int j = 1; j <= n; j++){
+	        ll x; cin >> x;
+	        ll coef__ = (h[j-1] + h[n-j]) % mod;
+	       ans = 1LL * update_ans(ans, x, coef__);
+	    }
+	    cout << ans << endl;
+	}
+
+}

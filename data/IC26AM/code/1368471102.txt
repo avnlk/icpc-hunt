@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxN = 2e5+5;
+vector<long long> vec(maxN);
+int mod = 998244353;
+
+void solve(){
+    int n;
+    cin >> n;
+    long long ans = 0;
+    
+    for(int i = 1; i<= n; i++){
+        long long a;
+        cin >> a;
+        
+        long long val = (vec[i - 1] + vec[n - i])%mod;
+        ans = (ans + a * val)%mod;
+    }
+    cout << ans << endl;
+    return;
+}
+
+vector<long long> inv(maxN);
+
+void precompute(){
+    inv[1] = 1;
+    for(int i = 2; i < maxN; i++){
+        inv[i] = (mod - (mod/i)) * inv[mod%i] % mod;
+    }
+    
+    vec[0] = 0;
+    for(int i = 1; i< maxN; i++){
+        vec[i] = (vec[i-1] + inv[i])%mod;
+    }
+}
+
+
+int main() {
+	int t;
+	cin >> t;
+	precompute();
+	while(t--){
+	    solve();
+	}
+    return 0;
+}

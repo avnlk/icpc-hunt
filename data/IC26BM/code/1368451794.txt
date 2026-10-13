@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    int a,b,c,d;
+	    cin >> a >> b >> c >> d;
+	    
+	    int n = a+b+c+d;
+	    
+	    int rem = n-1;
+	    
+	    if(rem%2==0){
+	        string s;
+	        while(a>0){
+	            s += "00";
+	            a--;
+	        }
+	        while(b>0){
+	            s += "01";
+	            b--;
+	        }
+	        while(c>0){
+	            s += "10";
+	            c--;
+	        }
+	        while(d>0){
+	            s += "11";
+	            d--;
+	        }
+	        
+	        for(int i=0;i<2*n-rem;i++) cout << s[i];
+	        cout << '\n';
+	        continue;
+	    }
+	    
+	    while(d>0 && rem>1){
+	        d--;
+	        rem -= 2;
+	    }
+	    while(c>0 && rem>1){
+	        c--;
+	        rem -= 2;
+	    }
+	    while(b>0 && rem>1){
+	        b--;
+	        rem -= 2;
+	    }
+	    while(a>0 && rem>1){
+	        a--;
+	        rem -= 2;
+	    }
+	    
+	    if(c>0){
+	        cout << "0";
+	        c--;
+	    }
+	    else if(a>0){
+	        cout << "0";
+	        a--;
+	    }
+	    else if(d>0){
+	        cout << "1";
+	        d--;
+	    }
+	    else{
+	        cout << "1";
+	        b--;
+	    }
+	    
+	    string s;
+	    while(a>0){
+	        s += "00";
+	        a--;
+	    }
+	    while(b>0){
+	        s += "01";
+	        b--;
+	    }
+	    while(c>0){
+	        s += "10";
+	        c--;
+	    }
+	    while(d>0){
+	        s += "11";
+	        d--;
+	    }
+	    
+	    cout << s << '\n';
+	}
+}

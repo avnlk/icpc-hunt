@@ -1,0 +1,14 @@
+# cook your dish here
+from math import log
+from math import fmod
+
+t = int(input())
+for i in range(t):
+    n = int(input())
+    b = input().split()
+    a = [int(x) for x in b]
+    ans = abs(log(n, 2) * sum(a))
+    if ans - int(ans) > 0:
+        ans = int(ans) + 1
+    ans = fmod(ans,998244353)
+    print(int(ans))

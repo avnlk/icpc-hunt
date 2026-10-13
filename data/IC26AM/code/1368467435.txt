@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+#include<vector>
+using namespace std;
+using ll = long long;
+const ll MOD= 998244353;
+const ll MAX_N = 200000;
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    vector<ll> inverse(MAX_N + 1 );
+    inverse[1]=1;
+    for(int i = 2;i<=MAX_N;i++){
+        inverse[i]=MOD-(MOD/i)*inverse[MOD %i]% MOD;
+    }
+    vector<ll> harmonic(MAX_N + 1, 0);
+    for(int i=1;i<MAX_N;i++){
+        harmonic[i]=(harmonic[i-1]+inverse[i]%MOD);
+    }
+    
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        ll ttl=0;
+        for(int i=1;i<=n;i++){
+            ll value;
+            cin>> value;
+            
+            ll weight= (harmonic[i-1]+harmonic[n-i])%MOD;
+            ttl =(ttl+value*weight)%MOD;
+        }
+        cout<<ttl<<endl;
+    }
+    return 0;
+    
+}

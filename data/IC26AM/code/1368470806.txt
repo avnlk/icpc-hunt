@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+using ll = long long;
+const ll M = 998244353;
+const int N = 200005;
+
+ll h[N] , inv[N]; 
+int main() {
+	// your code goes here
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    inv[1]=1;
+    for(int i=2;i<N;i++){
+        inv[i]=M-(M/i)*inv[M%i]%M;
+    }
+        
+    for(int i=1;i<N;i++){
+        h[i]=(h[i-1]+inv[i])%M;
+    }
+    
+    int t;
+    cin>>t;
+    
+    while(t--){
+        int n;
+        cin>>n;
+        ll ans =0;
+        for(int i=1;i<=n;i++){
+            ll a;
+            cin>>a;
+            ll coef = (h[i-1]+h[n-i])%M;
+            
+            ans =(ans+a*coef)%M;
+        }
+        cout<<ans<<"\n";
+    }
+        
+        
+
+}

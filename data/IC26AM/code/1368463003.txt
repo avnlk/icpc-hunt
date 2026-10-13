@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long; 
+
+const int mod=998244353;
+const int maxi=200005;
+
+ll inv[maxi];
+ll a[maxi];
+
+ll mp(ll a ,ll b){
+    ll res=1;
+    while(b){
+        if(b&1){
+            res=(res*a) % mod;
+        }
+        a=(a*a) % mod;
+        b=b/2;;
+    }
+    return res;
+}
+
+void pre(){
+    inv[1]=1;
+    a[0]=0;
+    a[1]=1;
+    for(int i=2;i<maxi;i++){
+        inv[i]=mp(i,mod-2);
+        a[i]=(a[i-1]+inv[i])%mod; 
+    }
+}
+
+void tom(){
+    int n;
+    cin>>n;
+    ll res=0;
+    for(int i=1;i<=n;i++){
+        ll  x=0;
+        cin>>x;
+        ll m=(a[i-1]+a[n-1])% mod;
+        ll t = (x*m)%mod;
+        res=(res+t)%mod;
+    }
+    cout<<res<<'\n';
+}
+
+int main() {
+	// your code goes here
+	pre();
+    int t;
+    cin>>t;
+    while(t--){
+        tom();
+    }
+}

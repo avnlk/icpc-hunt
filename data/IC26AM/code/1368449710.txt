@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll mod=998244353;
+
+int main() {
+	// your code goes here
+    const int N=200005;
+    vector<ll>inv(N+1,1),H(N+1,0);
+    for(int i=2;i<=N;i++)inv[i]=(mod-(mod/i)*inv[mod%i]%mod)%mod;
+    for(int i=1;i<=N;i++)H[i]=(H[i-1]+inv[i])%mod;
+    int t;
+    cin>>t;
+    while(t--){
+        int n;cin>>n;
+        ll ans=0;
+        for(int j=1;j<=n;j++){
+            ll a;
+            cin>>a;
+            ans=(ans+a%mod*(H[n-j]+H[j-1])%mod)%mod;
+        }
+        cout<<ans<<"\n";
+    }
+}

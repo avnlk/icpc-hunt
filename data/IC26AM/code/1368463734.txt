@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+
+#define fast ios::sync_with_stdio(false); cin.tie(nullptr);
+#define pb push_back
+
+const ll MOD = 998244353;
+const int MAXI = 200099;
+vector<ll> modi(MAXI), F(MAXI);
+
+
+void solve(){
+modi[1] = 1;
+for(int i=2; i < MAXI; i++){
+    modi[i] = (MOD- (MOD/i) * modi[MOD % i] % MOD) % MOD;
+    
+}
+F[0] = 0;
+for(int i=1; i<MAXI; i++){
+    F[i] = (F[i-1] + modi[i]) % MOD;
+}
+int a ; cin >> a;
+ll res =0;
+for( int j =1; j<=a; j++){
+    ll b; cin >> b;
+    ll p = (F[j-1] + F[a-j]) % MOD;
+    res = (res + ( b% MOD) * p) % MOD;
+}
+    cout << res <<"\n";
+}
+
+
+
+int main() {
+fast;
+
+int t; cin >> t;
+while(t--) solve();
+return 0;
+	// your code goes here
+
+}

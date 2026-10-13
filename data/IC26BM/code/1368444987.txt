@@ -1,0 +1,21 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int T;
+    if (cin >> T) {
+        while (T--){
+            long long A, B, C, D;
+            cin >> A >> B >> C >> D;
+            cout << (A*D+B*C) << "\n";
+            
+        }
+    }
+    return 0;
+}

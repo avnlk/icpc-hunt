@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        final long mod = 998244353L;
+        final int max = 1000001;
+        long arr[] = new long[max+1];
+        long[] arr1 = new long[max+1];
+        arr[1] = 1;
+        arr1[1] =1;
+        for(int i=2;i<=max;i++){
+            arr[i] = (mod-(mod/i)*arr[(int) (mod % i)] %mod)%mod;
+            arr1[i] = (arr1[i-1]+arr[i])%mod;
+            
+        }
+        StreamTokenizer in = new StreamTokenizer(new BufferedInputStream(System.in));
+        in.nextToken();
+        int t = (int) in.nval;
+        StringBuilder sb = new StringBuilder();
+        while(t-- >0){
+            in.nextToken();
+            int n = (int) in.nval;
+            long ans = 0;
+            for(int j=1;j<=n;j++){
+                in.nextToken();
+                long a = ((long) in.nval)%mod;
+                long w = (arr1[j-1]+arr1[n-j])%mod;
+                ans = (ans+a*w)%mod;
+            }
+            sb.append(ans).append("\n");
+        }
+        System.out.print(sb);
+	}
+}

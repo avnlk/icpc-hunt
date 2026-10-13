@@ -1,0 +1,28 @@
+import sys
+def main():
+    d = sys.stdin.buffer.read().split()
+    t = int(d[0]); k = 1; o = []
+    for _ in range(t):
+        cnt = [int(d[k]), int(d[k+1]), int(d[k+2]), int(d[k+3])]; k += 4
+        names = ["00", "01", "10", "11"]
+        best = None
+        for f in range(4):
+            if cnt[f] == 0:
+                continue
+            a, b, c, e = cnt
+            if f == 0: a -= 1
+            elif f == 1: b -= 1
+            elif f == 2: c -= 1
+            else: e -= 1
+            T = b + e 
+            if  b == 0 or a >= T - 1:
+                v = min(a, T); y = 0
+            else:
+                v = a; y = min(b, (T - a) // 2)
+            s = "0" * (a+c+v) + "01" * y + "1" * (T - 2 * y - v) + names[f]
+            if best is None or s < best:
+                best = s 
+        o.append(best)
+    print("\n".join(o))
+
+main()

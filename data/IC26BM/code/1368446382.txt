@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    const char *pc[4]={"00","01","10", "11"};
+    while(t--){
+        long long c[4];
+        for(int i=0;i<4;i++) cin>>c[i];
+        string best;
+        bool has=false;
+        for(int e=0; e<4; e++){
+            if(!c[e]) continue;
+            long long r[4]={c[0], c[1], c[2], c[3]};
+            r[e]--;
+            long long A=r[0], B=r[1], C=r[2], D=r[3];
+            long long Y=B+D;
+            long long x=min(A,Y);
+            long long u=min(D,x);
+            long long B2=B-(x-u), D2=D-u;
+            long long w=(B2<=D2) ? B2:D2+(B2-D2)/2;
+            long long z=A+C +x, o=Y-x-2*w;
+            string s;
+            s.reserve(z+2*w+o+2);
+            s.append(z,'0');
+            for(long long i=0; i<w; i++) s+="01";
+            s.append(o,'1');
+            s+=pc[e];
+            if(!has||s<best) best=s, has=true;
+         }
+         cout<<best<<endl;
+    }
+    return 0;
+}

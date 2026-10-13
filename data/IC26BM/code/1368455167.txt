@@ -1,0 +1,45 @@
+# cook your dish here
+
+
+import sys
+
+
+def solve(t):
+    d=sys.stdin.read().split()
+    p=0
+    res=[]
+    sto=["00","01","10","11"]
+    for i in range(t):
+        l=list(map(int,d[p:p+4]))
+        p+=4
+        s=sum(l)
+        b=None
+        for j in range(4):
+            if l[j]==0:
+                continue
+            da=l[:]
+            da[j]-=1
+            aa,bb,cc,dd=da
+            A=bb+dd
+            if aa>=A:
+                rs="0"*(s-1)
+            else:
+                X=2*aa+cc
+                Y=(A-aa)//2
+                Z=min(bb,Y)
+                W=(s-1)-X-2*Z
+                rs="0"*X+"01"*Z+"1"*W
+            c=rs+sto[j]
+            if b is None or c<b:
+                b=c
+        res.append(b)
+    print("\n".join(res))
+    
+    
+    
+def my():
+    n=int(sys.stdin.readline())
+    solve(n)
+    
+    
+my()

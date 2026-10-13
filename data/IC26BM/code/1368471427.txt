@@ -1,0 +1,13 @@
+t=int(input())
+for _ in range(t):
+    a,b,c,d=map(int,input().split())
+    n=a+b+c+d
+    if n==1:
+        print("00" if a else "01" if b else "10" if c else"11")
+        continue
+    z=a+b
+    o=c+d
+    if z>=0:
+        print("0"*min(z,n)+"1"*(n+1-min(z,n)))
+    else:
+        print("0"*z+"1"*(n+1-z))

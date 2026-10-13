@@ -1,0 +1,59 @@
+# cook your dish here
+import sys
+
+
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    
+    
+    t = int(input_data[0])
+    idx = 1
+    out = []
+    
+    
+    for _ in range(t):
+        c00, c01, c10, c11  = map(int,input_data[idx:idx+4])
+        idx +=4
+        n = c00 + c01 + c10 + c11
+        
+        if c11 == n:
+            out.append('1'*(n+1))
+            
+            
+    
+        elif c00 == n:
+            out.append('0'*(n+1))
+            
+            
+        elif c01 == 0 and c10 == 0:
+            out.append('0'*(c00+1)+'1' * c11)
+            
+            
+        elif c01 == 0:
+            out.append('0' * (c00 + 1) + '1' * (c11 + c10))
+            
+            
+        elif c00 == 0 and c10 ==0:
+            out.append(''.join('0' if i %2 == 0 else '1' for i in range(n+1)))
+            
+            
+            
+        elif c01 > 0 and c10 >0:
+            out.append('0'*n+'1')
+            
+            
+            
+            
+        else:
+            out.append('0' * (c00+1) + '1'*(n-c00))
+            
+            
+            
+    print('\n'.join(out))
+    
+    
+if __name__ == '__main__':
+    solve()

@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+const ll MOD = 998244353;
+
+ll binexp(ll x, ll y) {
+    ll res = 1;
+    while (y) {
+        res = (res * x) % MOD;
+        x = (x * x) % MOD;
+        y >>= 1LL;
+    }
+    return res;
+}
+
+ll inv(ll x) {
+    return binexp(x, MOD - 2);
+}
+
+inline void solve() {
+    ll n;
+    cin >> n;
+    vector <ll> a(n + 1);
+    for (ll i = 1; i <= n; ++i) {
+        cin >> a[i];
+    }
+    ll den = binexp(2LL, n - 1);
+    ll den_inv = inv(den);
+    vector <ll> c(n + 1);
+    for (ll k = 1; k + k <= n; ++k) {
+        ll x = binexp(2LL, n - k + 1) * (binexp(2LL, k) - 1 + MOD);
+        x %= MOD;
+        ll y = binexp(2LL, n - k) - (k + 1) + MOD;
+        y %= MOD;
+        c[k] = (x + y + 1) % MOD;
+        c[k] *= den_inv;
+        c[k] %= MOD;
+        c[n + 1 - k] = c[k];
+    }
+    ll ans = 0;
+    for (ll k = 1; k <= n; ++k) {
+        ans += (c[k] * a[k]) % MOD;
+        ans %= MOD;
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while (t--) {
+	    solve();
+	}
+}

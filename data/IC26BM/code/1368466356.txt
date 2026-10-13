@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+using namespace std;
+void solve(){
+    int cnt00,cnt01,cnt10,cnt11;
+    cin>>cnt00>>cnt01>>cnt10>>cnt11;
+    int val = cnt00 + cnt01 + cnt10 + cnt11 - 1;
+    int cnt1 = 0,cnt0 = 0;
+    while(cnt10>0 && val>0){
+        cnt10--;
+        cnt0++;
+        val--;
+    }
+    while(cnt11>0 && val>0){
+        if(val>1){
+            val-=2;
+            cnt11--;
+        }
+        else{
+            val-=1;
+            cnt11--;
+            cnt1++;
+        }
+    }
+    while(cnt01>0 && val>0){
+        if(val>1){
+            cnt01--;
+            val-=2;
+        }
+        else{
+            val-=1;
+            cnt01--;
+            cnt1++;
+        }
+    }
+    while(val>0 && cnt00>0){
+        if(val>1){
+            val-=2;
+            cnt00--;
+        }
+        else{
+            val-=1;
+            cnt00--;
+            cnt0++;
+        }
+    }
+    while(val>0 && cnt0>0){
+        cnt0--;
+        val--;
+    }
+    string ans = "";
+    while(cnt00>0){
+        cnt00--;
+        ans += "00";
+    }
+    while(cnt0>0){
+        cnt0--;
+        ans += "0";
+    }
+    while(cnt01>0){
+        cnt01--;
+        ans += "01";
+    }
+    while(cnt10>0){
+        cnt10--;
+        ans += "10";
+    }
+    while(cnt11>0){
+        cnt11--;
+        ans += "11";
+    }
+    while(cnt1>0){
+        cnt1--;
+        ans += "1";
+    }
+    
+    cout<<ans<<endl;
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+}

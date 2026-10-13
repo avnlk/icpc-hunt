@@ -1,0 +1,31 @@
+# cook your dish here
+import sys
+def expmod():
+    input_data=sys.stdin.read().split()
+    if not input_data:
+        return
+    MOD=998244353
+    MAXN=200000
+    inv=[0]*(MAXN+1)
+    inv[1]=1
+    for i in range(2,MAXN+1):
+        inv[i]=(MOD-MOD//i)*inv[MOD%i]%MOD
+    h=[0]*(MAXN+1)
+    for i in range(1,MAXN+1):
+        h[i]=(h[i-1]+inv[i])%MOD
+    t=int(input_data[0])
+    ptr=1
+    op=[]
+    for i in range(t):
+        n=int(input_data[ptr])
+        ptr+=1
+        a=[int(j) for j in input_data[ptr:ptr+n]]
+        ptr+=n
+        ans=0
+        for i in range(n):
+            expdepth=(h[i]+h[n-1-i]%MOD)
+            ans=(ans+a[i]*expdepth)%MOD
+        op.append(str(ans))
+    sys.stdout.write("\n".join(op)+"\n")
+if __name__=="__main__":
+    expmod()

@@ -1,0 +1,58 @@
+# cook your dish here
+import sys
+from itertools import permutations
+PERMS = list(permutations(range(4)))
+DORD = (3, 1, 2, 0)
+def solve(c):
+    n = sum(c)
+    if n == 1:
+        i = c.index(1)
+        return str( i >> 1) + str(i + 1)
+    z, x, y = c[0], c[1], c[3]
+    ds = max(0, min(x + y, z + x - 1, (x + y + z - 1) // 2))
+    seen = set()
+    best = None
+    for d in range(ds, ds + 3):
+        if d > n // 2:
+            break
+        av = c[:]
+        rem = ds
+        for i in DORD:
+            q = min(rem, av[i]); av[i] -= q; rem -= q
+        if rem > 0:
+            continue
+        for po in PERMS:
+            a2 = av[:]
+            k = [0, 0, 0, 0]
+            r = d + 1
+            for i in po:
+                q = min(r, a2[i]); k[i] = q; a2[i] -= q; r -= q
+            if r > 0:
+                continue
+            key = (tuple(k), tuple(a2))
+            if key in seen:
+                continue
+            seen.add(key)
+            f0 = a2[0] + a2[2]
+            f1 = a2[1] + a2[3]
+            for L in range(4):
+                if not k[L]:
+                    continue
+                k = k[:]
+                k[L] -= f1
+                s = ('0' * (f0 + 2 * k[0]) + '01' * k[1] + '10' * k[2] + '1' * (f1 + 2 * k[3]) + str(L >> 1) + str(L & 1))
+                if best is None or s < best:
+                    best = s 
+    return best
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0])
+    out = []
+    p = 1 
+    for _ in range(t):
+        c = [int(v) for v in data[p:p + 4]]
+        p += 4
+        out.append(solve(c))
+    sys.stdout.write("\n".join(out) + "\n")
+main()
+            

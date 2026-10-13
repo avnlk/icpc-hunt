@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    
+    long long mod = 998244353;
+    
+    int maxn = 200005;
+    long long inv[maxn], h[maxn];
+    
+    
+        inv[1] = 1;
+        for(int i=2;i<=maxn;i++){
+            inv[i]=(mod-(mod/i)* inv[mod%i] % mod) % mod;
+        }
+        h[0]= 0;
+        for(int i=1;i<maxn;i++){
+            h[i]= (h[i-1]+inv[i])%mod;
+        }
+        int t;
+        cin>>t;
+        while(t--){
+            int n;
+            cin>>n;
+            long long ans =0;
+            for(int j=1;j<=n;j++){
+                long long a;
+                cin>>a;
+                long long w = (h[j-1]+h[n-j])%mod;
+                ans = (ans+a%mod*w)%mod;
+            }
+            cout<<ans<<endl;
+        }
+    }
+

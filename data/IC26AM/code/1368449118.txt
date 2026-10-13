@@ -1,0 +1,19 @@
+EDR=998244353
+MAXN=200000
+inv =[0]*(MAXN+1)
+inv[1]=1
+for i in range(2,MAXN+1):
+    inv[i]=EDR-(EDR//i)*inv[EDR%i]%EDR
+H=[0]*(MAXN+1)
+for i in range(MAXN+1):
+    H[i]=(H[i-1]+inv[i])%EDR
+t=int(input())
+for _ in range(t):
+    n=int(input())
+    a=list(map(int,input().split()))
+    ans=0
+    for i in range(n):
+        coeff=(H[i]+H[n-i-1])%EDR
+        ans=(ans+a[i]*coeff)%EDR
+    print(ans)        
+

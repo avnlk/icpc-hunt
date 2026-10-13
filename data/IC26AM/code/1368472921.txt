@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const ll mod = 998244353;
+const int N = 200000;
+
+
+int main() {
+    int t;
+    cin >> t;
+    vector<ll>inv(N+1) , pre(N+1,0);
+    inv[1] = 1;
+    for(int i=2;i<=N;i++){
+        inv[i] = mod - (mod/i)*inv[mod%i] % mod;
+    }
+    for(int i=1;i<=N;i++){
+        pre[i] = (pre[i-1] + inv[i] ) % mod;
+    }
+    
+    while (t--) {
+        int n;
+        cin>>n;
+        ll ans = 0;
+        for(int i=1;i<=n;i++){
+            ll x;
+            cin>>x;
+            ll curr = (pre[i-1] + pre[n-i]) % mod;
+            ans = (ans + x*curr) % mod;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

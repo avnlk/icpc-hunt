@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void solve() {
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    int n = a + b + c + d;
+    string ans;
+    int xn = n;
+    if (2 * d >= n - 1) {
+        if ((n - 1) % 2 == 0) {
+            d -= (n - 1) / 2;
+        } else {
+            d -= (n - 1) / 2;
+            c--;
+            ans += "0";
+        }
+        for (int i = 0; i < a; i++) ans += "00";
+        for (int i = 0; i < b; i++) ans += "01";
+        for (int i = 0; i < c; i++) ans += "10";
+        for (int i = 0; i < d; i++) ans += "11";
+    // cout << ans << " tero\n";
+    } else {
+        n = n - 2 * d;
+        if (2 * c >= n - 1) {
+            if ((n - 1) % 2 == 0) {
+                c -= (n - 1) / 2;
+            } else {
+                c -= (n - 1) / 2 + 1;
+                ans += "0";
+            }
+            for (int i = 0; i < a; i++) ans += "00";
+            for (int i = 0; i < b; i++) ans += "01";
+            for (int i = 0; i < c; i++) ans += "10";
+    // cout << ans << " mero\n";
+
+        } else {
+            n = n - 2 * c;
+            if (2 * b >= n - 1) {
+                if ((n - 1) % 2 == 0) {
+                    b -= (n - 1) / 2;
+                } else {
+                    b -= (n - 1) / 2;
+                    a--;
+                    ans += "0";
+                }
+                for (int i = 0; i < a; i++) ans += "00";
+                for (int i = 0; i < b; i++) ans += "01";
+    // cout << ans << " lado\n";
+
+
+            } else {
+                for (int i = 0; i < 2 * xn - (xn - 1); i++) ans += '0';
+
+    // cout << ans << " puti\n";
+            }
+        }
+    }
+    cout << ans <<"\n";
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t = 1;
+    cin >> t;
+    while (t--) solve();
+
+}

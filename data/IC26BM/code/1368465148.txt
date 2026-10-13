@@ -1,0 +1,28 @@
+# cook your dish here
+t = int(input())
+
+for _ in range(t):
+    a , b , c , d = map(int , input().split())
+    ans = []
+    
+    for u , v in (0 , 0) , (1 , 0) , (0 , 1):
+        k =  u + v
+        rm = b + d - v - k + 1
+        if u > c or v > d or rm < 0:
+            continue
+        limp = min(a , rm)
+        for p in (limp , limp - 1 , 0):
+            if p < 0:
+                continue
+            limq = min(b , (rm - p) // 2)
+            for q in (limq , limq-1 , 0):
+                if q < 0 or p + q + k == 0:
+                    continue
+                parts = ["00"] * p + ["01"] * q + ["10"] * u + ["11"] * v
+                zeros = "0" * (a - p + c - u)
+                ones = "1" * (rm - 2 * q - p)
+                
+                out = zeros + "".join(parts[:-1]) + ones + parts[-1]
+                ans.append(out)
+    
+    print(min(ans) if ans else "")

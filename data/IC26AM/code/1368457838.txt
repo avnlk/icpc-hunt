@@ -1,0 +1,84 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+
+const ll mod= 998244353;
+
+ll mul(ll a, ll b){
+    return ((a % mod) * (b % mod)) % mod;
+}
+
+ll mpow(ll a, ll b){
+    a = a%mod;
+    ll res = 1;
+    
+    while(b>0){
+        if(b&1){
+            res = mul(res, a);
+        }
+        
+        a = mul(a, a);
+        b >>= 1;
+    }
+    
+    return res;
+}
+
+const ll maxn = 2e5 +  10;
+
+
+
+ll revseries[maxn];
+
+void pre(){
+    revseries[1] = 1;
+    for(ll i=2 ; i < maxn ;i++){
+        revseries[i] = revseries[i-1] + mpow(i , mod - 2);
+        revseries[i] %= mod;
+    }
+    
+}
+
+/*
+    if two elements are there
+    1 1 
+    when merged that value get added to s every time it get merged 
+    s = value * no of time it get merged -> probablity or average no of merges
+    somethign like this
+    1 2 3 
+    1 + 1/2  1 1 + 1/2 + 1/3 
+    // left + right merge count * values = s
+    left posibiliy is sommethign like 1 + 1/2 + 1/3
+    
+
+*/
+
+void solve(){
+    ll n;cin >> n; 
+    vector<ll> v(n); 
+    for(auto &i: v){
+        cin >> i;
+    }
+    ll res = 0;
+    // last values can not merge with left part same with n-1 
+    for(ll i= 0 ;i<n; i++){
+        ll cnt = revseries[i] + revseries[n-i-1]; 
+        cnt %= mod;
+        res += mul(cnt, v[i]);
+        res %= mod;
+    }
+    cout << res << "\n"; return;
+    
+}
+
+int main() {
+    ios_base::sync_with_stdio(false); 
+    cin.tie(0);
+    pre();
+	ll t; cin >> t; 
+	while(t--){
+	    solve();
+	}
+
+}

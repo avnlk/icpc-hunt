@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+using ull=unsigned long long;
+ull power(ull x,ull y,ull p)
+{
+    ull res=1;
+    x=x%p;
+    while(y>0)
+    {
+        if(y&1)res=(res*x)%p;
+        y=y>>1;
+        x=(x*x)%p;
+    }
+    return res;
+}
+ull modinverse(ull n,ull p)
+{
+return power(n,p-2,p);}
+int main() {
+	// your code goes here
+    ll tt;
+    cin>>tt;
+    ll MOD=998244353;
+    while(tt--)
+    {
+        int n;
+        cin>>n;
+        vector<ll>arr(n);
+        for(int i=0;i<n;++i)cin>>arr[i];
+        ll sum=0,tsum=0,ttsum;
+        for(int i=0;i<n;++i)sum=(sum+arr[i])%MOD;
+        ll ans=0;
+        tsum=sum;
+        ttsum=sum;
+        int i=0;
+        if(n==1)
+        {
+            cout<<0<<endl;
+            continue;
+        }
+        while(i<n+1-i)
+        {
+            sum=(sum-arr[i]-arr[n-i-1]+MOD)%MOD;
+            tsum=(tsum+sum)%MOD;
+            ans=(ans+((tsum%MOD)*modinverse(n-1-i,MOD))%MOD)%MOD;
+            i++;
+        }
+        
+        // ans=(ans*2)%MOD;
+        cerr<<ans<<" "<<tsum;
+        // ans=(ans-ttsum+MOD)%MOD;
+        // if(n%2==1)
+        // {
+            tsum=(tsum+arr[n/2])%MOD;
+            cerr<<tsum;
+            ans=(ans+((arr[n/2]%MOD))%MOD)%MOD;
+        // }
+        cout<<ans<<endl;
+    }
+}

@@ -1,0 +1,38 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD = 998244353L;
+    static final int MAX = 200000;
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	 
+	 
+	   Scanner sc=new Scanner(System.in);
+	   int t=sc.nextInt();
+	    
+	   long[] inv = new long[MAX + 1];
+	   long[] H = new long[MAX + 1];
+	   H[0]=0;
+	   inv[1]=1;
+	   H[1]=1;
+	   for(int i = 2; i <= MAX; i++) {
+	       inv[i]=MOD-(MOD/i) * inv[(int)(MOD % i)] % MOD;
+	       H[i]=(H[i-1]+inv[i])%MOD;
+	   }
+	   while(t-->0){
+	       
+	   int n=sc.nextInt();
+	   long ans = 0;
+	   for(int i  =1; i<=n ; i++){
+	       long x = sc.nextLong();
+	       long ce = (H[i-1]+ H[n-i])%MOD; 
+	       ans=(ans+(x%MOD)*ce)%MOD;
+	   }
+	   
+	   System.out.println(ans);
+	   }
+	}
+}

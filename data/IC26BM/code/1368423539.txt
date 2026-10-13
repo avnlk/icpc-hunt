@@ -1,0 +1,79 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws IOException{
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		String line =br.readLine();
+		if(line==null)
+		return;
+		int t=Integer.parseInt(line.trim());
+		StringBuilder out=new StringBuilder();
+		while(t-- >0){
+		    String l=br.readLine();
+		    while(l!=null && l.trim().isEmpty())l=br.readLine();
+		    if(l==null)
+		    break;
+		    String[] st=l.trim().split("\\s+");
+		    long c00=Long.parseLong(st[0]);
+		    long c01=Long.parseLong(st[1]);
+		    long c10=Long.parseLong(st[2]);
+		    long c11=Long.parseLong(st[3]);
+		    if(c00 == 0 && c01 == 0){
+		        out.append('1');
+		        while(c11 > 0){
+		            out.append('1');
+		            c11--;
+		        }
+		        while(c10>0){
+		            out.append("01");
+		            c10--;
+		        }
+		        if(out.charAt(out.length()-1)=='1' && out.length()>1)
+		        {
+		            out.setLength(out.length()-1);
+		        }
+		        else if(c10==0){
+		            //Handled standard cases		        }
+		    }
+		    else {
+		        out.append('0');
+		        while(c00>0){
+		            out.append('0');
+		            c00--;
+		        }
+		        if(c01>0){
+		            out.append('1');
+		            c01--;
+		            while(c11>0){
+		                out.append('1');
+		                c11--;
+		            }
+		            while(c10>0|| c01>0)
+		            {
+		                if(c10>0){
+		                    out.append('0');
+		                    c10--;
+		                }
+		                if(c01>0)
+		                {
+		                    out.append('1');
+		                    c01--;
+		                }
+		                else if(c10>0){
+		                    while(c11>0)
+		                    {
+		                        out.append('1');
+		                        c11--;
+		                   }
+		                }
+		                out.append('\n');
+		            }
+		            System.out.println(out);
+		        }
+		    }
+		}
+	}
+}
+}

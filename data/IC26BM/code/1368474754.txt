@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	   ios::sync_with_stdio(false);
+	   cin.tie(nullptr);
+	   int t;
+	   cin>>t;
+	   const string T[4]={"00","01","10","11"};
+	   string out;
+	   while(t--){
+	       long long cnt[4];
+	       for(auto &x:cnt){
+	           cin>>x;
+	       }
+	       string best;
+	       bool has=false;
+	       for(int L=0;L<4;L++){
+	           if(!cnt[L]){continue;}
+	           long long c[4]={cnt[0],cnt[1],cnt[2],cnt[3]};
+	           c[L]--;
+	           long long ones=c[1]+c[3];
+	           long long al=min(c[0],ones);
+	           long long bl=c[1]-max(0LL,al-c[3]);
+	           long long be=min(bl,(ones-al)/2);
+	           long long r=ones-al-2*be;
+	           string s(c[0]+c[2]+al,'0');
+	           for(long long i=0;i<be;i++)s+="01";
+	           s.append(r,'1');s+=T[L];
+	           if(!has||s<best){best=move(s);has=true;}
+	       }
+	       out+=best;out+='\n';
+	   }
+   cout<<out;
+}

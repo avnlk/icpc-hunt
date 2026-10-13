@@ -1,0 +1,48 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static DataInputStream in = new DataInputStream(new BufferedInputStream(System.in,1<<16));
+    static long nextLong() throws IOException{
+        int b = in.read();
+        while(b<'0') b = in.read();
+        long r = 0;
+        while(b>='0'){
+            r = r*10+(b-'0');
+            b = in.read();
+        }
+        
+        return r;
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		final long MOD = 998244353L;
+		int MAXN = 200005;
+		long[] inv = new long[MAXN+1];
+		long[] H = new long[MAXN+1];
+		inv[1] = 1;
+		for(int i=2;i<=MAXN;i++){
+		    inv[i] = (MOD-(MOD/i)*inv[(int)(MOD % i)]%MOD)%MOD;
+		}
+		H[0] = 0;
+		for(int i=1;i<=MAXN;i++){
+		    H[i] = (H[i-1]+inv[i])%MOD;
+		}
+		int t = (int) nextLong();
+		StringBuilder sb = new StringBuilder();
+		while(t-->0){
+		    int n = (int) nextLong();
+		    long ans = 0;
+		    for(int j=1;j<=n;j++){
+		        long a = nextLong()%MOD;
+		        long w = (H[j-1]+H[n-j])%MOD;
+		        ans = (ans+a*w)%MOD;
+		    }
+		    sb.append(ans).append("\n");
+		}
+		System.out.print(sb);
+	}
+}

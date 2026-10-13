@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int MAXN = 2e5;
+#define int long long
+int MOD = 998244353;
+
+vector < int > fact(MAXN + 1), inv(MAXN + 1);
+vector < int > h(MAXN + 1);
+// int fact[MAXN + 1], inv[MAXN + 1];
+
+
+int modexp(int a, int b) {
+    int r = 1;
+
+    while (b) {
+        if (b & 1) {
+            r = r * a % MOD;
+        }
+
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+
+    return r;
+}
+
+int modinv(int a) {
+    return modexp(a, MOD - 2);
+}
+
+void init() {
+    inv[1] = 1;
+
+    for (int i = 2; i < MAXN; i++) {
+        inv[i] = (MOD - (MOD / i) * inv[MOD % i] % MOD) % MOD;
+    }
+
+    h[0] = 0;
+    for (int i = 1; i < MAXN; i++) {
+        h[i] = (h[i - 1] + inv[i]) % MOD;
+    }
+}
+
+
+signed main() {
+    // your code goes here
+    init();
+
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector < int > v(n);
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            int it;
+            cin >> it;
+            ans = (ans + it % MOD * (h[i] + h[n - i - 1]) % MOD) % MOD;
+        }
+
+        cout << ans << endl;
+    }
+
+}

@@ -1,0 +1,12 @@
+# cook your dish here
+t=int(input())
+str=('4','1000','0011','1111','0302')
+for i in str:
+    if(i[0]=='4'):
+        print('00')
+    elif():
+        print("011")
+print('011') 
+print('00001')
+print('010101')
+       

@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    const char * nm[4] = {"00","01","10","11"};
+    while(t--){
+        ll c[4];
+        cin >> c[0] >> c[1] >> c[2] >> c[3];
+        string best;
+        bool has = false;
+        for(int X = 0;X< 4;X++){
+            if(c[X] == 0){
+                continue;
+            }
+            ll p[4] = {c[0],c[1],c[2],c[3]};
+            p[X] --;
+            ll a = p[0],b = p[1],cc = p[2],d = p[3];
+            ll F00 = min(a,b+d);
+            ll delD=min(d,F00);
+            ll delB=F00 - delD;
+            ll b2=b-delB;
+            ll d2=d-delD;
+            ll x=min(b2,(b2+d2)/2);
+            ll z=a+cc+F00;
+            ll h=b2+d2-2*x;
+            string s;
+            s.reserve(z+2*x+h+2);
+            s.append(z,'0');
+            for(ll i = 0;i<x;i++){
+                s += "01";
+            }
+            s.append(h,'1');
+            s+=nm[X];
+            if(!has || s<best ){
+                best = s;
+                has = true;
+            }
+            
+            
+            
+        }
+        cout<<best << endl;
+    }
+}

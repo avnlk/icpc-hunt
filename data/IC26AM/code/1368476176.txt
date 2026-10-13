@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll MOD = 998244353;
+
+ll mul(ll a, ll b){
+    return ((a%MOD) * (b%MOD))%MOD;
+}
+
+ll sub(ll a, ll b){
+    return (a%MOD - b%MOD + MOD)%MOD;
+}
+
+ll powe(ll a, ll b, ll m = MOD){
+    if(a==0 && b==0) return 1%m;
+    a%=m;
+    ll res = 1;
+    while(b > 0){
+        if(b&1) res = res*a%m;
+        a = a*a%m;
+        b >>= 1;
+    }
+    return res;
+}
+
+ll inv(ll a){
+    return powe(a,MOD-2,MOD); 
+}
+
+ll mod_div(ll a, ll b){
+    return mul(a,inv(b));
+}
+
+ll add(ll a, ll b){
+    return (a+b)%MOD;
+}
+
+
+
+
+vector<ll> prec;
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    for(int i=0; i<n; i++) cin>>a[i];
+    ll sum = 0;
+    for(int i=1; i<=n-2; i++) {sum += a[i]; sum%=MOD;}
+    ll ans = mul(mod_div(n-1,n-2), sum);
+    ans = add(ans, mul(a[0]+a[n-1], mod_div(n-1,n-2)));
+    cout << ans << endl;
+}
+
+int main() {
+	int t;
+	cin>>t;
+	prec.assign(1e6+10,0ll);
+	for(ll i=2; i<=1e6; i++){
+	    prec[i] = (inv(i-1) + prec[i-1])%MOD;
+	}
+	while(t--) solve();
+
+}

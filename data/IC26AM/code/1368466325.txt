@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+#define int long long int
+using namespace std;
+
+const int mod = 998244353;
+const int mx = 300005;
+
+int inv[mx],h[mx];
+
+void init() {
+    
+    inv[1] = 1;
+    int i = 2;
+    while (i < mx) {
+        inv[i] = mod-(mod/i)*inv[mod%i]%mod;
+        i++;
+    }
+    
+    h[0] = 0;
+    for (int j = 1;j<mx;j++) {
+        h[j] = (h[j-1] + inv[j])%mod;
+    }
+}
+void solve() {
+    
+    int n;
+    cin >> n;
+    
+    vector<int> a(n);
+    for (int i =0;i<n;i++) {
+        cin >> a[i];
+    }
+    
+    if (n == 1) {
+        cout << 0 << endl;
+        return;
+    }
+    
+    int ans = 0;
+    for (int i = 0;i<n;i++) {
+        int x = (h[i] + h[n-1-i]) % mod;
+        int y = (a[i] % mod + mod) % mod;
+        
+        ans = (ans + y*x) % mod;
+    }
+    
+    cout << ans << endl;
+}
+int32_t main() {
+	
+	int t;
+	cin >> t;
+	
+	init();
+	
+	while (t--) {
+	    solve();
+	}
+
+}

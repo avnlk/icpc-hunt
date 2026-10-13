@@ -1,0 +1,108 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+void solve() {
+    ll c00, c01, c10, c11;
+    cin>>c00>>c01>>c10>>c11;
+    ll total = c00 + c01 + c10 + c11;
+    ll f00 == 0, h00 = 0, d00 = 0;
+    ll f01 == 0, h01 = 0, d01 = 0;
+    ll f10 == 0, h10 = 0, d10 = 0;
+    ll f11 == 0, h11 = 0, d11 = 0;
+    
+    ll bal = c01-c11;
+    if(bal >= 1) {
+        ll K = bal - 1;
+        d01 = K / 2;
+        h01 = K % 2;
+        f01 = c01 - d01- h01;
+        d11 = c11;
+        h00 = c00;
+        h10 = c10;
+    } else {
+        ll K = 1- bal;
+        ll u00 = min(c00, K);
+        f00 = u00;
+        h00 = c00 - u00;
+        ll u11h = min(c11, K);
+        K -= u11h;
+        ll u11f = min(u11h, K);
+        K -= u11f;
+        f11 = u11f;
+        h11 = u11h - u11f;
+        d11 = c11 - u11h;
+        ll u10 = min(c10, K);
+        f10 = u10;
+        h10 = c10 - 
+    }
+    
+    if(total % 2 == 1)
+    {
+        f = (total - 1) / 2;
+        h = 0;
+    }
+    else
+    {
+        f = (total - 2) / 2;
+        h = 1;
+    }
+    
+    string ans = "";
+    if(h == 1)
+    {
+        if(c10 > 0)
+        {
+            c10--;
+            ans = "0";
+        }
+        else if(c00 > 0)
+        {
+            c00--;
+            ans = "0";
+        }
+        else if(c11 > 0)
+        {
+            c11--;
+            ans = "1";
+        }
+        else 
+        {
+            c01--;
+            ans = "1";
+        }
+    }
+    
+    int drop11 = min(f, c11);
+    c11 -= drop11;
+    f -= drop11;
+    
+    int drop10 = min(f, c10);
+    c10 -= drop10;
+    f -= drop10;
+    
+    int drop01 = min(f, c01);
+    c01 -= drop01;
+    f -= drop01;
+    
+    int drop00 = min(f, c00);
+    c00 -= drop00;
+    f -= drop00;
+    
+    for(int i = 0; i < c00; i++)
+        ans += "00";
+    for(int i = 0; i < c01; i++)
+        ans += "01";
+    for(int i = 0; i < c10; i++)
+        ans += "10";
+    for(int i = 0; i < c11; i++)
+        ans += "11";
+    
+    cout << ans << "\n";
+}
+
+int main() {
+	int t; cin >> t;
+	while(t--) solve();
+}

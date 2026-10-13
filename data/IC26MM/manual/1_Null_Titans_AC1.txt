@@ -1,0 +1,34 @@
+# cook your dish here
+import sys
+MOD = 998244353
+def s1(n,a):
+    ru = [[]for _ in range(n)]
+    for i in range(1,n + 1):
+        v = a[i -1]
+        q,t = (i + 1) // 2, (n-i+2) // 2
+        cp,c = q + n - i , i - 1 + t
+        if v > cp and v > c:
+            return 0
+        ru[v - 1].append((v,q,cp,t,c))
+    def ok(T,l,step):
+        r = T - l
+        for v,q,cp,t,c in ru[T]:
+            if not (( v < cp and step == 'L' and l == q - 1) or (v == cp and l <= q - 1) or (v < c and step == 'R'and r == t - 1)or (v == c and r <= t - 1)):
+                return False
+        return True
+        
+    dp = [1] + [0] * n
+    for T in range(n - 1):
+        new = [0] * (n + 1)
+        for l in range(T+1):
+            if dp[l]:
+                if ok(T,l,'L'):new[l+1] = (new[l + 1]+dp[l])% MOD
+                if ok(T,l,'R'):new[l] = (new[l]+dp[l])% MOD
+        dp = new
+    return sum(dp[l] for l in range(n) if ok(n-1,l,None)) % MOD
+d = sys.stdin.buffer.read().split()
+t,p,o = int(d[0]),1,[]
+for _ in range(t):
+    n = int(d[p]); a = list(map(int,d[p+1:p+1+n])); p += n + 1
+    o.append(s1(n,a))
+print("\n".join(map(str,o)))

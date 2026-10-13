@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod=998244353;
+int main() {
+	// your code goes here
+     int t;
+     cin>>t;
+     vector<int>ns(t);
+     vector<vector<long long>>a(t);
+     int mx=0;
+     for(int tc=0;tc<t;tc++){
+            cin>>ns[tc];
+            mx=max(mx,ns[tc]);
+            a[tc].resize(ns[tc]);
+            for(auto &x:a[tc]){
+                  cin>>x;
+            }
+     }
+     vector<long long>inv(mx+1);
+     if(mx>=1){
+          inv[1]=1;
+     }
+     for(int i=2;i<=mx;i++){
+           inv[i]=mod-(mod/i)*inv[mod%i]%mod;
+     }
+     vector<long long>h(mx+1,0);
+     for(int i=1;i<=mx;i++){
+           h[i]=(h[i-1]+inv[i])%mod;
+     }
+     for(int tc=0;tc<t;tc++){
+           int n=ns[tc];
+           long long ans=0;
+           for(int i=1;i<=n;i++){
+                 long long ce=(h[i-1]+h[n-i])%mod;
+                 ans=(ans+a[tc][i-1]*ce)%mod;
+           }
+           cout<<ans<<endl;
+     }
+}

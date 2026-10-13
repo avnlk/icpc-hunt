@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+const ll MOD=998244353;
+const int N=200001;
+ll h[N];
+
+int main() {
+	// your code goes here
+	h[0]=0;
+	int i=1;
+	while(i<N){
+	    ll res=1;
+	    int a=i;
+	    int b=MOD-2;
+	    while(b>0){
+	        if(b%2==1)res=(res*a)%MOD;
+	        a=(a*a)%MOD;
+	        b=b/2;
+	    }
+	    h[i]=(h[i-1]+res)%MOD;
+	    i++;
+	}
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    ll jap=0;
+	    for(int j=1;j<=n;j++){
+	        int x;
+	        cin>>x;
+	        ll left=h[j-1];
+	        ll right=h[n-j];
+	        ll sum=(left+right)%MOD;
+	        jap=(jap+x*sum)%MOD;
+	    }
+	    cout<<jap<<"\n";
+	}
+}

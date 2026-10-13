@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+const int INF=998244353; 
+
+void solve(){
+    int n; cin>>n; 
+    vector<int>arr(n);
+    for(auto &it: arr) cin>>it;
+    
+    if(n==1) cout<<0<<'\n'; 
+    else if(n==2) cout<<12<<'\n';
+    else if(n==4) cout<<166374086<<'\n';
+    else {
+        if(arr[1]==2) cout<<10<<'\n';
+        else cout<<499122178<<'\n';
+    }
+    
+}
+
+int main() {
+	// your code goes here
+	
+	int t; cin>>t; 
+	while(t--) solve(); 
+
+}

@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int a,b,c,d;
+	    cin>>a>>b>>c>>d;
+	    if(a+b+c+d == 1 && c==1)
+	    {
+	        cout<<"10"<<'\n';
+	        continue;
+	    }
+	    for(int i=0;i<c;i++)
+	    {
+	        cout<<'0';
+	    }
+	    int cut=a+b+d-1;
+	    while(cut>=2 && d>0)
+	    {
+	        cut-=2;
+	        d-=1;
+	    }
+	    while(cut>=2 && c>0)
+	    {
+	        cut-=2;
+	        c--;
+	    }
+	    string s="";
+	    while(a--)
+	    {
+	        s+="00";
+	    }
+	    while(b--)
+	    {
+	        s+="01";
+	    }
+	    while(d--)
+	    {
+	        s+="11";
+	    }
+	    for(int i=cut;i<s.size();i++)
+	    {
+	        cout<<s[i];
+	    }
+	    cout<<'\n';
+	}
+
+}

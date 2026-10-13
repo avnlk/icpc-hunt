@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+#define endl '\n'
+const int N = 200005;
+const int mod = 998244353;
+int a[N],inv[N],dp[N];
+int rec(int n) {
+    if(n == 1) return 0;
+    if(dp[n] != -1) return dp[n];
+    return dp[n] = (rec(n - 1) + inv[n -1]) % mod;
+}
+void solve() {
+    int n;
+    cin >> n;
+    for(int i = 1 ; i <= n ; i++) cin >> a[i];
+    int ans = 0;
+    for(int i = 1 ; i <= n ; i++) {
+        int D = (rec(i) + rec(n - i + 1)) % mod;
+        ans = (ans + (a[i] % mod) * D) % mod;
+    }
+    cout << ans << '\n';
+}
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    inv[1] = 1;
+    for(int i = 2 ; i < N ; i++) inv[i] = (mod - mod / i) * inv[mod%i] % mod;
+    memset(dp,-1,sizeof(dp));
+    dp[1] = 0;
+    int tt;
+    cin >> tt;
+    while(tt--) {
+        solve();
+    }
+    return 0;
+}

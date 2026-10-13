@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    long long cnt[4];
+	    cin>>cnt[0]>>cnt[1]>>cnt[2]>>cnt[3];
+	    const string name[4]={"00","01","10","11"};
+	    
+	    string best="";
+	    bool have=false;
+	    
+	    for(int last=0;last<4;last++){
+	        if(cnt[last]==0)
+	        continue;
+	        long long a=cnt[0],b=cnt[1],c=cnt[2],d=cnt[3];
+	        
+	        if(last==0)a--;
+	        else if(last==1) b--;
+	        
+	       else if(last==2) c--;
+	       
+	       else d--;
+	       long long rest=a+b+c+d;
+	       
+	       long long m=0;
+	       for(long long x=0;2*x<=rest;x++){
+	           if(min(a,x)+min(d,x)>=2*x-b) m=x;
+	           
+	       }
+	       
+	       long long i=min(a,m);
+	       long long l=m-i;
+	       long long p=a+i+c;
+	       long long r=b+d-l-m;
+	       string s;
+	       s.append(p,'0');
+	       for(long long k=0;k<l;k++) s+="01";
+	       
+	       s.append(r,'1');
+	       s+=name[last];
+	       
+	       if(!have || s<best){
+	           best=s;
+	           have=true;
+	       }
+	    }
+	    cout<<best<<endl;
+	}
+return 0;
+}

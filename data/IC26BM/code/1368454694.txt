@@ -1,0 +1,22 @@
+import sys 
+input=sys.stdin.readline
+poss=["00","01","10","11"]
+t=int(input())
+for _ in range(t):
+    cunts=list(map(int,input().split()))
+    m=sum(cunts)-1
+    bes=None
+    for i in range(4):
+        if cunts[i]==0:
+            continue
+        cunts[i]-=1
+        c0,c01,c10,c11=cunts
+        z0=min(m,2*c0+c10)
+        rem=m-z0
+        bth=min(c01,rem//2)
+        o1s=rem-2*bth
+        can=("0"*z0+"01"*bth+"1"*o1s+poss[i])
+        if bes is None or can<bes:
+            bes=can
+        cunts[i]+=1
+    print(bes)

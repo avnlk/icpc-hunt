@@ -1,0 +1,49 @@
+# cook your dish here
+import sys 
+def solve():
+    input= sys.stdin.read
+    data= input().split()
+    if not data:
+        return
+    
+    t= int(data[0])
+    results= []
+    
+    idx = 1
+    for _ in range(t):
+        c00= int(data[idx])
+        c01= int(data[idx+1])
+        c10= int(data[idx+2])
+        c11= int(data[idx+3])
+        idx+=4
+        
+        if c01==0 and c10==0:
+            if c00>0:
+                results.append("0"*(c00+1))
+            else:
+                results.append("1"*(c11+1))
+            continue
+        ans= []
+        if c01 == c10:
+            ans.append("0"*(c00+1))
+            for _ in range(c01 - 1):
+                ans.append("10")
+            ans.append("1" * (c11 + 1))
+            ans.append("0")
+        elif c10 > c01:
+            ans.append("0"* (c00 + 1))
+            for _ in range(c10):
+                ans.append("10")
+            ans.append("1" * (c11 + 1))
+        else:
+            ans.append("1")
+            ans.append("0"* (c00 + 1))
+            for _ in range(c01 - 1):
+                ans.append("10")
+            ans.append("1"* (c11 + 1))
+            ans.append("0")
+        results.append("".join(ans))
+    print('\n'.join(results))
+if __name__ == '__main__':
+    solve()
+                

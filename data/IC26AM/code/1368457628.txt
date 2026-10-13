@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int MAXN = 200005;
+const long long MOD = 998244353;
+long long inv[MAXN];
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	inv[1] = 1;
+	
+	for(int k=2; k<MAXN; k++){
+	    ll q = MOD/k;
+	    ll r = MOD%k;
+	    
+	    ll prod = q*inv[r];
+	    
+	    prod = prod%MOD;
+	    
+	    ll val = MOD-prod;
+	    
+	    val%=MOD;
+	    
+	    inv[k]=val;
+    }
+	
+	
+    int t;
+    cin>>t;
+    
+    while(t--){
+        int n;
+        cin>>n;
+        
+        vector<long long> a(n+1);
+        
+        for(int i=1; i<=n; i++){
+            cin>>a[i];
+        }
+        
+        ll answer =0;
+        
+        for(int i=1;i<=n; i++){
+            ll coef=0;
+            
+            for(int j=1; j<=n;j++){
+                
+                if(j==i){
+                    continue;
+                }
+                int dist =abs(i-j);
+                
+                coef = coef + inv[dist];
+                coef = coef%MOD;
+            }
+            
+            
+        
+        ll value = a[i]%MOD;
+        ll term = value* coef;
+        
+        term=term%MOD;
+        
+        answer = answer+term;
+        answer= answer%MOD;
+    }
+    
+    cout<<answer<<endl;
+	
+    }
+	
+	
+
+}

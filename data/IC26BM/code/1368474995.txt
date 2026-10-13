@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	/*
+	
+	oh god . couldnt solve..
+	
+	couldn't understood the problem itself
+	
+	*/
+	
+	
+	
+
+}

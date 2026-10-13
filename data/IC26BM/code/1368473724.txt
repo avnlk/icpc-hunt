@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<string> toks={"0","00","01","10","1","11"};
+    const string T[4]={"00","01","10","11"};
+    int t;
+    cin>>t;
+    while(t--){
+        long long c[4];
+        cin>>c[0]>>c[1]>>c[2]>>c[3];
+        long long n= c[0]+c[1]+c[2]+c[3];
+        if(n==1) {
+            for(int i=0;i<4;i++) if(c[i]) cout<<T[i]<<endl; continue;
+        }
+        string best; bool have=false;
+        for(int L=0;L<4;L++){
+            if(!c[L]) continue;
+            long long r[4]={c[0],c[1],c[2],c[3]}; r[L]--;
+            long long A=r[0],B=r[1],W=r[3];
+            long long u= min(min(W+B,A+B),min((W+A+B)/2,(n-1)/2));
+            long long need= u;
+            int ou[4]={3,1,2,0};
+            for(int k=0;k<4;k++){
+                long long x=min(need,r[ou[k]]); r[ou[k]]-=x; need-=x;
+            }
+            long long d[4]={0,0,0,0};
+            need=u;
+            for(int k=0;k<4;k++){
+                long long x=min(need,r[k]); r[k]-=x; d[k]+=x; 
+                need-=x;
+            }
+            long long cnt[6]={r[0]+r[2],d[0],d[1],d[2],r[1]+r[3],d[3]};
+            string s; s.reserve(n+2);
+            for(int i=0;i<6;i++){
+                for(long long j=0;j<cnt[i];j++) s+=toks[i];
+               } s+=T[L];
+                if(!have || s<best){
+                    best=s;
+                    have=true;
+                    
+                }
+               
+            }
+            
+                cout<<best<<endl;
+    }
+    return 0;
+    
+}

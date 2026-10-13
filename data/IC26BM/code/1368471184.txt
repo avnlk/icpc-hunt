@@ -1,0 +1,18 @@
+# cook your dish here
+import sys
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0])
+    out = []
+    names = ["00","01","10","11"]
+    for q in range(t):
+        c = [int(x) for x in data[1 + 4*q:5 + 4* q]]
+        best = None 
+        for L in range(4):
+            if c[L]  == 0:
+                if c[L] == 0:
+                    continue
+            a,b , ten,d = continue
+        if L == 0:
+            a-= 1
+        elif 

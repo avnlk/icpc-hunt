@@ -1,0 +1,122 @@
+# cook your dish here
+t= int (input())
+s=['00','01','10','11']
+
+def make(c,q):
+    n=sum(c)
+    r=n-1-2*q
+    c=c[:]
+    f=[0]*4
+    z=o=0
+    
+    x=min(q,c[0])
+    f[0]=x
+    c[0]-=x
+    q-=x
+    
+    for i in (1,2,3):
+        x=min(q,c[i])
+        f[i] = x
+        c[i]-=x
+        q-=x
+        
+     
+    for i in (2,0):
+        x= min(r,c[i])
+        z+=x
+        c[i]-=x
+        r-=x    
+    
+    for i in (3,1):
+        x=min(r,c[i])
+        o+=x 
+        c[i]-=x 
+        r-=x 
+        
+    last = next(i for i in range(4) if c[i])
+    
+    ans=[]
+    if z+ 2*f[0]:
+        ans.append(('0',z+2*f[0]))
+    if f[1]:
+        ans.append(('01',f[1]))
+    if f[2]:
+        ans.append(('10',f[2]))
+    if o + 2*f[3]:
+        ans.append(('1',o+2*f[3]))
+        
+    ans.append((s[last][0], 1))
+    ans.append((s[last][1], 1))
+    
+    return ans
+def smaller(a,b):
+    i=j=0
+    x=y=0
+    
+    while i< len(a) and j<len(b):
+        p,n = a[i]
+        q,m = b[j]
+        lp=len(p)
+        lq=len(q)
+        rp=n*lp-x
+        rq=m*lq-y
+        k=min(rp,rq)
+        
+        for z in range (min(k,2)):
+            A= p[(x+z)%lp]
+            B=q[(y+z)%lq]
+            if A!=B :
+                A<B
+
+
+        x+=k 
+        y+=k 
+        
+        if x==n*lp:
+            i+=1 
+            x=0 
+        if y == m*lq:
+            j+=1 
+            y=0 
+    return False
+    
+    
+    
+    
+for i in range(t):
+    c=list(map(int,input().split()))
+    best = None 
+    
+    for q in range ((sum(c)-1)//2 + 1):
+        cur=make(c,q)
+        if best is None or smaller (cur,best):
+            best = cur 
+    print (''.join(s*n for s,n in best))
+        
+        
+        
+'''for i in range(t):
+    a,b,c,d=map(int,input().split())
+    s='0'*a + '1'*b + '10'*c + '11'*d
+    n= a + b + c + d
+    ans=''
+    
+    while n>1:
+        if a:
+            ans +='0'
+            a-=1
+        elif b:
+            ans += '1'
+            b-=1
+        elif c:
+            ans += '0'
+            c-=1
+        else:
+            ans += '1'
+            d-= 1
+        n-=1
+    if a: ans += '00'
+    elif b: ans += '01'
+    elif c: ans += '10'
+    else : ans += '11'
+    print (ans)'''

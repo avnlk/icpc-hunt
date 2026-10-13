@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;cin>>t;
+    const char* st[4]= {"00", "01", "10", "11"};
+    while(t--){
+        int inp[4];
+        cin >> inp[0] >> inp[1] >> inp[2] >> inp[3];
+        
+        string ans = "";
+        bool flag = false;
+        for(int i=0; i<4; i++){
+            if (inp[i] == 0) continue;
+            int cnt[4] = {inp[0], inp[1], inp[2], inp[3]};
+            
+            cnt[i]--;
+            
+            long long a = cnt[0], b =cnt[1], c=cnt[2], d=cnt[3];
+            long long k = 0;
+            
+            while(max(0LL, k+1-d) + max(0LL, k+1-a) <= b) k++;
+            
+            long long x = min(d, k), y = k-x;
+            long long u0 = min(a, k), u1 = k-u0;
+            long long z = 2 * u0 + (a-u0) + c;
+            long long o = (b-y-u1) + (d-x);
+            
+            string s;
+            s.reserve(z+2 * u1 + o + 2);
+            s.append(z, '0');
+            
+            for (long long j=0; j<u1; j++){
+                s += '01';
+            }
+            s.append(o, '1');
+            s += st[i];
+            if(!flag || s < ans) {
+                ans = s;
+                flag = true;
+            }
+            
+        }
+        
+        puts(ans.c_str());
+    }
+}

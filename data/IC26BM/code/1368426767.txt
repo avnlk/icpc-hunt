@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+string solving(int a, int b , int c, int d){
+    string res = "";
+    int x= min(a,b+d);
+    int d11 = min(d,x);
+    int d01 = x -d11;
+    a -= x;
+    b -= d01;
+    d -= d11;
+    
+    int y = min(b,(b+d)/2);
+    
+    int zeros = a+c;
+    int ones = b+d- 2*y;
+    res.append(2*x + zeros, '0');
+    for(int i = 0; i<y; i++) res+= "01";
+    res.append(ones, '1');
+    return res;
+}
+
+int main() {
+	// your code goes here
+	
+	int tc;
+	cin >> tc;
+	
+	while(tc--)
+	{
+	    vector<int> c(4);
+	    
+	    for(auto &x : c) cin >> x;
+	    
+	    string res = "";
+	    
+	    string choice[4] = {"00", "01", "10", "11"};
+	    
+	    bool x = 0;
+	    for(int i = 0; i< 4; i++){
+	        if(c[i] == 0){
+	            continue;
+	        }
+	        vector<int> arr = c;
+	        arr[i]--;
+	        string curr = solving(arr[0], arr[1], arr[2], arr[3]);
+	        curr += choice[i];
+	        if(res.size() == 0 || curr < res) res = curr;
+	    }
+	    cout<<res<<endl;
+	}
+
+}

@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+  int t;
+  cin>>t;
+  while(t--){
+      int s=0;
+      int n;
+      cin>>n;
+      vector<int>v;
+      for(int i=0;i<n;i++){
+          cin>>v[i];
+      }
+      for(int i=0;i<v.size();i++){
+          s=v[i]+v[i+1];
+          v[i+1]=s;
+         v[i]=s;
+          v.erase(v.begin()+v[i+1]);
+          v.erase(v.begin(),v[i]);
+  }
+}

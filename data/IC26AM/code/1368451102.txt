@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+int main() {
+	// your code goes here
+	const long long mod=998244353;
+	const int mnp=200000;
+	vector<long long> ult(mnp+1),xs(mnp+1);
+	
+	ult[1]=1;
+	
+	for(int i=1;i<=mnp;i++){
+	    if(i>1) ult[i]=mod-(mod/i) * ult[mod%i] % mod ;
+	    xs[i]=(xs[i-1]+ult[i]) % mod;
+	}
+	
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    
+	    long long res=0;
+	    for(int i=1;i<=n;i++){
+	        long long sde;
+	        cin>>sde;
+	        res=(res+sde*((xs[i-1]+xs[n-i])%mod)) % mod;
+	    }
+	    cout<<res<<endl;
+	}
+	
+	
+
+}

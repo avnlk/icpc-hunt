@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int c00, c01, c10, c11;
+    cin >> c00 >> c01 >> c10 >> c11;
+    int rem = c00+c01+c11+c10 - 1;
+    string s;
+    
+    if (c00 == 0 && c01 == 0 && c11 == 0) {
+        while (c10 > 1 && rem > 0) {
+            s.push_back('0');
+            c10--;
+            rem--;
+        }
+        s = s + "10";
+        cout << s << endl;
+        return;
+    }
+    
+    while (c10 > 0 && rem > 0){
+        rem--;
+        s.push_back('0');
+        c10--;
+    }
+    
+    if (rem < 2*c11) {
+        if (rem%2 == 0) {
+            c11 -= rem/2;
+            rem = 0;
+        }
+        else {
+            c11 -= (rem-1)/2;
+            rem = 1;
+        }
+    }
+    else {
+        rem -= 2*c11;
+        c11 = 0;
+        // cerr << rem << endl;
+    }
+    
+    
+    if (rem < 2*c01) {
+        if (rem%2 == 0) {
+            c01 -= rem/2;
+            rem = 0;
+        }
+        else {
+            c01 -= (rem-1)/2;
+            rem = 1;
+        }
+    }
+    else {
+        rem -= 2*c01;
+        c01 = 0;
+    }
+    
+    for(int i=0; i<c00; i++) s = s + "00";
+    for (int i=0; i<c01; i++) s = s + "01";
+    for (int i=0; i<c10; i++) s = s + "10";
+    for (int i=0; i<c11; i++) {
+        s = s + "11";
+        // cerr << "Im here" << endl;
+        // cerr << s << endl;
+        // cerr << rem << endl;
+    }
+    for (int i=rem; i<s.size(); i++) cout << s[i];
+    cout << endl;
+    
+}
+
+int main() {
+	// your code goes here
+    int t=1; cin >> t;
+    while (t--) solve();
+}

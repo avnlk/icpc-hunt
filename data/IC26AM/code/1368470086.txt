@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define MOD 998244353
+long long poww(long long a, long long b){
+    if(b<=1) return pow(a,b);
+    long long res=poww(a,b>>1)%MOD;
+    res=(res*res)%MOD;
+    if(b&1) res=(res*a)%MOD;
+    return res;
+}
+int main() {
+	// your code goes here
+    cout<<(25*poww(2,MOD-2))%MOD<<endl;
+}

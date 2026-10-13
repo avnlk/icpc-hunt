@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long mod=998244353;
+const int N=200005;
+long long inv[N],H[N];
+
+int main() {
+	inv[1]=1;
+	for(int i=2;i<N;i++){
+	    inv[i]=(mod-(mod/i)*inv[mod%i]%mod)%mod;
+	    
+	}
+	H[0]=0;
+	for(int i=1;i<N;i++){
+	    H[i]=(H[i-1]+inv[i])%mod;
+	    
+	}
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+	    cin>>n;
+	    long long ans=0;
+	    for(int i=1;i<=n;i++){
+	        long long a;
+	        cin>>a;
+	        long long c=(H[n-i]+H[i-1])%mod;
+	        ans=(ans+a%mod*c)%mod;
+	    }
+	    cout<<ans<<endl;
+	}
+
+}

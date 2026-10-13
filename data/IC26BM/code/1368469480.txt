@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAXN 300005
+
+void make_can(
+    int c[4],
+    int terminal,
+    char *best,
+    int *bestLen) {
+        int C[4];
+        
+        for (int i = 0; i < 4; i++) C[i] = c[i];
+        
+        if (C[terminal] == 0) return;
+            
+        C[terminal]--;
+        
+        int m = C[0] + C[1] + C[2] + C[3];
+        
+        int R0 = C[0] + C[2];
+        int R1 = C[1] + C[3];
+        
+        int full00 = (C[0] < R1 ? C[0] : R1);
+        
+        int zeroPre = R0 + full00;
+        
+        int len = 0;
+        char *cur = best + MAXN;
+        
+        char tmp[MAXN];
+        
+        len = 0;
+        
+        for (int i = 0; i < zeroPre; i++) tmp[len++] = '0';
+        
+        for (int i = zeroPre; i < m; i++) tmp[len++] = '1';
+        
+        tmp[len++] = '0' + (terminal / 2);
+        tmp[len++] = '0' + (terminal % 2);
+        tmp[len] = '\0';
+        
+        if (*bestLen == -1 || strcmp(tmp, best) < 0) {
+            strcpy(best, tmp);
+            *bestLen = len;
+        }
+        
+        if (C[1] > 0) {
+            int full01;
+            int zeroPart;
+            
+            if (C[0] + 2 <= R1) {
+                int full00_2 = C[0];
+                
+                full01 = (R1 - full00_2) / 2;
+                
+                if (full01 > C[1]) full01 = C[1];
+                
+                if (full01 < 1) full01 = 1;
+                
+                zeroPart =  R0 + full00_2;
+            } else {
+                full01 = 1; 
+                zeroPart = R0 + R1 - 2;
+                
+                if (zeroPart < 0) zeroPart = 0;
+            } 
+        
+        len = 0;
+        
+        for (int i = 0; i < zeroPart; i++) {
+            tmp[len++] = '0';
+        }
+        
+        for (int i = 0; i < full01; i++) {
+            tmp[len++] = '0';
+            tmp[len++] = '1';
+        }
+        
+        while (len < m) tmp[len++] = '1';
+        
+        tmp[len++] = '0' + (terminal / 2);
+        tmp[len++] = '0' + (terminal % 2);
+        tmp[len] = '\0';
+        
+        if (*bestLen == -1 || strcmp(tmp, best) < 0) {
+            strcpy(best, tmp);
+            *bestLen = len;
+        } 
+        }
+    }
+
+int main() {
+	int t;
+	scanf("%d", &t);
+	
+	while (t--) {
+	    int c[4] = {0,0,0,0};
+	    
+	    scanf("%d %d %d %d", &c[0], &c[1], &c[2], &c[3]);
+	    
+	    char ans[MAXN];
+	    ans[0] = '\0';
+	    
+	    int answerLen = -1;
+	    
+	    for (int terminal = 0; terminal < 4; terminal++) {
+	        if (c[terminal] == 0) continue;
+	    
+	        make_can(
+	            c,
+	            terminal,
+	            ans,
+	            &answerLen
+	       );
+	    }
+	    
+	    printf("%s\n", ans);
+	}
+	
+	return 0;
+}
+

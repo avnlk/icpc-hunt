@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+const ll MOD = 998244353;
+
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	int t;
+	cin >> t;
+	
+	vector<pair <int , vector<ll >>> ts(t);
+	int mx = 0;
+	for(int tc = 0 ; tc < t ; tc++){
+	    int n ;
+	    cin >> n;
+	    
+	    ts[tc].first = n;
+	    ts[tc].second.resize(n);
+	    
+	    for(ll &x : ts[tc].second ){
+	        cin >> x;
+	    }
+	    mx = max(mx , n);
+	    
+	}
+	vector<ll> inv(mx + 1);
+	if(mx >= 1){
+	    inv[1] = 1;
+	}
+	for(int i = 2 ; i <= mx ; i++){
+	    inv[i] = MOD - (MOD / i) * inv[MOD % i] % MOD;
+	}
+	vector<ll> h(mx + 1, 0);
+	
+	for(int i = 1 ; i <= mx ; i++){
+	    h[i] = (h[i - 1] + inv[i]) % MOD;
+	}
+	
+	for(auto &[n,a] : ts){
+	    ll ans = 0;
+	    for(int i = 0 ; i < n ; i++){
+	        ll co = (h[i] + h[n - i - 1]) % MOD;
+	        ans = (ans + (a[i] % MOD) * co) % MOD;
+	    }
+	    
+	    cout << ans << endl;
+	    
+	}
+    
+}

@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string balance_best(long long c00,long long c01,long long c10,long long c11){
+    long long zeros=c00+c10;
+    long long ones=c01+c11;
+    long long p=min(c00,ones);
+    long long delete11=min(c11,p);
+    long long delete01=p-delete11;
+    
+    c11-=delete11;
+    c01-=delete01;
+    
+    zeros+=p;
+    ones-=p;
+    
+    long long q=min(c01,ones/2);
+    
+    string res;
+    res.reserve(zeros+2*q+(ones-2*q));
+    res.append(static_cast<size_t>(zeros),'0');
+    
+    for(long long i=0;i<q;i++){
+        res+="01";
+    }
+    res.append(static_cast<size_t>(ones-2*q),'1');
+    return res;
+}
+
+void solve(){
+    long long c[4];
+    cin>>c[0]>>c[1]>>c[2]>>c[3];
+    const string type[4]={"00","01","10","11"};
+    
+    string best;
+    bool have=false;
+    for(int last=0;last<4;last++){
+        if(c[last]==0)continue;
+        
+        long long rem[4]={
+            c[0],c[1],c[2],c[3]
+        };
+        
+        --rem[last];
+        
+        string cur=balance_best(rem[0],rem[1],rem[2],rem[3]);
+        
+        cur+=type[last];
+        
+        if(!have||cur<best){
+            best=cur;
+            have=true;
+        }
+    }
+    cout<<best<<'\n';
+}
+
+int main() {
+	// your code goes here
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int t;
+	if(cin>>t){
+	    while(t--){
+	        solve();
+	    }
+	}
+	return 0;
+}

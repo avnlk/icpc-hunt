@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	const string full[4] = {"00","01","10","11"};
+	while(t--){
+	    ll c[4];
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    ll n = c[0]+c[1]+c[2]+c[3];
+	    ll L = n+1; 
+	    ll best0=-1,best01=-1,best10=-1,best1=0;
+	    int blast=0;
+	    for(ll k=1;2*k<=L;k++) {
+	        ll sing = L-2*k;
+	        ll fullo = k-1;
+	        for(int last =0;last<4;last++){
+	            if(c[last] == 0) continue;
+	            ll a[4];
+	            for(int i=0;i<4;i++) a[i] = c[i];
+	            a[last]--;
+	            ll c0 = a[0];
+	            ll c1 = a[1];
+	            ll c2 = a[2];
+	            ll c3 = a[3];
+	            ll zcap = c0+c2;
+	            ll ocap = c1+c3;
+	            ll low = max(0LL,fullo-ocap);
+	            ll high = min(fullo,zcap);
+	            if(low>high) continue;
+	            ll A = c0;
+	            ll B = zcap - sing;
+	            ll peakl,peakr;
+	            if(A<=B) {
+	                peakl=A;
+	                peakr=B;
+	            } else {
+	                peakl = peakr = A; 
+	            }
+	            ll ul,ur;
+	            if(high<peakl) {
+	                ul=ur=high;
+	            } else if(low>peakr) {
+	                ul=ur=low;
+	            } else {
+	                ul = max(low,peakl);
+	                ur = min(high,peakr);
+	            }
+	            ll q = fullo-c1;
+	            ll U = max(ul,min(ur,q));
+	            ll f0 = min(c0,U);
+	            ll f2 = U-f0;
+	            ll remfull = fullo-U;
+	            ll f1 = min(c1,remfull);
+	            ll f3 = remfull - f1;
+	            ll s0 = min(sing,zcap-U);
+	            ll s1 = sing -s0;
+	            ll Z = s0+2*f0;
+	            ll ones = s1+2*f3;
+	            bool better = false;
+	            if(Z>best0) better = true;
+	            else if(Z==best0) {
+	                if(f1>best01) better=true;
+	                else if(f1==best01) {
+	                    if(f2>best10) better=true;
+	                    else if(f2==best10 && last<blast) better=true;
+	                }
+	            }
+	            if(better){
+	                best0=Z;
+	                best01=f1;
+	                best10=f2;
+	                best1=ones;
+	                blast = last; 
+	            }
+	        }
+	    }
+	    string ans;
+	    ans.append(best0,'0');
+	    for(ll i=0;i<best01;i++) ans+="01";
+	    for(ll i=0;i<best10;i++) ans += "10";
+	    ans.append(best1,'1');
+	    ans += full[blast];
+	    cout<<ans<<endl;
+	}
+return 0;
+}

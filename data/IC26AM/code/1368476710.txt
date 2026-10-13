@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+const int mod = 998244353;
+int binexp(int a,int b){
+    int ans = 1;
+    while(b > 0){
+        if(b & 1){
+            ans = (ans * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return ans;
+}
+void solve(){
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    long long sum = 0;
+    for(int i = 0;i < n;i++){
+        cin >> v[i];
+        sum += v[i];
+    }
+    int den = n;
+    for(int i = n - 1;i > 0;i--){
+        den = (den * i) % mod;
+        den = (den * i) % mod;
+    }
+    int num = binexp(2, n - 1);
+    int deninv = binexp(den, mod - 2);
+    num = (num * deninv) % mod;
+    int num1 = 1;
+    for(int i = 1;i < n;i++){
+        num1 = (num1 * i) % mod;
+    }
+    num1 = (num1 * binexp(2, n - 3)) % mod;
+    num1 = (num1 * 3) % mod;
+    num1 = (num1 * sum) % mod;
+    int ans = (num1 * num) % mod;
+    cout << ans << endl;
+}
+signed main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+}

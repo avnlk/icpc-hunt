@@ -1,0 +1,19 @@
+# cook your dish here
+import sys
+M = 998244353
+L = [l for l in sys.stdin.read().split('\n') if l.strip()]
+N = 200001
+inv = [0,1] + [0]*(N - 1)
+for i in range(2,N + 1):
+    inv[i] = (M - (M//i)*inv[M%i]%M)%M
+H = [0]*(N + 1)
+for i in range(1,N + 1):
+    H[i] = (H[i - 1] + inv[i])%M
+t = int(L[0]); p = 1;out = []
+for _ in range(t):
+    n = int(L[p]); a = L[p + 1].split()[:n];p+=2
+    s = 0
+    for j in range(n):
+        s+=int(a[j])*(H[j] + H[n - 1 - j])
+    out.append(s%M)
+print("\n".join(map(str,out)))

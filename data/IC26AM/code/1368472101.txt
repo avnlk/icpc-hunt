@@ -1,0 +1,28 @@
+# cook your dish here
+MOD = 998244353
+t = int (input())
+
+N = 200000
+inv = [0]* (N + 1)
+h = [0] * (N + 1)
+
+inv[1]=1
+
+for i in range (2, N + 1):
+    inv [i] = MOD - (MOD // i)*inv [MOD % i ]% MOD
+    for i in range (1, N + 1):
+        h[i]= (h[i - 1]+ inv[i]) % MOD
+    for _ in range(t):
+        n = int(input())
+        a = list(map(int,input().split()))
+        if n == 1:
+            print (0)
+            continue
+        ans = 0 
+        for i in range(n):
+            if i == 0 or i == n-1:
+                c= h[n-1]
+            else:
+                c=(h[i] + h[n-i-1])%MOD
+                ans = (ans+a[i] * c)% MOD 
+        print(ans)

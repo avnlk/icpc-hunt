@@ -1,0 +1,48 @@
+import sys
+
+def solve(c00, c01, c10, c11):
+    cnt = [c00, c01, c10, c11]
+    names = ["00", "01", "10", "11"]
+    n = sum(cnt)
+    best = None
+    
+    for last in range(4):
+        if cnt[last] == 0:
+            continue
+        a,b,c,d = cnt[:]
+        rem = [a,b,c,d]
+        rem[last]-=1 
+        c00r, c01r, c10r, c11r = rem
+        need = n-1
+        
+        zero_capacity = 2*c00r + c10r
+        
+        if need <= zero_capacity:
+            prefix = "0" * need 
+        else:
+            zeros = zero_capacity
+            remaining = need - zeros
+            
+            take01 = min(c01r, remaining//2)
+            remaining-=2*take01
+            
+            prefix = (
+                "0"*zeros
+                +"01"*take01
+                +"1"*remaining)
+        candidate = prefix+names[last]
+        
+        if best is None or candidate<best :
+            best = candidate
+    return best 
+
+def main():
+    input = sys.stdin.readline
+    t = int(input())
+    
+    for _ in range(t):
+        c00, c01, c10, c11 = map(int , input().split())
+        print(solve(c00, c01, c10, c11))
+
+if __name__=="__main__":
+    main()

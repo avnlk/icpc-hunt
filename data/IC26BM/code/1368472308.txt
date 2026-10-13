@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string a[] = {"00","01","10","11"};
+
+void solve() {
+    int c0,c1,c2,c3;
+    cin >> c0 >> c1 >> c2 >> c3;
+    int n = c1 + c2 + c3 + c0;
+    int ops = n - 1;
+    deque<char> s;
+    int first = 0;
+    while(ops) {
+        if(c3 > 0) {
+            s.push_back('1');
+            s.push_back('1');
+            c3--;
+        } else if(c2 > 0) {
+            s.push_back('1');
+            s.push_back('0');
+            c2--;
+        } else if (c0 > 0) {
+            s.push_back('0');
+            s.push_back('0');
+            c0--;
+        } else {
+            s.push_back('0');
+            s.push_back('1');
+            c1--;
+        }
+        ops--;
+        if(!first){ s.pop_front(); first = 1;}
+    }
+    string ss(s.begin(),s.end());
+    cout << ss << '\n';
+    
+}
+
+int main() {
+	int t;
+	cin >> t;
+	while(t--) solve();
+}

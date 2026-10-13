@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+const ll MOD=998244353;
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    int n; 
+	    cin>>n;
+	    vector<ll>a(n);
+	    for(int i=0; i<n; i++) cin>>a[i];
+	    vector<ll>inv(n+1);
+	    inv[1]=1;
+	    for(int i=2; i<=n; i++){
+	        inv[i]=MOD-(MOD/i)*inv[MOD%i]%MOD;
+	    }
+	    vector<ll>H(n+1, 0);
+	    for(int i=1; i<=n; i++){
+	        H[i]=(H[i-1]+inv[i])%MOD;
+	    }
+	    ll ans=0;
+	    for(int i=0; i<n; i++){
+	        ll coef=(H[i]+H[n-i-1])%MOD;
+	        ans=(ans+a[i]*coef)%MOD;
+	    }
+	    cout<<ans<<endl;
+	}
+}

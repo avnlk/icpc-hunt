@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+#include <string>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        int c00,c01,c10,c11;
+        cin>>c00>>c01>>c10>>c11;
+        
+        int m = c00+c01+c10+c11;
+        string s="";
+        int flag=0;
+        while(m){
+            if(m>2){
+                if(c11){
+                    s+="11";
+                    c11--;
+                }
+                else if(c10){
+                    s+="10";
+                    c10--;
+                }
+                else if(c00){
+                    s+="00";
+                    c00--;
+                }
+                else{
+                    s+="01";
+                    c01--;
+                }
+            }
+            else{
+                if(c10){
+                    s+="10";
+                    c10--;
+                }
+                else if(c00){
+                    s+="00";
+                    c00--;
+                }
+                else if(c01){
+                    s+="01";
+                    c01--;
+                }
+                else{
+                    s+="11";
+                    c11--;
+                }
+            }
+            if(!flag){
+                flag++;
+            }
+            else {
+                string res="";
+                for(int j=1;j<(s.length());j++){
+                    res+=s[j];
+                }
+                s=res;
+            }
+            m--;
+        }
+        cout<<s<<endl;
+    }
+    
+}

@@ -1,0 +1,19 @@
+t = int(input())
+
+n = 4
+num = ["00","01","10","11"]
+        
+A = num[2]
+B = num[3]
+conc = A + B  
+print(conc)
+
+for i in range(len(conc)):
+   arr = []
+   arr.append(conc)
+   print(arr)
+   break
+   arr.split("")
+   print(arr)
+
+        

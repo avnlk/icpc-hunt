@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+struct Best{
+    int z = -1; int p = -1; int q = -1; int ones = 0;
+    bool valid() const{
+        return z!=-1;
+    }
+};
+
+Best solveBalanced(const array<ll,4>& c, int m){
+    ll c00 = c[0];
+    ll c01 = c[1];
+    ll c10 = c[2];
+    ll c11 = c[3];
+    ll d00 = min(c00, (ll)m);
+    ll dLeft = m - d00;
+    ll uNeed = m;
+    ll neutral = c01 + c11;
+    ll bad = max(0LL, dLeft + uNeed - neutral);
+    ll badCapacity = c00 - d00 + c10;
+    if(bad > badCapacity) return {};
+    ll minBadD = max(0LL, bad - uNeed);
+    ll d01 = min({c01, dLeft - minBadD, neutral - uNeed + bad - minBadD});
+    if(d01 < 0) return {};
+    ll maxBadD = min({dLeft - d01, neutral - uNeed + bad - d01, bad});
+    if(maxBadD < minBadD){
+        return {};
+    }
+    ll d10 = min(c10, maxBadD);
+    ll zeros = c00 + c10 + d00 - bad;
+    ll totalVisible = c00 + c01 + c10 + c11;
+    ll ones = totalVisible - zeros - 2*d01 - 2*d10;
+    Best res;
+    res.z = (int)zeros;
+    res.p = (int)d01;
+    res.q = (int)d10;
+    res.ones = (int)ones;
+    return res;
+}
+int main() {
+	// your code goes here
+int T; cin >> T; const array<string,4> type = {
+    "00", "01", "10", "11"
+};
+while(T--){
+    array<ll,4> cnt;
+    for(auto&x : cnt) cin >> x;
+    ll n = cnt[0] + cnt[1] + cnt[2] + cnt[3];
+    Best best;
+    int bestLast = -1;
+    for(int last = 0; last < 4; ++last){
+        if(cnt[last] == 0) continue;
+        auto remaining = cnt;
+        --remaining[last];
+        ll rem = n-1;
+        for(int m = 0; 2LL * m <= rem; ++m){
+            Best cur = solveBalanced(remaining, m);
+            if(!cur.valid())continue;
+            bool better = false;
+            if(!best.valid()){
+                better = true;
+            
+            }else if(cur.z != best.z){
+                better = cur.z > best.z;
+            }else if(cur.p != best.p){
+                better = cur.p > best.p;
+            }else if(cur.q != best.q){
+                better = cur.q > best.q;
+            }else{
+                better = type[last] < type[bestLast];
+            }
+            if(better){
+                best = cur;
+                bestLast = last;
+            }
+        }
+    }
+    string ans;
+    ans.append(best.z,'0');
+    for(int i = 0; i < best.p; ++i){
+        ans+="01";
+    }for(int i = 0; i < best.q; ++i){
+        ans += "10";
+    }
+    ans.append(best.ones, '1');
+    ans += type[bestLast];
+    cout << ans << endl;
+}
+}

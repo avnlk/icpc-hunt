@@ -1,0 +1,30 @@
+# cook your dish here
+
+MOD = 998244353
+MAX = 200000
+
+inv = [0]*(MAX+1)
+inv[1] = 1
+for i in range(2,MAX+1):
+    inv[i] = MOD - (MOD//i) * inv[MOD%i] %MOD
+    
+H = [0]*(MAX + 1)
+for i in range(1,MAX+1):
+    H[i] = (H[i-1] + inv[i]) % MOD
+    
+t = int(input())
+
+
+for _ in range(t):
+    n = int(input())
+    a = [int(x) for x in input().split()]
+    
+    my_ans = 0 
+    for i in range(n):
+        coeff = (H[i] + H[n-1-i]) % MOD 
+        my_ans = (my_ans + a[i]*coeff)%MOD 
+    
+    print(my_ans)
+    
+    
+

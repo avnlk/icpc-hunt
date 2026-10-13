@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+string Answer( ll cnt[4] , int l ) {
+    if( cnt[l] == 0 ) return "";
+    
+    ll c[4];
+    for( int i = 0; i < 4; i++ ) c[i] = cnt[i];
+    
+    --c[l];
+    
+    ll c00 = c[0] , c01 = c[1] , c10 = c[2] , c11 = c[3];
+    
+    ll useful = min( {
+        c00 + c01 , c01 + c11 , ( c00 + c01 + c11 ) / 2
+    });
+    
+    ll full01 = max( 0LL , useful - c00 );
+    ll full00 = useful - full01;
+    
+    ll empty01 = max( 0LL , useful - c11 );
+    
+    ll su00 = c00 - full00;
+    ll su01 = c01 - full01 - empty01;
+    ll su10 = c10;
+    ll su11 = c11 - ( useful - empty01 );
+    
+    string ans ;
+    
+    
+    ans.append( su00 + c10 , '0' );
+    for( ll i = 0; i < full00; i++ ) ans += "00";
+    for( ll i = 0; i < full01; i++ ) ans += "01";
+    ans.append( su10 + su11 , '1');
+    
+    static const string s[4] = { "00" , "01" , "10" , "11" };
+    
+    ans += s[l];
+    
+    return ans;
+}
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    
+    while( t-- ) {
+        ll cnt[4];
+        cin >> cnt[0] >> cnt[1] >> cnt[2] >> cnt[3];
+        
+        string ans = "";
+        
+        for( int i = 0; i < 4; i++ ) {
+            if( cnt[i] == 0 ) continue;
+            
+            string cur = Answer( cnt , i );
+            
+            if( ans.empty() || cur < ans )
+                ans = cur;
+        }
+        
+        cout << ans << endl;
+    }
+}

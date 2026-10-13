@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int MAXN = 200005;
+const long long MOD = 998244353;
+long long vecc1[MAXN], vecc2[MAXN];
+
+void build(){
+    
+    vecc1[1] =1;
+    
+    for(int i=2;i<MAXN; i++){
+        
+        ll q= MOD/i;
+        ll r= MOD%i;
+        
+        ll invR = vecc1[r];
+        ll prod = q*invR;
+        
+        prod = prod%MOD;
+        
+        long long result = MOD - prod;
+        result = result % MOD;
+        
+        vecc1[i] = result;
+    }
+    
+    vecc2[0]= 0;
+    for( int i=1; i< MAXN;i++){
+        long long sum = vecc2[i-1];
+        
+        sum = sum + vecc1[i];
+        
+        sum = sum % MOD;
+        
+        vecc2[i] = sum;
+    }
+}
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	int n, div1;
+	ll div2, div3, div4;
+	
+	build();
+	cin>>n;
+	
+	while(n--){
+	    cin>>div1;
+	    
+	    div3=0;
+	    for(int i=1;i<=div1;i++){
+	        cin>> div2;
+	        
+	        div4= (vecc2[i-1]+ vecc2[div1-i])%MOD;
+	        div3 = (div3+div2%MOD * div4)%MOD;
+	    }
+	    cout<<div3<<endl;
+	}
+	
+	
+
+}

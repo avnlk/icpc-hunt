@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+const MOD = 98244353;
+bool check(int n, int i, int x, int L, int dir){
+    bool v1 = false;
+    int cnt1 = min(i, L) + max(0, i - n + x - L);
+    if (cnt1 == (i + 1)/2){
+        if (dir == 0){
+            if (L <= i) v1 = true;
+        }else {
+            if (n - x + L + 1 <= i)v1 = true;
+        }
+    }
+    bool v2 = false;
+    int cnt2 = max(0, L-i + 1) + min(n - i + 1, x - L);
+    if(cnt2 == (n - i + 2)/2){
+        if (dir == 0){
+            if(L>=i) v2 = true;
+        }else {
+            if(n - x + L + 1 >= i) v2 = true;
+        }
+    }
+    return v1 || v2;
+}
+
+void s(){
+    int n;
+    cin>>n;
+    vector<int> a(n + 1);
+    vector<vector<int>> pos(n+1);
+    for(int i = 1; i<=n; i++){
+        cin>>a[i];
+        pos[a[i]].push_back(i);
+    }
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    
+    for(int x = 1; x<n; x++){
+        vector<int> ndp(n + 1, 0);
+        for(int L = 0; L<=x-1; L++){
+            if(dp[L] == 0) continue;
+            int nL = L+1;
+            bool ok = true;
+            for(int i :pos[x]){
+                if(!check(n,i,x,nL,0)){
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok){
+                ndp[nL] += dp[L];
+                if(ndp[nL] >= MOD) ndp[nL] -= MOD;
+            }
+        }
+        dp = move(ndp);
+    }
+    
+    int ans = 0;
+    for(int L = 0; L<=n-1; L++){
+        if(dp[L] == 0) continue;
+        int nL = L + 1;
+        bool ok = true;
+        for(int i :pos[n]){
+            if(!check(n,i,n,nL,0)){
+                ok = false;
+                break;
+            }
+        }
+        if(ok) {
+            ans += dp[nL];
+            if (ans >= MOD) ans -= MOD;
+        }
+    }
+    cout <<ans<<endl;
+}
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--) s();
+    return 0;
+
+}

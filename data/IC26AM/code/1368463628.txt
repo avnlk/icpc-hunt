@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define vi vector<int>
+#define f(a, b, i) for (int i = a; i < b; i++)
+#define rf(a, b, i) for (int i = a; i >= b; i--)
+#define vvi vector<vector<int>>
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+
+void vin(vi &a) {
+    for (auto &it : a) {
+        cin >> it;
+    }
+}
+void vout(auto &a) {
+    for (auto &it : a) {
+        cout << it << " ";
+    }
+    cout << endl;
+}
+
+const int M = 998244353;
+int mulMod(int a, int b) {
+    return ((a % M) * (b % M)) % M;
+}
+
+int fastExpo(int a, int b) {
+    int res = 1;
+    while(b) {
+        if(b & 1) {
+            res = mulMod(res, a);
+        }
+        a = mulMod(a, a);
+        b >>= 1;
+    }
+    return res;
+}
+int divMod(int a, int b) {
+    return mulMod(a, fastExpo(b, M - 2)); 
+}
+int addMod(int a, int b) {
+    return ((a % M) + (b % M) + M) % M;
+}
+void resolve(int tc) {
+    int n;
+    cin >> n;
+    vi v(n);
+    vin(v);
+    vi dp(n + 1, 0);
+    dp[1] = 1;
+    int ans = 0;
+    f(2, n + 1, i) {
+        dp[i] = addMod(dp[i - 1], divMod(1, i));
+        
+    }
+    f(1, n + 1, i) {
+        ans = addMod(ans, mulMod(v[i - 1], addMod(dp[i - 1], dp[n - i])));
+    }
+    cout << ans % M << endl;
+}
+int32_t main() {
+	int t;
+	cin >>t ;
+	while(t--) {
+	    resolve(t);
+	}
+}

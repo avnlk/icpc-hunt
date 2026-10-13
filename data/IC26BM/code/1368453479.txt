@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+	// your code goes here
+	int t;cin>>t;
+	while(t--){
+	    std::array<ll, 4>a;
+	    ll n =0;
+	    for (int i = 0; i < 4; i++) {
+	        /* code */
+	        cin>>a[i];
+	        n+=a[i];
+	    }
+	    ll b =-1;
+	    for (int i = 0; i < 2; i++) {
+	        /* code */
+	        if (a[i]){
+	            --a[i];b=i;
+	            break;
+	        }
+	    }
+	    if (b==-1){
+	        auto c = a;
+	        if (c[3]){for (int i = 0; i < c[2]; i++) {
+	            /* code */
+	            cout<<0;
+	        }
+	        for (int i = 0; i < c[3]+1; i++) {
+	            /* code */
+	            cout<<1;
+	        }
+	            cout<<'\n';
+	        } else {
+	            for (int i = 0; i < c[2]-1; i++) {
+	            /* code */
+	            cout<<0;
+	        }
+	        cout<<10<<'\n';
+	        }
+	        continue;
+	    }
+	   // cout<<b<<'\n';
+	    a[2]=0;
+	    array<ll,4>c{};
+	    c[b]=1;
+	    for (int i = 3; i >=0; i--) {
+	        /* code */
+	        if (!a[i])continue;
+	        ll j = 0;
+	        while(a[j]==0)++j;
+	        while(a[i] && (i!=j || a[i]>1)){
+	            a[j]--;
+	            c[j]++;
+	            a[i]--;
+	            if (a[i]==0)continue;
+	        while(a[j]==0)++j;
+	        }
+	        if (a[i])c[i]++;
+	    }
+	    string s;
+	    for (int i = 3; i >=0; i--) {
+	        /* code */
+	        while(c[i]--){
+	            if (i==3){
+	                s+="11";
+	            }
+	            if (i==2){
+	                s+="01";
+	            }
+	            if (i==1){
+	                s+="10";
+	            }
+	        }
+	    }
+	    while(s.size()<n+1)s+='0';
+	    while(s.size()>n+1)s.pop_back();
+	    std::reverse(s.begin(), s.end());
+	    cout<<s<<'\n';
+	}
+}

@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main() {
+    ll t;
+    cin>>t;
+    while(t--){
+        ll c1,c2,c3,c4;
+        cin>>c1>>c2>>c3>>c4;
+        string ans="";
+        if(c1!=0){
+            for(ll i=0;i<c1+c3+1;i++){
+                ans += "0";
+            }
+        }
+        else{
+            ans = "10";
+            for(ll i=0;i<c3-1;i++){
+                ans = "0" + ans;
+            }
+        }
+        for(ll i=0;i<min(c2,c4);i++){
+            ans = "1" + ans + "01";
+        }
+        ll temp = min(c2,c4);
+        c2 -= temp;
+        c4 -= temp;
+        for(ll i=0;i<c2;i++){
+            ans += "01";
+        }
+        for(ll i=0;i<c4;i++){
+            ans += "11";
+        }
+        for(ll i=c1+c2+c3+c4-1;i<ans.size();i++){
+            cout<<ans[i];
+        }
+        cout<<endl;
+    }
+}

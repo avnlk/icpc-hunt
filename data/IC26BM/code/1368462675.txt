@@ -1,0 +1,54 @@
+# cook your dish here
+import sys
+
+def solve(a,b,c,d):
+    n= a + b + c + d
+    ustar = min(b + d,(a + b + d - 1) // 2)
+    best = None
+    for U in range(max(0,ustar - 2),ustar + 3):
+        if U < 0 or U > b + d or U +1 > n:
+            continue
+        u11 = min(U,d)
+        u01 = U -u11
+        if u01 > b:
+            continue
+        D = U + 1 
+        base = {'00' : a,'01' : b - u01, '11': d - u11, '10' : c}
+        for L in ('00','01','11','10'):
+            if base[L] < 1:
+                continue
+            cnt = dict(base)
+            cnt[L] -= 1
+            rem = D - 1
+            dn = {}
+            for t in ('00' , '01' , '11' ,'10'):
+                x = min(rem,cnt[t])
+                dn[t] =  x 
+                rem -= x 
+                cnt[t] -= x 
+            if rem > 0 :
+                continue
+            zeros = cnt['00'] + cnt['10'] + 2 * dn['00']
+            ones = cnt['01'] + cnt['11'] + 2*dn['11']
+            
+            s = ('0' * zeros + '01' * dn['01'] + '10' * dn['10'] + '1' * ones + L)
+            
+            if best is None or s < best:
+                best = s
+                
+        return best
+        
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0])
+    out = []
+    p = 1
+        
+    for _ in range(t) :
+        a,b,c,d = (int(x) for x in data[p:p+ 4 ])
+        p += 4
+        out.append(solve(a , b , c , d))
+    sys.stdout.write("\n".join(out) + "\n")
+        
+if __name__ == "__main__" :
+    main()

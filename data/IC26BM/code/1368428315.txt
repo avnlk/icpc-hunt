@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    vector<string> twoB = {"00","01","10","11"};
+    
+    int t;
+    cin>>t;
+    
+    while(t--){
+        vector<long long> q(4);
+        
+        for(int i=0;i<4;i++){
+            cin>>q[i];
+        }
+        
+        string ans = "";
+        bool ok = false;
+        
+        for(int i=0;i<4;i++){
+            if(q[i]==0) continue;
+            
+            vector<long long> p = {q[0],q[1],q[2],q[3]};
+            p[i]--;
+            
+            long long a = p[0];
+            long long b = p[1];
+            long long c = p[2];
+            long long d = p[3];
+            
+            long long z = 0;
+            while(true){
+                long long u = max(0LL,z+1-d);
+                if(u>b) break;
+                
+                long long w = max(0LL,z+1-a);
+                if(w>b-u) break;
+                
+                z++;
+            }
+            
+            long long u = max(0LL,z-d);
+            long long e = min(z,d);
+            long long f = min(z,a);
+            long long g = z-f;
+            
+            long long m = (a-f)+c;
+            long long o = (b-u-g)+(d-e);
+            
+            string s(m,'0');
+            for(long long j=0;j<f;j++){
+                s += "00";
+            }
+            
+            for(long long j=0;j<g;j++){
+                s += "01";
+            }
+            
+            s += string(o,'1');
+            s += twoB[i];
+            
+            if(!ok || s<ans){
+                ans = s;
+                ok = true;
+            }
+        }
+        
+        cout<<ans<<"\n";
+    }
+}

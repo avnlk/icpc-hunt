@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void helper(){
+    long long c0;
+    long long c1;
+    long long c3;
+    long long c2;
+    cin>>c0>>c1>>c2>>c3;
+    
+    string ans="";
+    string arr[4]={"00","01","10","11"};
+    long long C[4]={c0,c1,c2,c3};
+    
+    for(int i=0;i<4;i++){
+        if(C[i]==0)continue;
+        long long r[4];
+        for(int j=0;j<4;++j)
+        r[j]=C[j];
+        r[i]--;
+        
+        long long k1=min(r[0],r[3]);
+        r[0]-=k1;
+        r[3]-=k1;
+        
+        long long k2=min(r[0],r[1]);
+        r[0]-=k2;
+        r[1]-=k2;
+        
+        long long k3=min(r[1],r[3]);
+        r[1]-=k3;
+        r[3]-=k3;
+        
+        long long k4=r[1]/2;
+        r[1]-=2*k4;
+        
+        long long n0=2*k1+2*k2+r[0]+r[2];
+        long long n01=k3+k4;
+        long long n1=r[1]+r[3];
+        
+        string cur="";
+        cur.reserve(n0+n01*2+n1+2);
+        
+        cur.append(n0,'0');
+        for(long long j=0;j<n01;j++)cur.append("01");
+        cur.append(n1,'1');
+        cur.append(arr[i]);
+        
+        if(ans=="" || cur<ans){
+            ans=cur;
+        }
+    }
+    cout<<ans<<"\n";
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    helper();
+	}
+
+}

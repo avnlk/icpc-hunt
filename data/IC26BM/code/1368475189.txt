@@ -1,0 +1,45 @@
+EP = [3, 1, 2, 0]
+T = ["00", "01", "10", "11"]
+def solve():
+    cnt = list(map(int, input().split()))
+    n = sum(cnt)
+    
+    if n == 1:
+        print(T[cnt.index(1)])
+        return
+    
+    best = None 
+    for L in range(4):
+        if cnt[L] == 0:
+            continue
+        c = cnt[:]
+        c[L] -= 1
+        k = (n - 1) // 2 
+        while True:
+            r = c[:]
+            need = k 
+            for i in EP:
+                x = min(r[i], need)
+                r[i] -= x 
+                need -= x 
+            if need == 0:
+                f0 = min(r[0], k)
+                f1 = min(r[1], k - f0)
+                if f0 + f1 == k:
+                    break
+            k -= 1 
+        s00 = r[0] -f0
+        s01 = r[1] - f1 
+        z = s00 + r[2] + 2 * f0 
+        o = s01 + r[3]
+        s = '0' * z + '01' * f1 + '1' * o + T[L]
+        if best == None or s < best:
+            best = s 
+    print(best)
+
+
+
+
+
+for _ in range(int(input())):
+    solve()

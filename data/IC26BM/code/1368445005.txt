@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main() {
+	int T;
+	cin>>T;
+	while(T--){
+	    ll c[4];
+	    cin>> c[0] >> c[1] >> c[2] >> c[3];
+	    const string names[4] = {"00","01", "10", "11"};
+	    string best;
+	    bool have = false;
+	    for(int L = 0; L < 4; L++){
+	        if(c[L] == 0) continue;
+	        ll A00 = c[0] - (L == 0), B = c[1] - (L == 1);
+	        ll A10 = c[2] - (L == 2), D = c[3] - (L == 3);
+	        ll g = B + D;
+	        ll x = min(A00, g);
+	        ll fromD = min(x, D);
+	        ll Dp = D - fromD, Bp = B - (x - fromD);
+	        ll m = Bp + Dp;
+	        ll k = min(Bp, m/2);
+	        string F;
+	        F.reserve(A00 + x + A10 + m + 2);
+	        F.append(A00 + x + A10, '0');
+	        for(ll i = 0; i < k; i++) F += "01";
+	        F.append(m - 2 * k, '1');
+	        F += names[L];
+	        if(!have || F < best){
+	            best = F;
+	            have = true;
+	        }
+	    }
+	    cout<<best<<endl;
+	}
+	return 0;
+}

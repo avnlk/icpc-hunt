@@ -1,0 +1,40 @@
+import sys
+def solve_case(c00,c01,c10,c11):
+    cnt=[c00,c01,c10,c11]
+    names=["00","01","10","11"]
+    best=None
+    for zi in range(4):
+        if cnt[zi]==0:
+            continue
+        arr=cnt[:]
+        arr[zi]-=1
+        p,q,r,s=arr
+        z=names[zi]
+        hi=min(q,(s+q)//2)
+        k=(s+q-p)//2
+        cands={0,hi}
+        for d in range(-2,4):
+            cands.add(k+d)
+        for k01 in cands:
+            if k01<0 or k01>hi:
+                continue
+            m= min(s+q-k01,p+k01)
+            if m< k01:
+                continue
+            zr=p+r+m-k01
+            e=s+q-m-k01
+            if e<0:
+                continue
+            out = "0"*zr + "01"* k01+"1"*e+z
+            if best is None or out <best:
+                best=out
+    return best
+def main():
+    data=sys.stdin.read().split()
+    t=int(data[0])
+    res=[]
+    for i in range(t):
+        a, b, c, d=(int(x) for x in data[1+4*i:5+4*i])
+        res.append(solve_case(a,b,c,d))
+    print("\n".join(res))
+main()

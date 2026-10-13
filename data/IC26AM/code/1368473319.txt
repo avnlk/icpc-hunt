@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ ll mod=998244353; const ll n=200005;
+ll v[n],h[n];
+void solve(){
+    int m;cin>>m;
+    ll ans=0;
+    for(ll i=1;i<=m;i++){
+        ll l;cin>>l;
+        ans=(ans+l%mod*((h[i-1]+h[m-i])%mod))%mod;
+    }
+    cout<<ans<<"\n";
+}
+int main() {
+	// your code goes here
+    v[1]=1;
+    for(int i=2;i<n;i++){
+        v[i]=(mod-(mod/i)*v[mod%i]%mod)%mod;
+    
+    }
+    h[0]=0;
+    for(int i=1;i<n;i++){
+        h[i]=(h[i-1]+v[i])%mod;
+    }
+    int t;cin>>t;
+    while(t--){solve();}
+    return 0;
+}

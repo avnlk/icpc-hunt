@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) {
+
+	Scanner sc = new Scanner(System.in);
+	
+	int t = sc.nextInt();
+	
+	while (t-- > 0){
+	    long c00 = sc.nextLong();
+	    long c01 = sc.nextLong();
+	    long c10 = sc.nextLong();
+	    long c11 = sc.nextLong();
+	    
+	    long zeros = 2 * c00 + c01 + c10;
+	    long ones = c01 + c10 + 2 * c11;
+	    
+	    StringBuilder ans = new StringBuilder();
+	    
+	    while (zeros > 0) {
+	        ans.append('0');
+	        zeros--;
+	    }
+	    
+	    while (ones > 0) {
+	        ans.append('1');
+	        ones--;
+	    }
+	    
+	    System.out.println(ans);
+	    
+	    }
+	    sc.close();
+	    }
+	
+	
+	
+	
+	{
+	
+
+	}
+}

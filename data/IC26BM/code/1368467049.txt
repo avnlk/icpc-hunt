@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solve() {
+    int c00, c01, c10, c11;
+    cin >> c00 >> c01 >> c10 >> c11;
+    int n = c00 + c01 + c10 + c11 - 1;
+    string s;
+    while (n){
+        if(n == 1){
+            if (c10 > 0){
+                s+= '0';
+                c10--;
+            }
+            else if(c00 > 0){
+                s+= '0';
+                c00--;
+            }
+            else if(c11 > 0){
+                s+= '1';
+                c11--;
+            }
+            else{
+                s+= '1';
+                c01--;
+            }
+            n--;
+        }
+        else if(n > 1){
+            if(c11 > 0){
+                c11-=1;
+                n-=2;
+            }
+            else if(c10 > 0){
+                if (c10 == 1 && n % 2 && c01 > 0) {
+                    c01--;
+                    n-=2;
+                }
+                else {
+                    c10-=1;
+                    n-=2;
+                }
+            }
+            else if(c01 > 0){
+                c01-=1;
+                n-=2;
+            }
+            else{
+                c00--;
+                n-=2;
+            }
+        }
+    }
+    while (c00) s += "00", c00--;
+    while (c01) s += "01", c01--;
+    while(c10) s += "10", c10--;
+    while (c11) s += "11", c11--;
+    cout << s << "\n";
+}
+
+int main() {
+	// your code goes here
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) solve();
+}

@@ -1,0 +1,24 @@
+# cook your dish here
+t=int(input())
+ty=["00","01","10","11"]
+for _ in range(t):
+    c=list(map(int,input().split()))
+    n=sum(c)
+    ans=0
+    for l in range(len(ty)):
+        if c[l]==0:
+            continue
+        cnt=c[:]
+        cnt[l]=cnt[l]-1
+        m=n-1
+        z=2*cnt[0]+cnt[2]
+        if m<=z:
+            pre="0"*m
+        else:
+            rem=m-z
+            k=min(cnt[1],rem//2)
+            pre=( "0"*z + "01"*k + "1"*(rem-2*k) )
+        cand=pre+ty[l]    
+        if ans==0 or cand < ans:
+            ans=cand
+    print(ans)

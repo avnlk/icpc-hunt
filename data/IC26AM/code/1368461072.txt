@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const long long MOD= 998244353;
+
+
+
+int main() {
+    const int n= 200005;
+    vector<long long>inv(n), H(n);
+    inv[1]= 1;
+    for(int i= 2; i<n; i++) inv[i]= (MOD - (MOD/i) * inv[MOD%i]%MOD)%MOD;
+    
+    H[0]= 0;
+    for(int i= 1; i<n; i++) H[i]= (H[i-1] + inv[i])%MOD;
+    int t;
+    scanf("%d", &t);
+    while(t--) {
+        int n;
+        scanf("%d", &n);
+        long long ans= 0;
+        for(int j= 1; j<=n; j++) {
+            long long a;
+            scanf("%lld", &a);
+            ans= (ans + a%MOD  * ((H[j-1] + H[n-j]) % MOD ) ) % MOD;
+        }
+        printf("%lld\n", ans);
+    }   
+    return 0;
+}

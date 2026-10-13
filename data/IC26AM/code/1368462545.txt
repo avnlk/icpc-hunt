@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+const ll M=998244353;
+const int N=200000;
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int T;
+	cin>>T;
+	vector<ll> inv(N+1),h(N+1);
+	inv[1]=1;
+	for(int i=2;i<=N;i++){
+	    inv[i]=M-(M/i)*inv[M%i]%M;
+	}
+	for(int i=1;i<=N;i++){
+	    h[i]=(h[i-1]+inv[i])%M;
+	}
+	while(T--){
+	    int n;
+	    cin>>n;
+	    ll res=0;
+	    for(int i=0;i<n;i++){
+	        ll x;
+	        cin>>x;
+	        res=(res+x*(h[i]+h[n-i-1]))%M;
+	    }
+	    cout<<res<<'\n';
+	}
+	return 0;
+
+}

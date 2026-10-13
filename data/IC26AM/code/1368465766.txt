@@ -1,0 +1,42 @@
+# cook your dish here
+MOD = 998244353
+
+import sys
+input = sys.stdin.readline
+
+def solve():
+    t=int(input())
+    
+    tests = []
+    max_n = 0
+    
+    for _ in range(t):
+        n = int(input())
+        a= list(map(int, input().split()))
+        tests.append((n, a))
+        max_n=max(max_n, n)
+        
+    inv = [0]*(max_n+1)
+    if max_n>=1:
+        inv[1]=1
+        
+    for i in range(2, max_n+1):
+        inv[i] = MOD -(MOD//i)*inv[MOD%i]%MOD
+        
+        H = [0]*(max_n+1)
+        for i in range(1, max_n+1):
+            H[i]=(H[i-1]+inv[i])%MOD
+            
+        ans=[]
+        
+        for n,a in tests:
+            total = 0
+            for i in range(n):
+                coefficient=(H[i]+H[n-i-1])%MOD
+                total = (total+a[i]*coefficient)%MOD
+            ans.append(str(total))
+            
+        print("\n".join(ans))
+        
+if __name__=="__main__":
+    solve()

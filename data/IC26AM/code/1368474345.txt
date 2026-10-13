@@ -1,0 +1,27 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{   static final int MOD=99824435;
+    static final int INV2=499122177;
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		 int t= Integer.parseInt(br.readLine().trim());
+		 StringBuilder out = new StringBuilder();
+		 while(t-->0){
+		     int n=Integer.parseInt(br.readLine().trim());
+		     StringTokenizer st = new StringTokenizer(br.readLine());
+		     long ans = 0;
+		     for(int i=0;i<n;i++){
+		         long a=Long.parseLong(st.nextToken());
+		         ans = (ans+a*(i+1L)%MOD*(n-i)%MOD*INV2)%MOD;
+		     }
+		     out.append(ans).append('\n');
+		 }
+		 System.out.print(out);
+
+	}
+}

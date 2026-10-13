@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    while(t--){
+        int c[4];
+        cin>>c[0]>>c[1]>>c[2]>>c[3];
+        const string name[4]={"00","01","10","11"};
+        string ans;
+        
+        for(int l=0;l<4;l++){
+            if(c[l]==0){
+                continue;
+            }
+            c[l]--;
+            int ones=c[1]+c[3];
+            int m00=min(c[0],ones);
+            int m01=min(c[1],(ones-m00)/2);
+            
+            string s=string(c[0]+c[2]+m00,'0');
+            
+            for(int i=0;i<m01;i++){
+                s+="01";
+            }
+            
+            s+=string(ones-m00-2*m01,'1');
+            
+            s+=name[l];
+            
+            if(ans.empty() || s<ans){
+                ans=s;
+            }
+            
+            c[l]++;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

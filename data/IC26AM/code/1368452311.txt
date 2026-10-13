@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+const ll MOD=998244353;
+const int MAXN=200000;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    vector<ll> inv(MAXN+1);
+    vector<ll> H(MAXN+1,0);
+    inv[1]=1;
+    for(int i=2;i<=MAXN;i++){
+        inv[i]=MOD-(MOD/i)*inv[MOD%i]%MOD;
+    }
+    for(int i=1;i<=MAXN;i++){
+        H[i]=(H[i-1]+inv[i])%MOD;
+    }
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        ll ans=0;
+        for(int i=1;i<=n;i++){
+            ll a;
+            cin>>a;
+            ll coefficient=(H[i-1]+H[n-i])%MOD;
+            ans=(ans+ a*coefficient)%MOD;
+        }
+        cout<<ans<<'\n';
+    }
+    return 0;
+
+}

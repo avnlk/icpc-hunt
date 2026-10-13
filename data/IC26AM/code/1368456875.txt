@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static final long MOD=998244353;
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int t=Integer.parseInt(br.readLine().trim());
+        while(t-->0)
+        {
+            int n=Integer.parseInt(br.readLine().trim());
+            long a[]=new long[n];
+            StringTokenizer st=new StringTokenizer(br.readLine());
+            for(int i=0;i<n;i++)
+            {
+                a[i]=Long.parseLong(st.nextToken());
+                
+            }
+            long inverse[]=new long[n+1];
+            long h[]=new long[n+1];
+            if(n>=1)
+            {
+                inverse[1]=1;
+            }
+            for(int i=2;i<=n;i++)
+            {
+                inverse[i]=MOD-(MOD/i)*inverse[(int)(MOD%i)]%MOD;
+            }
+            for(int i=1;i<=n;i++)
+            {
+                h[i]=(h[i-1]+inverse[i])%MOD;
+            }
+            long res=0;
+            for(int i=0;i<n;i++)
+            {
+                long coeff=(h[i]+h[n-i-1])%MOD;
+                res=(res+a[i]*coeff)%MOD;
+            }
+            System.out.println(res);
+        }
+
+	}
+}

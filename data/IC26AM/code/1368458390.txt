@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define MAX 200010
+#define mod 998244353
+ll inv[MAX];
+
+void pre(){
+    inv[1] = 1;
+    for(int i = 2; i < MAX; i++){
+        inv[i] = (mod-(mod/i)* inv[mod%i] % mod) % mod;
+    }
+}
+
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for(int i = 0; i < n; i++){
+            cin >> a[i];
+        }
+        ll ans = 0, x = 0, y = 0, temp = 0;
+        sort(a.begin(), a.end());
+        temp = a[0];
+        for(int i = 1; i < n; i++){
+            temp += a[i];
+            x = (x + temp) % mod;
+        }
+        temp = a[n-1];
+        for(int i = n-2; i >= 0; i--){
+            temp += a[i];
+            y = (y+temp) % mod;
+        }
+        ans = ((x+y)/2)%mod;
+        cout << ans << '\n';
+    }
+}

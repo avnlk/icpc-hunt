@@ -1,0 +1,29 @@
+# cook your dish here
+for _ in range(int(input())):
+    c00, c01, c10, c11 = list(map(int, input().split()))
+    n = c00 + c01 + c10 + c11
+    s = ""
+    while (len(s)<n-2):
+        if c11 > 0:
+            s = s + "11"
+            c11 -= 1 
+        elif c10 > 0:
+            s = s + "10"
+            c10 -= 1 
+        else:
+            break
+    while len(s) < n - 1 and c10 > 0:
+        s = s+ "10"
+        c10 -= 1 
+    while len(s) < n - 2 and c01 > 0:
+        s = s + "01"
+        c01 -= 1
+    for i in range(c00):
+        s = s + "00"
+    for i in range(c01):
+        s = s + "01"
+    for i in range(c10):
+        s = s+ "10"
+    for i in range(c11):
+        s = s + "11"
+    print(s[n-1:])

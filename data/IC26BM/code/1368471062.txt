@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	if(scanf("%d",&t) != 1) return 0;
+	const char* blk[4] = {"00","01","10","11"};
+	while(t--){
+	    long long c[4];
+	    scanf("%lld %lld %lld %lld", &c[0],&c[1],&c[2],&c[3]);
+	    
+	    string best;
+	    
+	    for(int l =0; l<4;l++){
+	        if(c[l] == 0) continue;
+	        long long r[4] = {c[0],c[1],c[2],c[3]};
+	        r[l]--;
+	        long long a = r[0], b = r[1],c = r[2], d= r[3];
+	        
+	        long long k = b +d;
+	        long long u = min(a,k);
+	        long long v = min(b,(k-u)/2);
+	        long long R = k - u - 2*v;
+	        
+	        
+	        string s;
+	        s.reserve(a+c+u+2*v+R+2);
+	        s.append(a+c+u,'0');
+	        for(long long i = 0;i<v;i++){
+	            s+="01";
+	        }
+	        s.append(R,'1');
+	        s+=blk[l];
+	        if(best.empty() || s < best) best = s;
+	    }
+	    puts(best.c_str());
+	}
+	return 0;
+
+}

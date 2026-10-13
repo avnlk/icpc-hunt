@@ -1,0 +1,38 @@
+# cook your dish here
+import sys
+
+def solve():
+    it= iter(map(int,sys.stdin.buffer.read().split()))
+    t = next(it)
+    tokens=("00","01","10","11")
+    out=[]
+    
+    for _ in range(t):
+        c=[next(it) for _ in range(4)]
+        length = sum(c)-1
+        best = None
+        
+        for k in range(4):
+            if c[k]==0:
+                continue
+            
+            c[k]-=1
+            zeros = min(length,2*c[0]+c[2])
+            remaing = length-zeros
+            pairs = min(c[1],remaing//2)
+            
+            candi =(
+                "0"*zeros
+                +"01"*pairs+
+                "1"*(remaing - 2 * pairs)
+                +tokens[k]
+                )
+            if best is None or candi< best:
+                best= candi
+                    
+            c[k]+=1
+                
+        out.append(best)
+    sys.stdout.write("\n".join(out))
+        
+solve()

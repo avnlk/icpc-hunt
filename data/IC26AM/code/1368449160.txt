@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD=998244353;
+
+int power(long long a, long long ex){
+    long long r=1;
+    while(ex){
+        if(ex&1) r=r*a%MOD;
+        a=a*a%MOD;
+        ex>>=1;
+    }
+    return r;
+}
+
+int main() {
+	// your code goes here
+	int T;
+	cin>>T;
+	while(T--){
+	    int n;
+	    cin>>n;
+	    vector<long long>v(n);
+	    for(auto &x:v) cin>>x;
+	    vector<long long>b(n+1,0);
+	    for(int i=1;i<=n;i++){
+	        b[i]=(b[i-1]+power(i,MOD-2))%MOD;
+	    }
+	    long long answer=0;
+	    for(int i=0;i<n;i++){
+	        long long w=(b[i]+b[n-i-1])%MOD;
+	        answer=(answer+(v[i]%MOD)*w)%MOD;
+	    }
+	    cout<<answer<<'\n';
+	}
+	return 0;
+
+}

@@ -1,0 +1,48 @@
+# cook your dish here
+t = int(input())
+
+for _ in range(t):
+    c = list(map(int,input().split()))
+    
+    best = None 
+    
+    for j in range(4):
+        if(c[j]==0):
+            continue
+    
+        e = c[:]
+        e[j] -= 1
+        a,b,w,d = e 
+        k = min(a,d)
+        
+        p = k 
+        q = k 
+        
+        x = a-k 
+        y = d- k 
+        
+        r=0
+        s = 0
+        
+        if(y>0):
+            m = min(y,b)
+            p += m 
+            s += m 
+            
+        elif x>0:
+            m = min(x,b)
+            r+=m 
+            q+=m 
+        m = (b-r-s)//2
+        r += m 
+        s += m 
+        
+        o = (b-r-s) + (d-p)
+        
+        z = a + q + w 
+        res = '0'*z + '01'*s + '1'*o + format(j,'02b')
+        
+        if(best is None or res < best):
+            best = res 
+            
+    print(best-1)

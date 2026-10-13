@@ -1,0 +1,34 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    c00,c01,c10,c11=map(int,input().split())
+    n=c00+c01+c10+c11
+    answer=None
+    
+    counts=[c00,c01,c10,c11]
+    strings=["00","01","10","11"]
+    for last in range(4):
+        if counts[last]==0:
+            continue
+    
+    
+        r00,r01,r10,r11 = counts
+        remaining = [r00,r01,r10,r11]
+        remaining[last]-=1 
+    
+        r00,r01,r10,r11 = remaining
+        neutral=r01+r11
+        if r00<=neutral:
+            b=min(r01,(neutral-r00)//2)
+            zeros=2*r00+r10
+        else:
+            b=0 
+            zeros=r00+r10+neutral-r00
+    
+        ones=(n-1)-zeros-2*b 
+        current=(
+            "0"*zeros + "01"*b + "1"*ones + strings[last])
+    
+        if answer is None or current < answer:
+            answer = current
+    print(answer)

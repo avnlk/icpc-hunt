@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void f(ll cnt, string s, string& ans) {
+    for(ll i = 0; i < cnt; i++) {
+        ans += s;
+    }
+}
+
+int main() {
+	// your code goes here
+    ll t;
+    cin >> t;
+    while(t--) {
+        ll c00, c01, c10, c11;
+        cin >> c00 >> c01 >> c10 >> c11;
+        ll n =c00 + c01 + c10 + c11;
+        ll cuts = n -1;
+        string ans = "";
+        if(cuts == 2*c11) {
+            f(c00, "00", ans);
+            f(c01, "01", ans);
+            f(c10, "10", ans);
+        }
+        else if(cuts < 2*c11) {
+            if(cuts % 2 == 0) {
+                c11 -= cuts/2;
+                f(c00, "00", ans);
+                f(c01, "01", ans);
+                f(c10, "10", ans);
+                f(c11, "11", ans);
+            }
+            else {
+                c11 -= (cuts - 1)/2;
+                c10 = c10 - 1;
+                ans += "0";
+                f(c00, "00", ans);
+                f(c01, "01", ans);
+                f(c10, "10", ans);
+                f(c11, "11", ans);
+            }
+            
+        }
+        else {
+            cuts = n - 1 - c11;
+            if(cuts <= 2 * c10) {
+                if(cuts%2 == 0) {
+                    c10 = c10 - cuts/2;
+                f(c00, "00", ans);
+                f(c01, "01", ans);
+                f(c10, "10", ans);
+                }
+                else {
+                    c10 -= (cuts-1)/2;
+                    c10--;
+                    ans += "0";
+                f(c00, "00", ans);
+                f(c01, "01", ans);
+                f(c10, "10", ans);                    
+                }
+            }
+            else {
+                cuts = cuts - 2*c10;
+                if(cuts <= 2*c01) {
+                    if(cuts%2 == 0) {
+                        c01 -= cuts/2;
+                                        f(c00, "00", ans);
+                f(c01, "01", ans);
+                    }
+                    else {
+                        c01 -= (cuts-1)/2;
+                        ans+= "0";
+                        c00--;
+                f(c00, "00", ans);
+                f(c01, "01", ans);                        
+                    }
+                }
+                else {
+                    cuts = cuts - 2*c01;
+                    c00  = c00-cuts;
+                                    f(c00, "00", ans);
+                }
+            }
+        }
+        cout << ans << '\n';
+        
+    }
+}

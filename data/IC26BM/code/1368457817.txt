@@ -1,0 +1,35 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+    Scanner sc=new Scanner(System.in);
+    int t=sc.nextInt();
+    String []nm={"00","01","10","11"};
+    while(t-->0){
+       int c[]=new int [4];
+       for(int i=0;i<4;i++){
+           c[i]=sc.nextInt();
+       }
+       String best="";
+       for(int l=0;l<4;l++){
+           if(c[l]==0)continue;
+           int []r=c.clone();
+           r[l]--;
+           int a=r[0],b=r[1],e=r[2],d=r[3],k=0;
+           while(Math.max(0,k+1-d)+Math.max(0,k+1-a)<=b)k++;
+           int y=Math.max(0,k-a);
+           String s="0".repeat(a+k-y+e)+"01".repeat(y)+"1".repeat(Math.max(0,b-y+d-k))+nm[l];
+           if(best==""||s.compareTo(best)<0)best=s;
+           
+       }
+       System.out.println(best);
+        
+    }
+   
+	}
+}

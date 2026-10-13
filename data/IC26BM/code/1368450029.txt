@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+	int t;
+	cin>> t;
+	while(t--)
+	{
+	    int c0, c1, c2, c3;
+	    cin>>c0>>c1>>c2>>c3;
+	    int cut=c0+c1+c2+c3-1;
+	    int zeros=0;
+	    int ones=0;
+	    if(cut>=c2)
+	    {
+	        zeros = c2;
+	        cut=cut-c2;
+	        c2=0;
+	        if(cut>=2*c3)
+	        {
+	            cut=cut-2*c3;
+	            c3=0;
+	            if(cut>=2*c1)
+	            {
+	                cut=cut-2*c1;
+	                c1=0;
+	                c0=c0-cut;
+	            }
+	            else
+	            {
+	                if(cut%2==0)
+	                {
+	                    c1=c1-cut/2;
+	                }
+	                else
+	                {
+	                    c1=c1-cut/2;
+	                    ones++;
+	                }
+	            }
+	        }
+	        else
+	        {
+	            if(cut%2==0)
+	            {
+	                c3=c3-cut/2;
+	            }
+	            else
+	            {
+	                c3=c3-cut/c2;
+	                ones++;
+	            }
+	        }
+	    }
+	    else
+	    {
+	        c2=c2-cut;
+	        zeros=cut;
+	    }
+	    for(int i=0; i<c0; i++)
+	    {
+	        cout<<"00";
+	    }
+	    for(int i=0; i<zeros; i++)
+	    {
+	        cout<<"0";
+	    }
+	    for(int i=0; i<c1; i++)
+	    {
+	        cout<<"01";
+	    }
+	    for(int i=0; i<c2; i++)
+	    {
+	        cout<<"10";
+	    }
+	    for(int i=0; i<c3; i++)
+	    {
+	        cout<<"11";
+	    }
+	    for(int i=0; i<ones; i++)
+	    {
+	        cout<<"1";
+	    }
+	    cout<<endl;
+	}
+}

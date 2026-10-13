@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+	// your code goes here
+	const int mod=998244353;
+	const int maxi=200005;
+	long long v1[maxi],v2[maxi];
+	void compute(){
+	    v1[1]=1;
+	    for(int i=2;i<maxi;i++){
+	        v1[i]=(mod-mod/i)*v1[mod%i]%mod;
+	    }
+	    v2[0]=0;
+	    for(int i=1;i<maxi;i++){
+	        v2[i]=(v2[i-1]+v1[i])%mod;
+	    }
+	}
+    void solve(){
+        int n;
+        cin>>n;
+        long long sol=0;
+        for(int i=1;i<=n;i++){
+            long long a;
+            cin>>a;
+            long long coeff=(v2[i-1]+v2[n-i])%mod;
+            sol=(sol+a*coeff)%mod;
+        }
+        cout<<sol<<endl;
+    }
+int main(){
+    compute();
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+

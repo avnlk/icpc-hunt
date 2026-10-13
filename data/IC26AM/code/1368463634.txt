@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define MAXI 200005
+#define MOD 998244353
+typedef long long ll;
+
+ll inv[MAXI];
+ll harmonicSum[MAXI];
+
+
+void precomp() {
+    inv[1] = 1;
+    for(int i = 2; i < MAXI; i++){
+        inv[i] = (MOD - MOD / i) * inv[MOD % i] % MOD;
+    }
+    
+    harmonicSum[0] = 0;
+    
+    for (int i = 1; i < MAXI; i++){
+        harmonicSum[i] = (harmonicSum[i - 1] + inv[i]) % MOD;
+    }
+    return;
+}
+
+
+
+void solve() {
+    int n;
+    cin >> n;
+    
+    if (n == 1) {
+        ll x;
+        cin >> x;
+        cout << 0 << endl;
+        return;
+    }
+    
+    vector<ll> nums(n);
+    
+    
+    ll ans {0};
+    
+    for (int i = 0; i < n; i++){
+        cin >> nums[i];
+        ll expFreq = (harmonicSum[i] + harmonicSum[n - 1 - i]) % MOD;
+        ans = (ans + nums[i] * expFreq) % MOD;
+    }
+    cout << ans << endl;
+    return;
+}
+
+int main() {
+	int t;
+	cin >> t;
+	
+	precomp();
+	
+	while (t--) {
+	    solve();
+	}
+	
+	return 0;
+
+}

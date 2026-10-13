@@ -1,0 +1,35 @@
+# cook your dish here
+import sys
+def solve(c):
+    n=sum(c)
+    s=['00','01','10','11']
+    if n==1:
+        return S[c.index(1)]
+    b=None
+    for ei in range(4):
+        if c[ei]==0:
+            continue
+    a=list(c)
+    a[ei]-=1
+    a00,a01,a10,a11=a
+    f00=f01=0 
+    m=min(a00,a11)
+    f00+=m
+    a00-=m
+    a11-=m 
+    m=min(a00,a01)
+    f00+=m;a00-=m;a01-=m 
+    m=min(a11,a01);f01+=m;a11-=m;a01-=m 
+    m=a01//2;f01+=m;a01-=m*2 
+    v=('0'*(2*f00+a00+a10)+'01'*f01+'1'*(a01+a11)+S[ei])
+    if b is None or v<b:
+        b=v
+    return b
+def main():
+    t=int(input())
+    out=[]
+    for i in range(t):
+        c=list(map(int,input().split()))
+        out.append(solve(c))
+    print("\n".join(out))
+main()

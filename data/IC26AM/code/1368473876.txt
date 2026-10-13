@@ -1,0 +1,53 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+     static final long MOD=998244353L;
+     static final int MAXN=200000;
+     static long[] inv=new long[MAXN+1];
+     static long[] harmonic =new long[MAXN+1];
+     static void precompute()
+     {
+         inv[1]=1;
+         for(int i=2;i<=MAXN;i++)
+         {
+             inv[i]=MOD-(MOD/i)*inv[(int)(MOD%i)]%MOD;
+             
+         }
+         harmonic[0]=0;
+         for(int i=1;i<=MAXN;i++)
+         {
+             harmonic[i]=(harmonic[i-1]+inv[i])%MOD;
+         }
+     }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb=new StringBuilder();
+        precompute();
+        int t=Integer.parseInt(br.readLine().trim());
+        while(t-->0)
+        {
+            int n=Integer.parseInt(br.readLine().trim());
+            long ans=0;
+            StringTokenizer st=new StringTokenizer("");
+            for(int i=1;i<=n;i++)
+            {
+                while(!st.hasMoreTokens())
+                {
+                    st=new StringTokenizer(br.readLine());
+                    
+                }
+                long a=Long.parseLong(st.nextToken());
+                long coef=(harmonic[i-1]+harmonic[n-i])%MOD;
+                ans=(ans+(a%MOD)*coef)%MOD;
+                
+            }
+            sb.append(ans).append('\n');
+        }
+        System.out.println(sb);
+	}
+}

@@ -1,0 +1,40 @@
+# cook your dish here
+import sys
+input_data = sys.stdin.read().split()
+
+t = int(input_data[0])
+out = [] 
+idx = 1
+strs = ["00", "01", "10", "11"]
+
+for _ in range(t):
+    c00 = int(input_data[idx])
+    c01 = int(input_data[idx+1])
+    c10 = int(input_data[idx+2])
+    c11 = int(input_data[idx+3])
+    idx += 4
+    ans = None
+    
+    for rt in range (4):
+        C = [c00, c01, c10, c11]
+        if C[rt] == 0:
+            continue
+        C[rt] -= 1
+        D = sum(C)
+        n00, n01, n10, n11 = C 
+        n0 = n1 = 0 
+        take = min(D, n10); n10-=take;n0+=take;D-=take
+        take = min(D, n11); n11-=take;n1+=take;D-=take
+        take = min(D, n1); n1-=take; D-=take
+        take = min(D//2, n01); n01-=take; D-=2*take
+        take = min(D, n00); n00-=take; n0+=take; D-=take
+        take = min(D, n0); n0-=take; D-=take
+        take = min(D, n01); n01-=take; n1+=take; D-=take
+        res = ("0"*(n0+2*n00)+ "01"*n01+ "10"*n10 + "1"*(n1+2*n11)+strs[rt])
+        
+        if(ans is None or res < ans):
+            ans = res
+            
+    out.append(ans)
+print('\n'.join(out))
+        

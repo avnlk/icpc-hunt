@@ -1,0 +1,153 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{   static final int INF =1_000_000_000;
+static List<int[][]> orders = new ArrayList<>();
+static void build(){
+    int[] f = {0,1,INF};
+    int [][] b ={{3,2,},{2,3}};
+    for(int fi:f){
+        for (int[] ba: b){
+            orders.add(new int[][]{{1,fi},{0,INF},{1,INF},{ba[0],INF},{ba[1],INF}});
+            orders.add(new int[][]{{0,INF},{1,INF},{ba[0],INF},{ba[1],INF}});
+            
+        }
+    }
+    for(int[] ba: b){
+        for(int fi:new int[]{1,INF}){
+            orders.add(new int[][]{{ba[0], fi}, {0, INF}, {1, INF}, {ba[0], INF}, {ba[1], INF}});
+            orders.add(new int [][]{{ba[0], fi}, {1, 1}, {0, INF}, {1, INF}, {ba[0], INF}, {ba[1], INF}});
+        }
+    }
+}
+static String best;
+static void tryBuild(int cnt[], int p, int order[][]){
+    int a = cnt[0], b = cnt[1], c = cnt[2], d = cnt[3];
+    long need = p + 1;
+    int cl[] = new int[4];
+for(int o[]: order){
+    int t = o[0];
+    long k = Math.min(need, Math.min((long)cnt[t] - cl[t], o[1]));
+    cl[t] += (int)k;
+    need -= k;
+}
+if(need > 0) return;
+int o11 = Math.min(p, d - cl[3]);
+int o01 = Math.min(p-o11, b-cl[1]);
+int rem = p - o11 - o01;
+long zr = (long)(a - cl[0]) +
+ (c-cl[2]);
+ if(rem > zr)return;
+ zr -= rem;
+ long ones = (long)(b-cl[1]-o01) + (d - cl[3]-o11);
+ String names[] = {"00", "01", "10", "11"};
+ for(int last = 0;last<4;last++){
+ if(cl[last] == 0) continue;
+ int []C=cl.clone();
+ C[last]--;
+ StringBuilder sb = new StringBuilder();
+ long z = zr + 2L *C[0];
+ for(long i=0;i<z;i++){
+     sb.append('0');
+ }for(int i=0;i<C[1];i++){
+     sb.append("01");
+ }for(int i=0;i<C[2];i++)sb.append("10");
+ long oo = ones + 2L * C[3];
+ for(long i=0;i<oo;i++)sb.append('1');
+ sb.append(names[last]);
+ String s = sb.toString();
+ if(best == null || s.compareTo(best) < 0)best = s;
+ }
+}
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	    build();
+		// your code goes here
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		StringBuilder sb = new StringBuilder();
+		
+		while(T-- > 0){
+		    
+		    int c00 = sc.nextInt();
+		    int c01 = sc.nextInt();
+		    int c10 = sc.nextInt();
+		    int c11 = sc.nextInt();
+		    int cnt[] = new int[]{c00, c01, c10, c11};
+		    int n = c00 + c01 + c10 + c11;
+		    int pmax = (n-1)/2;
+		    int q = Math.min(pmax, Math.max(0, (c00+ c01+ c10-1)/2));
+		    best = null;
+		    for(int p=Math.max(0, q-2);p<=Math.min(pmax, q+2);p++){
+		        for(int[][] o:orders) tryBuild(cnt, p, o);
+		    }
+		    sb.append(best).append('\n');
+		        
+		}
+		System.out.println(sb.toString());
+		
+
+	}
+	
+	public static void solve(long c00, long c01, long c10, long c11, PrintWriter out){
+	    long n = c00 + c01 + c10 + c11;
+	    if(n == 1){
+	        if(c00 == 1){
+	            out.println("00");
+	        }else if(c01 == 1){
+	            out.println("01");
+	        }else if(c10 == 1){
+	            out.println("10");
+	        }else{
+	            out.println("11");
+	        }
+	        return;
+	    }
+	    if(c00 == 0 && c01 == 0 && c10 == 0){
+	        StringBuilder s = new StringBuilder();
+	        for(int i=0;i<n+1;i++)s.append('1');
+	        out.println(s.toString());
+	        return;
+	    }
+	    if(c11 == 0 &&c01 ==0 && c10 == 0){
+	        StringBuilder sb = new StringBuilder();
+	        for(int i=0;i<n+1;i++){
+	            sb.append('0');
+	        }
+	        out.println(sb.toString());
+	        return;
+	    }
+	    long z;
+	    if(c10 > 0){
+	        if(c01 == 0){
+	            z = c00 + c10;
+	            long o = (n + 1)-z;
+	            printChars(out, z, o);
+	        }else{
+	            long ro;
+	            if(c11 > 0){
+	                ro = Math.max(1L, c01-c10+1);
+	            }else{
+	                ro = Math.max(0L, c01-c10);
+	                if(ro == 0 && c01 > 0)ro=1;
+	            }
+	            ro = Math.min(ro, n);
+	            z = n + 1 - ro;
+	            printChars(out, z, ro);
+	        }
+	    }
+	    else{
+	        z = c00 + 1;
+	        long o = n + 1 - z;
+	        printChars(out, z, o);
+	    }
+	}
+	private static void printChars(PrintWriter out, long z, long o){
+	    StringBuilder sb = new StringBuilder();
+	    for(long i=0;i<z;i++) sb.append('0');
+	    for(long i=0;i<o;i++)sb.append('1');
+	    out.println(sb.toString());
+	}
+}

@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin >> t;
+	int a, b, c, d;
+	while (t--) {
+	    cin >> a >> b >> c >> d;
+	    int n = a+b+c+d;
+	    int e = 0, f = 0;;
+	    int x = n-1;
+	    
+	    if (c <= x) {
+	        x -= c;
+	        e = c;
+	        c = 0;
+	    } else {
+	        c -= n-1;
+	        e = n-1;
+	        x = 0;
+	    }
+	    
+	    if (2*d <= x) {
+	        x -= 2*d;
+	        d = 0;
+	    } else {
+	        f = 2*d-x;
+	        d = 0;
+	        x = 0;
+	    }
+	    
+	    if (2*b <= x) {
+	        x -= 2*b;
+	        b = 0;
+	    } else {
+	        if (x%2 == 0) {
+	            b -= x/2;
+	            x = 0;
+	        } else {
+	            f++;
+	            b -= x/2;
+	            b--;
+	            x = 0;
+	        }
+	    }
+	    
+	    while (a--) cout << "00";
+	    while (e--) cout << "0";
+	    while (b--) cout << "01";
+	    while (c--) cout << "10";
+	    while (d--) cout << "11";
+	    while (f--) cout << "1";
+	    cout << endl;
+	}
+
+}

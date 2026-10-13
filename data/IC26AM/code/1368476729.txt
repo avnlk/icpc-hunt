@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long 
+
+int mod = 998244353;
+
+int amod(int a, int b){
+    return (a + b) % mod;
+}
+
+int mmod(int a, int b){
+    return (1ll*a*b) % mod;
+}
+
+int binmod(int a, int b, int mod){
+    int res = 1;
+    while(b > 0){
+        if(b % 2){
+            res = res * a;
+            res = res%mod;
+        }
+        a = a*a;
+        a = a % mod;
+        b /= 2;
+    }
+    return res;
+}
+
+int inv(int x){
+    return binmod(x, mod - 2, mod);
+}
+
+void solve(){
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i = 0; i<n; i++){
+        cin>>a[i];
+    }
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += a[i];
+        sum %= mod;
+    }
+    int cden = n-1;
+    int cden2 = n;
+    int cdenp = 1;
+    int ans = 0;
+    int left = a[0];
+    int right = a[n-1];
+    for(int i = 0; i < n-1; i++){
+        int temp = (2*sum)%mod;
+        int temp2 = (left+right)%mod;
+        int ans1 = ((temp - temp2)%mod + mod)%mod;
+        ans1 = mmod(ans1, inv(cden));
+        ans += ans1;
+        ans %= mod;
+        
+        cden2--;
+        cdenp *= cden2;
+        cdenp %= mod;
+        cden--;
+        
+        int hi = 2*a[i+1];
+        int hi2 = 2*a[n-i-2];
+        hi %= mod;
+        hi2 %= mod;
+        hi = mmod(hi, inv(cdenp));
+        hi2 = mmod(hi2, inv(cdenp));
+        
+        left += hi;
+        left %= mod;
+        right += hi2;
+        right %= mod;
+    }
+    
+    cout << ans << endl;
+    
+}
+
+
+
+signed main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+
+}

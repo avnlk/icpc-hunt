@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long MOD=998244353;
+const int MAXN=200005; 
+int main() {
+	// your code goes here
+
+vector<long long> inv(MAXN),H(MAXN);
+inv[1]=1;
+for(int i=2;i<MAXN;i++){
+    inv[i]=(MOD-(MOD/i)*inv[MOD%i]%MOD)%MOD;
+    
+    
+}
+
+H[0]=0;
+for(int i=1;i<MAXN;i++){
+    H[i]=(H[i-1]+inv[i])%MOD;
+    
+}int t;
+cin>>t;
+while(t--){
+    int n;
+    cin>>n;
+    long long ans=0;
+    for(int j=1;j<=n;j++){
+        long long x;
+        cin>>x;
+        long long times=(H[j-1]+H[n-j])%MOD;
+        ans=(ans+x%MOD*times)%MOD;}
+cout<<ans<<endl;
+}
+
+}

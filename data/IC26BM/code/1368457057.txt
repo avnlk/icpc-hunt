@@ -1,0 +1,88 @@
+#include <bits/stdc++.h>
+using namespace std;
+string sl(){
+    long long c00, c01, c10, c11;
+    cin >> c00 >> c01 >> c10 >> c11;
+    string best_str = "";
+    
+    for(int L_type = 0; L_type < 4; ++L_type){
+        long long h00 = c00, h01 = c01,  h10 = c10, h11 = c11;
+        
+        string L_str = "";
+        if(L_type == 0){
+           if(h00 == 0) continue;
+           h00--;
+           L_str = "00";
+        }
+        else if(L_type == 1){
+            if(h01 == 0) continue;
+            h01--;
+            L_str = "01";
+        }
+        else if(L_type == 2){
+            if (h10 == 0) continue;
+            h10--;
+            L_str = "10";
+        }
+        else if(L_type == 3){
+            if( h11 == 0) continue;
+            h11--;
+            L_str = "11";
+        }
+        long long f00 = 0, f01 = 0;
+        
+        long long take1 = min(h11, h00);
+        
+        h11 -= take1;
+        h00 -= take1;
+        f00 += take1;
+        
+        long long take2 = min(h11, h01);
+        h11 -= take2; 
+        h01 -= take2;
+        f01 += take2;
+        
+        long long take3 = min(h01, h00);
+        h01 -= take3;
+        h00 -= take3;
+        f00 += take3;
+        
+        long long take4 = h01/2;
+        h01 -= 2 * take4;
+        f01 +=take4;
+        
+        long long nz = 2 * f00 + h00 + h10;
+        long long n1s = f01;
+        long long ns = h01 +h11;
+        
+        string current_str;
+        current_str.reserve(nz + 2 * n1s + ns + 2);
+        current_str.append(nz, '0');
+        
+        for(long long i = 0; i < n1s; ++i){
+            current_str.append("01");
+        }
+        current_str.append(ns, '1');
+        current_str.append(L_str);
+        
+        if(best_str == "" || current_str < best_str){
+            best_str = current_str;
+        }
+    }
+    
+    return best_str;
+    
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int u;
+    if(cin >> u){
+        while(u--){
+           cout << sl() << "\n";
+        }
+    }
+
+    return 0;
+}

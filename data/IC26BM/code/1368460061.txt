@@ -1,0 +1,27 @@
+import sys
+input = sys.stdin.readline 
+t = int(input())
+
+for _ in range(t):
+    c00 , c01 , c10 , c11 = map(int , input().split())
+    c = [c00 , c01 , c10 , c11]
+    types = ["00 " , "01" , "10" , "11"]
+    best = None 
+    
+    for i in range(4):
+        if c[i] == 0:
+            continue
+        a = c[:]
+        a[i] -= 1 
+        n = sum(a)
+        ones = a[1] + a[3]
+        x = min(a[0] , ones)
+        y = min(a[1] , (ones - x) // 2)
+        zeros = a[0] + a[2] + x
+        o = ones - x - 2 * y 
+        ans = "0" * zeros + "01" * y + "1" * o + types[i]
+        
+        if best is None or ans < best:
+            best = ans 
+            
+    print(best)

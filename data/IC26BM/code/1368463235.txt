@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;cin>>t;
+    while(t--) {
+        int a,b,c,d;cin>>a>>b>>c>>d;
+        string ans;
+        for(int i=0; i < c; i++) ans += "0";
+        int sum = a+b+d;
+        string lex;
+        int kiya = 0;
+        if(sum%2 == 0) {
+            sum++;
+            kiya = 1;
+        }
+        int len = sum+1;
+        if(2*a>len) {
+            for(int i = 0; i < len; i++) lex += "0";
+        }
+        else {
+            for(int i = 0; i < a; i++) lex += "00";
+            len -= 2 * a;
+            if(2*b > len) {
+                for(int i = 0; i < len/2; i++) lex += "01";
+            }
+            else {
+                for(int i = 0; i < b; i++) lex += "01";
+                len -= 2*b;
+                if(2*d > len) {
+                    for(int i = 0; i < len / 2; i++) lex += "11";
+                }
+                else {
+                    for(int i = 0; i < d; i++) lex += "11";
+                }
+            }
+        }
+        if(kiya == 1) {
+            string nn;
+            for(int i = 1; i < lex.size(); i++) nn.push_back(lex[i]);
+            cout << ans + nn << endl;
+        }
+        else cout << ans + lex << endl;
+    }
+}

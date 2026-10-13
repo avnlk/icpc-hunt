@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int sah;
+	
+	cin >> sah;
+	
+	const char* num[4] = {"00","01","10","11"};
+	while(sah--){
+	    int cz[4];
+	    
+	    for(int &x : cz) cin >> x;
+	    
+	    string opti;
+	    
+	    for(int l =0;l<4;l++){
+	        if(!cz[l] ) continue;
+	        
+	        int az[4] = {cz[0],cz[1],cz[2],cz[3]};
+	        az[l]--;
+	        
+	        int A = az[0],B = az[1],C = az[2],E = az[3];
+	        int kz = 0,mz = A+B-E;
+	        
+	        for(int bu : {0,B,mz/2,(mz+1)/2}){
+	            bu = max(0,min(B,bu));
+	            
+	            kz = max(kz,min(E+bu,A+B-bu));
+	        }
+	        
+	        int avg = min(A,kz),bv = kz-avg;
+	        
+	        string s(A+C+avg,'0');
+	        
+	        for(int i = 0;i<bv;i++) s+="01";
+	        s.append(B+E-kz-bv,'1');
+	        s+= num[l];
+	        
+	        
+	        if(opti.empty() || s<opti) opti = s;
+	        
+	    }
+	    
+	    cout << opti << endl;
+	}
+
+}

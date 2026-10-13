@@ -1,0 +1,58 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	
+		// your code goes here
+		static final int MOD = 998244353;
+		static final int MAXN = 200005;
+		static long [] H = new long[MAXN];
+		static long [] inv = new long[MAXN];
+		static {
+		    inv[1] = 1;
+		    for(int i = 2; i<MAXN; i++){
+		        inv[i] = (MOD-MOD/i)*inv[(int)(MOD%i)]%MOD;
+		    }
+		    H[0] = 0;
+		    for(int i=1;i<MAXN;i++){
+		        H[i]=(H[i-1]+inv[i])%MOD;
+		    }
+		    
+		}
+		public static void main(String[] args) throws IOException{
+		    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		    StringTokenizer st=null;
+		    String line=br.readLine();
+		    if (line==null|| line.trim().isEmpty()){
+		        return;
+		    }
+		    int t=Integer.parseInt(line.trim());
+		    StringBuilder sb=new StringBuilder();
+		    while(t--> 0){
+		        while(st==null|| !st.hasMoreTokens()){
+		            String l=br.readLine();
+		            if(l==null) return;
+		            st=new StringTokenizer(l);
+		        }
+		        int n=Integer.parseInt(st.nextToken());
+		        long[] a=new long[n+1];
+		        for(int i=1;i<=n;i++){
+		            while(st==null||!st.hasMoreTokens()){
+		                st=new StringTokenizer(br.readLine());
+		            }
+		            a[i]=Long.parseLong(st.nextToken())%MOD;
+		        }
+		        long totalAns=0;
+		        for(int i=1;i<=n;i++){
+		            long weight=(H[i-1]+H[n-i])%MOD;
+		            totalAns=(totalAns+a[i]*weight)%MOD;
+		        }
+		        sb.append(totalAns).append("\n");
+		    }
+		    System.out.print(sb);
+		    
+		}
+	}
+

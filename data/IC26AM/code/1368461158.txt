@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
+int mod=998244353;
+// int modmul(int a, int b) return ((a*b)%mod);
+vector<int> f(2e5+5,0);
+int modinv(int a);
+void precompute()
+{
+    f[1]=1;
+    for(int i=2;i<=2e5+3;i++)
+    {
+        f[i]=(f[i-1]+modinv(i))%mod;
+    }
+}
+int modpow(int a, int b)
+{
+    int res=1;
+    while(b>0)
+    {
+
+        // a=a*a;
+        if(b&1)
+        {
+            res*=a;
+            res%=mod;
+        }
+        a*=a;
+        a%=mod;
+        b/=2;
+    }
+    res%=mod;
+    return res;
+}
+
+
+int modinv(int a) {return modpow(a,mod-2);}
+void solve()
+{
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(auto &x:a) cin>>x;
+    int ans=0;
+    for(int i=1;i<=n;i++)
+    {
+        ans+=(a[i-1]*(f[i-1]+f[n-i])%mod);
+        ans%=mod;
+    }
+    cout<<ans;
+    cout<<endl;
+}
+signed main() {
+	// your code goes here
+// 	cout<<modpow(2,10)<<" "<<modpow(2,8);
+    int tst;
+    cin>>tst;
+    precompute();
+    while (tst--)
+    {
+        solve();
+    }
+}

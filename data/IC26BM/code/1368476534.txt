@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+void solve(){
+    ll a,b,c,d;cin>>a>>b>>c>>d;
+
+    
+    ll op=(a+b+c+d)-1;
+    if(a>0 || b>0){
+        ll c1=0;
+        while(op--){
+            c--;
+            c1++;
+        }
+            
+        ll d1=0;
+        while(op>0){
+            if(op>=2) d--,op-=2;
+            else d1++,op--;
+        }
+        
+        
+        while(a>0) cout<<"00";
+        while(c1>0) cout<<"0";
+        while(b>0) cout<<"01";
+        while(d1>0) cout<<"1";
+        while(d>0) cout<<"11";
+    }else if(op>0){
+        if(c>1){
+            for(ll i=0;i<c-2;i++) cout<<"0";
+            cout<<"010";
+            while(d--) cout<<"11";
+        }else{
+            while(c--) cout<<"10";
+            while(d--) cout<<"11";
+        }
+    }
+    
+    cout<<endl;
+}
+
+int main() {
+	// your code goes 
+	ll t;cin>>t;
+	while(t--) solve();
+
+}

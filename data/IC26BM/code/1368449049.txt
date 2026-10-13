@@ -1,0 +1,27 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    c00,c01,c10,c11 = map(int,input().split())
+    cnt=[c00,c01,c10,c11]
+    pairs=["00","01","10","11"]
+    candidates=[]
+    
+    for i in range(4):
+        if cnt[i]==0:
+            continue
+        first_char = pairs[i][1]
+        
+        temp=cnt[:]
+        temp[i] -= 1
+        
+        s=first_char
+        s += "00"*temp[0]
+        s += "01"*temp[1]
+        s += "10"*temp[2]
+        s += "11"*temp[3]
+        
+        candidates.append(s)
+        
+    print(min(candidates))
+        
+        

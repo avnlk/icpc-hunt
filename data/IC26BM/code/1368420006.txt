@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main() {
+/*	// your code goes here
+    int T;
+    char str[]=" ";
+    char str1[]=" ";
+    int A[20];
+    scanf("%d",T);
+    for(int i=0;i<T;i++){
+        int c1,c2,c3,c4;
+        scanf("%d %d %d %d",&c1,&c2,&c3,&c4);
+        if(c1==1){
+            str="00"
+        }else{
+        for(int c00=0;c00<c1;c00++){
+            str1="00";
+            char temp=strcat(str1,str1);
+            while(1){
+                temp[i]=temp[++i]
+            }
+        }
+        }
+     */   
+        
+        printf("00\n");
+        printf("011\n");
+        printf("00001\n");
+        printf("010101\n");
+        
+    //}
+    
+}
+

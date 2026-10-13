@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+#define vi vector<int>
+#define input(zzz, zz)vector<int>zzz(zz);for(int&z:zzz)cin>>z;
+#define ai(zzz) array<int, zzz>
+#define all(zzz) zzz.begin(),zzz.end()
+#define rall(zzz) zzz.rbegin(),zzz.rend()
+#define pb push_back
+
+const int inf = 1e9, MOD = 998244353, MAXN = 2e5 + 5;
+int fact[MAXN], ifact[MAXN];
+
+void init_factorial() {
+    fact[0] = 1;
+    for (int i = 1; i < MAXN; i++) fact[i] = (fact[i-1] * i) % MOD;
+    for (int i = 0; i < MAXN; i++) ifact[i] = binexp(fact[i], MOD-2, MOD);
+}
+
+int binexp(int a, int b, int m=MOD) {
+    int ans = 1;
+    while (b > 0) {
+        if (b&1) ans = (ans * a) % m;
+        a = (a * a) % m; b>>=1ll;
+    }
+    return ans;
+}
+
+void solve() {
+    int n; cin >> n;
+    input(vec, n);
+    int ans = (fact[n-1]) * (vec[0] + vec[n-1]);
+    for (int i = 1; i < n - 1; i++) {
+        ans = (ans + ((fact[i] + fact[n-1-i]) * vec[i])) % MOD;
+    }
+    cout << ans << endl;
+}
+
+int32_t main() {
+    cin.sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    init_factorial();
+    int t; cin >> t;
+    while (t--) solve();
+    return 0;
+}

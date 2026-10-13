@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int T, c[4];
+	cin >> T;
+	while (T--){
+	    for (int &x: c) cin >> x;
+	    int m = (c[0]+ c[1] + c[2] + c[3] -1 ) / 2;
+	    string best = "~";
+	    for (int a: {0,m,c[3], c[3]+ c[1], c[0], c[0] + c[1], c[0] + c[1] + c[3]}){
+	        for (int e = -1; e <2; e++){
+	            for(int l = 0; l < 4; l++){
+	                int r [4], f[4] = {}, k = a+e;
+	                memcpy(r,c,16);
+	                if (k < 0||k>m||!r[l]--) continue;
+	                for (int i :{3, 1, 0 , 2}){
+	                    int x = min(r[i], k);
+	                    r[i] -= x;
+	                    k -= x;
+	                }
+	                if (k) continue;
+	                k = a +e;
+	                for(int i: {0,1,2,3}){
+	                    int x = min(r[i], k);
+	                    f[i] = x;
+	                    r[i] -= x;
+	                    k -= x;
+	                }
+	                if (k) continue;
+	                string s(2 * f[0] + r[0]+ r[2], '0');
+	                while(f[1]--) s+="01";
+	                while(f[2]--) s+="10";
+	                s += string(r[1] + r[3] + 2*f[3], '1');
+	                s += char('0' + l/2);
+	                s += char('0' + l%2);
+	                best = min(best, s);
+	                
+	            }
+	        }
+	    }
+	    cout << best << endl;
+	}
+	return 0;
+
+}

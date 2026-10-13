@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int main(){
+    int t;
+    scanf("%d", &t);
+    
+    char(*names)[3] = malloc(4 * sizeof(*names));
+    
+    strcpy(names[0], "00");
+    strcpy(names[1],"01");
+    strcpy(names[2],"10");
+    strcpy(names[3],"11");
+    
+    while(t--){
+        int *cnt = calloc(4, sizeof(int));
+        int i, n=0;
+        
+        for(i=0;i<4;i++){
+            scanf("%d", &cnt[i]);
+            n += cnt[i];
+        }
+        
+        if(n==1){
+            for(i=0;i<4;i++){
+                if(cnt[i]){
+                    printf("%s\n", names[i]);
+                    break;
+                }
+            }
+            
+            free(cnt);
+            continue;
+        }
+        char *best = calloc(2 * n + 3, sizeof(char));
+        char *s = calloc(2 * n + 3, sizeof(char));
+        
+        int first = 1;
+        for(i=0;i<4;i++){
+            if(cnt[i]==0)
+                continue;
+            
+            int a= cnt[0];
+            int b = cnt[1];
+            int c= cnt[2];
+            int d = cnt[3];
+            
+            if (i==0) a--;
+            else if(i==1) b--;
+            else if(i==2) c--;
+            else d--;
+            
+            int B = b+d;
+            int u = (a<B)?a:B;
+            int z = (b<(B-u)/2) ? b : (B-u)/2;
+            int R = B - u - 2 *z;
+            
+            int p=0;
+            int j;
+            
+            for(j=0;j<c+a+u;j++)
+                s[p++] = '0';
+            
+            for(j=0;j<z;j++){
+                s[p++] = '0';
+                s[p++] = '1';
+            }
+            
+            for(j=0;j<R;j++){
+                s[p++] = '1';
+            }
+            
+            s[p++] = names[i][0];
+            s[p++] = names[i][1];
+            s[p] = '\0';
+            
+            if(first || strcmp(s, best)<0){
+                strcpy(best,s);
+                first = 0;
+            }
+    }
+    
+    printf("%s\n", best);
+    
+    free(cnt);
+    free(best);
+    free(s);
+}
+free(names);
+return 0;
+}

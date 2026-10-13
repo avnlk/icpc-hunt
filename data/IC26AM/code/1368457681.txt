@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int MAXN=200000;
+const long long MOD = 998244353;
+int main() {
+	// your code goes here
+	vector<long long>res(MAXN+1), hr(MAXN+1,0);
+	res[1]=1;
+	for(int i=2; i<=MAXN; i++){
+	    res[i]=(MOD-MOD/i)*res[MOD%i]%MOD;
+	}
+	for(int m=1; m<=MAXN; m++){
+	    hr[m]=(hr[m-1]+res[m])%MOD;
+	}
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        long long ans=0;
+        for(int i=1; i<=n; i++){
+            long long val;
+            cin>>val;
+            long long em=(hr[i-1]+hr[n-i])%MOD;
+            long long new_val=val%MOD*em;
+            ans=(ans+new_val)%MOD;
+        }
+        cout<<ans<<endl;
+    }
+    return 0;
+}

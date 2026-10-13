@@ -1,0 +1,96 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define mod 998244353
+
+ll modpow(ll x , ll y ){
+    if( x==1 or y == 0 ) return 1;
+    ll res = modpow( x , y/2);
+    res = (res * res )%mod;
+    if( y & 1 ) res = res * x % mod;
+    return res;
+    
+}
+ll modinv( ll x){
+    return modpow(x , mod-2 );
+}
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while (t--){
+        int n;
+        cin >> n;
+        vector<ll> a(n+1);
+        for(int i= 1 ; i <= n ; i++ ) cin >> a[i];
+        vector<ll>  prenk(n) , prek2(n) , preknk(n);
+        for(ll i= 1; i < n; i++){
+            prenk[i] = prenk[i-1];
+            prenk[i] = (prenk[i] + modinv(n-i)) % mod;
+            prek2[i] = (prek2[i-1] + modinv( i * i % mod * (n-i) % mod ) )%mod;
+            preknk[i] = (preknk[i-1] + modinv( i * (n-i ) % mod ) )%mod;
+        }
+        //cout << prenk[1] << endl;
+        ll ans = 0;
+        for(ll i =  1; i <= n ; i++){
+            ll v1 = i-1;
+            ll v2 = n-i;
+            ll l = min(v1 , v2 );
+            ll r = max(v1 , v2  );
+            ll cur =0;
+            if(l-1 >= 1){
+                cur = (cur + prenk[l-1] * 2 % mod)%mod;
+            }
+            if(l !=r  ){
+                if( l == v1){
+                    ll t1 = (prenk[r-1]  + mod) % mod;
+                    if( l ) t1 = (t1 - prenk[l-1] + mod)%mod;
+                    t1 = ( t1 * 2 ) %mod;
+                    ll t2 = (preknk[r-1]+ mod )%mod;
+                    if(l) t2 = (t2 - preknk[l-1] + mod)%mod;
+                    t2 = (t2 * (i-1) % mod)%mod;
+                    t1 = (t1 - t2 + mod) % mod;
+                    cur = (cur + t1 ) %mod;
+                }
+                else{
+                    ll t1 = (prenk[r-1] + mod)%mod;
+                    if(l    ) t1 = (t1 - prenk[l-1] + mod)%mod;
+                    t1 = (t1 * 2 ) %mod;
+                    
+                    ll t2 = (preknk[r-1]+ mod)%mod;
+                    if(l) t2 = (t2 - prenk[l-1 ] + mod ) % mod;
+                    t2 = (t2 * (n-i) % mod) % mod;
+                    t1 = (t1 - t2 + mod)% mod;
+                    cur = (cur + t1) % mod;
+                }
+            }
+            ll t1 = (prenk[n-1] - prenk[r-1]  + mod )% mod;
+            t1 = (t1 * 2 ) %mod;
+            ll t2 =  ( preknk[n-1] - preknk[r-1] + mod) % mod;
+            t2 = (t2 * (n-1) %mod ) %mod;
+            ll t3 = (prek2[n-1] - prek2[r-1] + mod)% mod;
+            t3 = (t3 * 2 % mod * (i-1) % mod * (n-i) % mod) % mod;
+            t1 = (t1 - t2 +mod) % mod;
+            t1 = (t1 + t3) %mod;
+            cur = (cur + t1)%mod;
+            ans = (ans + (cur * a[i] % mod))%mod;
+            
+        }
+        //cout << prenk[1] << ' ' << prenk[0] << ' ' << preknk[1] << ' ' << preknk[0] << endl;
+        //cout << ans << endl;
+        for(int i =1 ; i <= n ; i++){
+            if(n==1)  break;
+            if( i== 1 or i == n ){
+                ll t1 = modinv( n-1 ) ;
+                ans = (ans + (t1 * a[i]) % mod)%mod;
+            }
+            else{
+                ll t1 = modinv( n-1);
+                ans = (ans + (t1 * a[i] % mod * 2 % mod ))% mod;
+            }
+        }
+        cout << ans << endl;
+        
+    }
+}

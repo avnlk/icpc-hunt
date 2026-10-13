@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+const int mod = 998244353;
+
+int binpow(int a, int b){
+    int res = 1;
+    while(b > 0){
+        if(b&1){
+            res = (res*a)%mod;
+        }
+        a = (a*a)%mod;
+        b >>= 1;
+    }
+    return res;
+}
+
+int modInverse(int n, int m) { return binpow(n,m-2); }
+int fact[1000000], invFact[1000000];
+
+void precomputeFactorials(){
+    fact[0] = 1;
+    invFact[0] = 1;
+    for(int i = 1; i < 1e6; ++i){
+        fact[i] = (fact[i-1]*i)%mod;
+    }
+    invFact[1000000-1] = modInverse(fact[1000000-1],mod);
+    for(int i = 1000000-2; i >= 1; --i){
+        invFact[i] = (invFact[i+1]*(i+1))%mod;
+    }
+}
+
+int nCr(int n, int r){
+    if(r < 0 || r > n) return 0;
+    return (((fact[n]*invFact[n-r])%mod)*invFact[r])%mod;
+}
+
+
+signed main() {
+	// your code goes here
+	precomputeFactorials();
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<int> a(n+1);
+        int sum = 0;
+        for(int i = 1; i <= n; ++i) cin >> a[i], sum += a[i]*min(i,n-i+1);
+        int temp = 0;
+        for(int i = 1; i < n; ++i){
+            temp = (temp + (((fact[n-i-1]*fact[i])%mod)*invFact[n-1])%mod)%mod;
+        }
+        cout << (sum*temp)%mod << endl;
+    }
+}

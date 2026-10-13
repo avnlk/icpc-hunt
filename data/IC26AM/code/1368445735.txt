@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+        final long MOD = 998244353L;
+        int N = 200001;
+        
+        long[] inv = new long[N+1];
+        long[] H = new long[N+1];
+        inv[1] = 1;
+        for(int i = 2; i <= N; i++){
+            inv[i] = (MOD - (MOD/i) * inv[(int) (MOD % i)] % MOD ) % MOD;
+        }
+        
+        for(int i = 1; i <= N; i++) H[i] = (H[i-1] + inv[i]) % MOD;
+        
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0){
+            int n = sc.nextInt();
+            long ans = 0;
+            
+            for(int j = 1; j <= n; j++){
+                long a = sc.nextInt();
+                long w = (H[j-1] + H[n-j]) % MOD;
+                ans = (ans + a * w) % MOD;
+            }
+            
+            System.out.println(ans);
+        }
+	}
+}

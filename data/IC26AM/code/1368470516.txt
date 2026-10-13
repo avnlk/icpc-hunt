@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long
+const ll MOD = 998244353;
+const ll MAXN = 200005;
+ll in [MAXN];
+ll h[MAXN];
+
+void pre() {
+
+    in [1] = 1;
+    for (ll i = 2; i < MAXN; i++) {
+        in [i] = (MOD - MOD / i) * in [MOD % i] % MOD;
+    }
+    h[0] = 0;
+
+    for (ll i = 1; i < MAXN; i++) {
+        h[i] = (h[i - 1] + in [i]) % MOD;
+    }
+}
+
+
+int main() {
+    // your code goes here
+    int t;
+    cin >> t;
+    pre();
+    while (t--) {
+
+        ll n;
+
+        cin >> n;
+
+        vector < ll > a(n);
+        ll ans = 0;
+        for (ll i = 1; i <= n; i++) {
+            long long a;
+            cin >> a;
+            ll temp = (h[i - 1] + h[n - i]) % MOD;
+            ans = (ans + a * temp % MOD) % MOD;
+
+        }
+        cout << ans << endl;
+        // cout<<in[1]<<endl;
+    }
+    return 0;
+
+}

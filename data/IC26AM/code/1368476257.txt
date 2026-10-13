@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MOD = 998244353;
+
+int power(int x, int y){
+    int res = 1;
+    x %= MOD;
+    
+    while(y > 0){
+        if(y % 2 == 1){
+            res = (res * x) % MOD;
+        }
+        x = (x * x) % MOD;
+        y >>= 1;
+    }
+    return res;
+}
+
+int inv_mod(int x){
+    return power(x, MOD - 2);
+}
+
+void solve(){
+    int n; cin >> n;
+    vector<int> a(n); for(int i = 0; i < n; i++) cin >> a[i];
+    vector<int> b(n); b = a;
+    std::reverse(b.begin(), b.end());
+    
+    int S = 0;
+    for(int i = 0; i < n; i++) S += a[i];
+    
+    int x = 0;
+    for(int k = 2; k < n; k++){
+        x = (x + 2 * inv_mod(k) % MOD) % MOD;
+    }
+    x = (x * S) % MOD;
+    
+    int y = 0;
+    for(int i = 1; i < n; i++){
+        y = (y + a[i] * inv_mod(i + 1) % MOD) % MOD;
+    }
+    y = (y * n) % MOD;
+    
+    y = y + a[0];
+    y %= MOD;
+    
+    int z = 0;
+    for(int i = 1; i < n; i++){
+        z = (z + b[i] * inv_mod(i + 1) % MOD) % MOD;
+    }
+    z = (z * n) % MOD;
+    z = z + b[0];
+    z %= MOD;
+    
+    int ans = x - (y + z) % MOD;
+    ans %= MOD;
+    ans = (ans + MOD) % MOD;
+    
+    cout << ans << '\n';
+}
+
+int main() {
+	// your code goes here
+    int t; cin >> t;
+    while(t--){
+        solve();
+    }
+}

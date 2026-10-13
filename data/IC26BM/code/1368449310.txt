@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t ;
+    cin >> t ;
+    while(t--){
+        int a,b,c,d ;
+        cin >> a >> b >> c >> d ;
+        int sum = a+b+c+d ;
+        sum-- ;
+        bool x=sum%2 ;
+        sum/=2 ;
+        while(sum){
+            if(d){
+                d-- ;
+                sum-- ;
+            }
+            else if(c){
+                c-- ;
+                sum-- ;
+            }
+            else if(b){
+                b-- ;
+                sum-- ;
+            }
+            else if(a){
+                a-- ;
+                sum-- ;
+            }
+        }
+        string final="" ;
+        if(x&&c){
+            c-- ;
+            x=0 ;
+            final+="0" ;
+        }
+        while(a){
+            final+="00" ;
+            a-- ;
+        }
+        while(b){
+            final+="01" ;
+            b-- ;
+        }
+        while(c){
+            final+="10" ;
+            c-- ;
+        }
+        while(d){
+            final+="11" ;
+            d-- ;
+        }
+        if(x){
+            char last = final[(int)final.size()-1] ;
+            final.pop_back();
+            final.pop_back() ;
+            final.push_back(last) ;
+        }
+        cout << final << endl ;
+    }
+}

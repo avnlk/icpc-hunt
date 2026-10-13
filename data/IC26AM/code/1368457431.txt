@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+const ll MOD = 998244353;
+
+ll modpow(ll a, ll e){
+    ll r = 1;
+    while(e){
+        if(e & 1) r = r * a % MOD;
+        a = a * a % MOD;
+        e >>= 1;
+    }
+    return r;
+    
+}
+
+int main() {
+    const int MAXN = 200000;
+    
+    vector<ll> inv(MAXN +1);
+    inv[1] = 1;
+    
+    for(int i = 2; i <= MAXN; ++i){
+        inv[i] = MOD - (MOD / i) * inv[MOD % i] % MOD;
+    }
+   
+    vector<ll>  H(MAXN + 1,0);
+    for(int i =  1; i <= MAXN;++i){
+        H[i] = (H[i-1] + inv[i]) % MOD;
+    }
+    
+	// your code goes here
+	int t;
+	cin >> t;
+	
+	while(t--){
+	    
+	    int n;
+	    cin >> n;
+	    
+	    ll ans = 0;
+	    
+	    for(int i = 1; i <= n;++i){
+	        ll a;
+	        cin >> a;
+	        
+	        ll coeff = (H[i-1] + H[n-i]) % MOD;
+	        ans = (ans + (a % MOD) * coeff) % MOD;
+	        
+	    }
+	    
+	    cout << ans << '\n';
+	}
+	
+	
+	return 0;
+	
+
+}

@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int mod = 998244353;
+const int maxn = 200005;
+
+long long inv[maxn];
+long long H[maxn];
+
+void precom(){
+    inv[1] = 1;
+    for(int i = 2 ; i< maxn ; i++){
+        inv[i] = (mod - mod / i) * inv[mod % i] % mod;
+    }
+    H[0] = 0;
+    for(int i = 1; i< maxn ; i++){
+        H[i] = (H[i-1] + inv[i]) % mod;
+    }
+}
+void solve(){
+    int n;
+    cin >> n;
+    long long es = 0;
+    for(int i = 0 ; i< n; i++){
+        long long a;
+        cin>>a;
+        
+        long long cf = (H[i] + H[n-1-i])% mod;
+        es = (es + a*cf) % mod;
+    }
+    cout << es<<"\n";
+}
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	precom();
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+    return 0;
+}

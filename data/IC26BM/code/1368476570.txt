@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    vector <int> c(4);
+    for(int i=0; i <4 ; i++) cin >> c[i];
+    int rem = c[0]+c[1]+c[2]+c[3]-1;
+    for(int i=3 ; i>=0 ; i--){
+        if(rem<=1) break;
+        if(c[i]*2>=rem){
+            c[i] -= rem/2;
+            rem = rem - 2*(rem/2);
+            break;
+        }
+        else if(c[i]>0){
+            rem -= c[i]*2;
+            c[i]=0;
+        }
+    }
+    if(rem==0){
+        for(int i=0 ; i<4 ; i++){
+            while(c[i]>0){
+                if(i==0)cout<<00;
+                if(i==1) cout << 01;
+                if(i==2)cout<<10;
+                if(i==3)cout<<11;
+                c[i]--;
+            }
+        }
+        cout << endl;
+        return;
+    }
+    if(c[2]>0){
+        cout<<0;
+        c[2]--;
+    }
+    else if(c[0]>0){
+        cout << 0;
+        c[0]--;
+    }
+    else if(c[3]>0){
+        cout << 1;
+        c[3]--;
+    }
+    else{
+        cout<<1;
+        c[1]--;
+    }
+    for(int i=0 ; i<4 ; i++){
+        while(c[i]>0){
+            if(i==0)cout<<00;
+            if(i==1)cout<<01;
+            if(i==2)cout<<10;
+            if(i==3)cout<<11;
+            c[i]--;
+        }
+    }
+    cout << endl;
+        
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+
+}

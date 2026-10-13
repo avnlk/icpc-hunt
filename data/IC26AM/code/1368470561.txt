@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long MOD = 998244353;
+vector <long  long>inv(2,1),h(2,0);
+void extend(int n){
+    int cur = inv.size();
+    if(cur>n) return;
+    inv.resize(n+1);
+    h.resize(n+1);
+    h[1] = 1;
+    for(int i = cur ; i <= n ; i ++){
+        inv[i] = (MOD-(MOD/i)*inv[MOD%i]%MOD)%MOD;
+        h[i] = (h[i- 1]+inv[i])%MOD;
+    }
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<long long>a(n+1);
+        for(int i = 1 ; i<= n ; i++){
+            cin>>a[i];
+        }
+        extend(n);
+        long long ans = 0;
+        for(int j = 1 ; j<=n ; j++){
+            long long w = (h[j-1] + h[n-j])%MOD;
+            ans = (ans + (a[j]%MOD)*w)%MOD;
+        }
+        cout<<ans<<endl;
+    }
+}

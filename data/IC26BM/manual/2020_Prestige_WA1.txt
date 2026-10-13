@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct candi{
+    int zero,pairs,ones,tails;
+    
+};
+int getBit(const candi& s,int part , int offset ){
+    if (part==0) return 0;
+    if (part==1) return offset & 1;
+    if (part==2) return 1;
+    return(offset & 1)?(s.tails & 1):(s.tails>>1);
+}
+bool smaller(const candi & a,const candi & b){
+    int lenA[4]={a.zero , 2*a.pairs,a.ones ,2};
+    int lenB[4]={b.zero ,2*b.pairs,b.ones ,2};
+    int i=0 ;int j=0;
+    int p=0 ;int q=0;
+    while(true){
+        while(i<4 && p ==lenA[i]){
+            ++i;
+            p=0;
+        }
+        while (j<4 && q == lenB[j]){
+            ++j;
+            q=0;
+        }
+        if (i ==4 || j ==4){
+            return i==4 && j!=4;
+        }
+        int lenght = min(lenA[i]-p, lenB[j]-q);
+        int x = getBit(a,i,p);
+        int y = getBit(b,j,q);
+        if(x!=y) return  x<y;
+        if (lenght >=2){
+            x = getBit(a,i,p+1);
+            y = getBit(b,j,q+1);
+            if (x!=y) return x<y;
+            
+        }
+        p+=lenght;
+        q+=lenght;
+    }
+
+    
+}
+
+int main(){
+    
+ios::sync_with_stdio(false);
+cin.tie(nullptr);
+int t;
+cin>>t;
+while(t--){
+    array<int,4> count;
+    int n=0;
+    for (int& x:count){
+        cin>>x;
+        n+=x;
+        
+        
+    }
+    candi best{};
+    bool found =false;
+    for(int tails;tails<4;++tails){
+        if (count[tails]==0)  continue;
+        auto remaining = count ;
+        --remaining [tails];
+        int a = remaining[0];
+        int b = remaining[1];
+        int c = remaining[2];
+        int d = remaining[3];
+        int size =n-1;
+        for(int pairs=0 ;pairs<=min(b,size/2);++pairs){
+          int fullzero= min(a,size/2-pairs);
+          int zero = a+c+min(fullzero,b+d-2*pairs);
+          int ones = size -zero-2*pairs;
+          candi current {zero,pairs,ones,tails};
+          if(!found || smaller(current , best)){
+              best=current;
+              found = true;
+          }
+          
+          
+        }
+        
+    }
+    string ans;
+    ans.reserve(n+1);
+    ans.append(best.zero,'0');
+    for(int i=0;i<best.pairs;i++){
+        ans +="01";
+    }
+    ans.append(best.ones,'1');
+    ans+=char('0'+(best.tails>>1));
+    ans += char ('0'+ (best.tails&1));
+    cout <<ans<<endl;
+    
+    
+}
+return 0;
+	
+
+}

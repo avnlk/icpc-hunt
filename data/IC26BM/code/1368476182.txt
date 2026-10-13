@@ -1,0 +1,32 @@
+# cook your dish here
+t = int(input())
+for _ in range(t):
+    c00,c01,c10,c11 = map(int, input().split())
+    if c00 + c01 + c10 + c11 == 1:
+        if c00: 
+            print("00")
+        elif c01: 
+            print("01")
+        elif c10: 
+            print("10")
+        elif c11: 
+            print("11")
+        continue
+    ans = []
+    if c00 > 0 or c01 > 0:
+        if c00>0: 
+            ans.append('0'*c00)
+        if c01>0: 
+            ans.append('0'*(c01 - 1)+'1')
+        if c11 > 0: 
+            ans.append('1'*c11)
+        if c10 > 0: 
+            ans.append('0'*c10)
+    else:
+        if c10 >0:
+            ans.append('0')
+            ans.append('1'*c11)
+            ans.append('0'*(c10 - 1))
+        else:
+            ans.append('1'*(c11 + 1))
+    print("".join(ans))

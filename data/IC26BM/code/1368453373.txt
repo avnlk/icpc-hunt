@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while(t--){
+        int a,b,c,d;
+        int sum = 0;
+        bool sum_1 = 0;
+        string ans = "";
+        cin >> a >> b >> c >> d;
+        sum = a+b+c+d-1;
+        if(sum % 2 == 1){
+            sum_1 = 1;
+            if(c > 0){
+                sum_1 = 0;
+                ans = "0";
+                c--;
+            }
+        }
+        int c4 = sum/2;
+        int temp = min(d,c4);
+        d -= min(d,c4);
+        sum -= 2*temp;
+        int c3 = sum/2;
+        temp = min(c,c3);
+        c -= min(c,c3);
+        sum -= 2*temp;
+        int c2 = sum/2;
+        temp = min(b,c2);
+        b -= min(b,c2);
+        sum -= 2*temp;
+        int c1 = sum/2;
+        temp = min(a,c1);
+        a -= min(a,c1);
+        sum -= 2*temp;
+        // cout << sum  << a << b << c << d << endl;
+        // if(sum == 1){
+        //     sum_1 = 1;
+        //     if(c > 0){
+        //         c--;
+        //         ans += "0";
+        //         sum_1 = 0;
+        //     }
+        // }
+        for(int i=0;i<a;i++){
+            ans += "00";
+        }
+        for(int i=0;i<b;i++){
+            ans += "01";
+        }
+        for(int i=0;i<c;i++){
+            ans += "10";
+        }
+        for(int i=0;i<d;i++){
+            ans += "11";
+        }
+        if(sum_1 == 1){
+            string ans_1 ="";
+            for(int i=1;i<ans.size();i++){
+                ans_1 += ans[i]; 
+            }
+            cout << ans_1 << endl;
+        }
+        else{
+            cout << ans  << endl;
+        }
+        
+    }
+    return 0;
+}

@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int c[4];
+    cin >> c[0] >> c[1] >> c[2] >> c[3];
+    int n = c[0] + c[1] + c[2] + c[3];
+    string ans;
+    int need;
+    if(n & 1) {
+        need = (n + 1) / 2;
+    }
+    else {
+        if(c[2] > 0) {
+            ans += '0';
+            c[2]--;
+        }
+        else if(c[0]) {
+            ans += '0';
+            c[0]--;
+        }
+        else if(c[3] > 0) {
+            ans += '1';
+            c[3]--;
+        }
+        else {
+            ans += '1';
+            c[1]--;
+        }
+        need = n / 2;
+    }
+    string s[4] = {"00", "01", "10", "11"};
+    for(int i = 0; i < 4 && need; ++i) {
+        int take = min(c[i], need);
+        for(int j = 0; j < take; ++j) ans += s[i];
+        need -= take;
+    }
+    
+    cout << ans << '\n';
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+	int t; cin >> t;
+	while(t--) solve();
+}

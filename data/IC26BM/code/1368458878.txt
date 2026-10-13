@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string>type={"00","01","10","11"};
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    vector<int>c(4);
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    
+	    int n=c[0]+c[1]+c[2]+c[3];
+	    
+	    string ans;
+	    
+	    for(int last=0;last<4;last++){
+	        if(c[last]==0) continue;
+	        
+	        vector<int>a={c[0],c[1],c[2],c[3]};
+	        a[last]--;
+	        
+	        int g0=a[0]+a[2];
+	        int g1=a[1]+a[3];
+	        
+	        int x00=min(a[0],g1);
+	        int x01=min(a[1],(g1-x00)/2);
+	        
+	        int half0=g0-x00;
+	        int half1=g1-x00-2*x01;
+	        
+	        string cur;
+	        cur.resize(n+1);
+	       // cur.append(half0,'0');
+	        int idx=0;
+	        int i=half0;
+	        
+	        while(i--){
+	            cur[idx++]='0';
+	        }
+	        
+	        i=x00;
+	        while(i--){
+	            cur[idx++]='0';
+	            cur[idx++]='0';
+	        }
+	        i=x01;
+	        
+	        while(i--){
+	            cur[idx++]='0';
+	            cur[idx++]='1';
+	        }
+	        
+	        i=half1;
+	        while(i--){
+	            cur[idx++]='1';
+	        }
+	       
+	       //cur.append(half1,'1');
+	        
+	        cur+=type[last];
+	       // cout<<curr<<" "<<ans<<endl;
+	        if(ans.empty()||cur<ans){
+	            ans=cur;
+	        }
+	    }
+	    
+	    cout<<ans<<endl;
+	}
+	
+	return 0;
+
+}

@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+#define int long long
+using namespace std;
+
+vector<string> types = {"00", "01", "10", "11"};
+
+string temp(array<int, 4> c,int j) {
+    if(c[j] == 0) {
+        return "";
+    }
+    c[j]-=1;
+    int zs = c[0] + c[2];
+    int os = c[1] + c[3];
+    int p0 = min(c[0], os);
+    os -= p0;
+    int p1 = min(c[1], os/2);
+    int s0 = zs - p0;
+    int si = os - 2ll*p1;
+    string res;
+    res.append(2*p0 + s0, '0');
+    for(int i = 0; i < p1; i++) res += "01";
+    res.append(si, '1');
+    res += types[j];
+    return res;
+}
+
+
+void solve() {
+
+    int a, b, x, d;
+    cin>>a>>b>>x>>d;
+    array<int, 4> c = {a, b, x, d};    
+    string res = "";
+    for(int j = 0; j < 4; j++) {
+        if(c[j] != 0) {
+            string curr = temp(c, j);
+            if(res.empty() || curr < res) {
+                res = curr;
+            }
+        }
+    }
+    cout<<res<<"\n";
+}
+
+
+int32_t main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int t; cin>>t;
+	while(t--) {
+	    solve();
+	}
+	
+    return 0;
+}

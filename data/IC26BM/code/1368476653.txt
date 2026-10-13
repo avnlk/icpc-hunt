@@ -1,0 +1,45 @@
+def func(c):
+    types = ["00", "01", "10", "11"]
+    n = sum(c)
+    b = None
+    
+    for i in range(4):
+        if c[i] == 0:
+            continue
+        cnt = c.copy()
+        cnt[i] -= 1
+        zero = cnt[0]+cnt[2]
+        one = cnt[1] + cnt[3]
+        k = (n-1)//2
+        
+        while True:
+            upg_00 = min(cnt[0], k)
+            upg_01 = k - upg_00
+            if upg_01 <= cnt[1]:
+                ao = one - upg_01
+                if k <= ao:
+                    break
+            k -= 1
+        
+        upg_00 = min(cnt[0], k)
+        upg_01 = k - upg_00
+        
+        zp = zero + upg_00
+        oc = one - upg_01 - k 
+        curr = ""
+        curr += "0" * zp
+        curr += "01" *upg_01
+        curr += "1" * oc
+        curr += types[i]
+        
+        if b is None or curr < b:
+            b = curr
+            
+    return b 
+
+def main():
+    t = int(input())
+    for _ in range(t):
+        c = list(map(int, input().split()))
+        print(func(c))
+main()

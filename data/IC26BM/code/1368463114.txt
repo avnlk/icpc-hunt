@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+signed main() {
+	int t; cin >> t;
+	while(t--){
+	    int a, b, c, d; cin >> a >> b >> c >> d;
+	    int n=a+b+c+d;
+	    string ans="";
+	    if(n%2==0){
+	        if(c){
+	            c--;
+	            ans+="0";
+	        }
+	        else if(a){
+	            a--;
+	            ans+="0";
+	        }
+	        else if(d){
+	            d--;
+	            ans+="1";
+	        }
+	        else if(b){
+	            b--;
+	            ans+="1";
+	        }
+	        n--;
+	    } 
+	    
+
+	        int del=(n-1)/2;
+	        
+	        if(d>=del){
+	            d-=del;
+	            del=0;
+	        }
+	        else{
+	            del-=d;
+	            d=0;
+	        }
+	        
+	        if(c>=del){
+	            c-=del;
+	            del=0;
+	        }
+	        else{
+	            del-=c;
+	            c=0;
+	        }
+	        
+	        if(b>=del){
+	            b-=del;
+	            del=0;
+	        }
+	        else{
+	            del-=b;
+	            b=0;
+	        }
+	        
+	        if(a>=del){
+	            a-=del;
+	            del=0;
+	        }
+	        else{
+	            del-=a;
+	            a=0;
+	        }
+	    
+	    while(a){
+	        ans+="00";
+	        a--;
+	    }
+	    
+	    while(b){
+	        ans+="01";
+	        b--;
+	    }
+	    
+	    while(c){
+	        ans+="10";
+	        c--;
+	    }
+	    
+	    while(d){
+	        ans+="11";
+	        d--;
+	    }
+	    
+	    cout << ans << "\n";
+	}
+}

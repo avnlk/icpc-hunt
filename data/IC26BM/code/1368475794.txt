@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int T;
+	cin>>T;
+	while(T--){
+	    long long c[4];
+	    for(int i=0; i<4;i++){
+	        cin>>c[i];
+	    }
+	    long long z=c[0]+c[2];
+	    long long o=c[1]+c[3];
+	    vector<string> t={"00","01","10","11"};
+	    string ans;
+	    for(int i=0;i<4;i++)
+	    if (c[i]){
+	        string s;
+	        s.append(z-(t[i][1]=='0'),'0');
+	        s.append(o-(t[i][1]=='1'),'1');
+	        s+=t[i];
+	        if(ans.empty()||s<ans)
+	         ans=s;
+	         
+	    }
+	    cout<<ans<<'\n';
+	}
+
+}

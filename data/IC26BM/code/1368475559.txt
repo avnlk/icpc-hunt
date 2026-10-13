@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b,c,d;
+        cin>>a>>b>>c>>d;
+        int n = a+b+c+d;
+        string s;
+        for(int i = 0; i<n; i++){
+            if(i<a) s = "00" + s;
+            else if(i<(a+c)) s = "0" + s;
+            else if(i<(a+b+c)) s = "10" + s;
+            else s = "11" + s;
+            if(s.size() > n+1) break;
+        }
+        if(s.size()==n+1){
+            reverse(s.begin(), s.end());
+            cout<<s<<endl;
+            continue;
+        }
+        else{
+            string t;
+            for(int i = 1; i<=n+1; i++){
+                t = t + s[i];
+            }
+            reverse(t.begin(), t.end());
+            cout<<t<<endl;
+            continue;
+        }
+        
+    }
+}

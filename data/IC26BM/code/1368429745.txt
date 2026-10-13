@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    int t; cin >> t;
+    while (t--){
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+        int rem = a+b+c+d-1;
+        int bikar = min(d, rem>>1);
+        d -= bikar;
+        rem -= bikar*2;
+        bool flag = 0;
+        if (c > 0 && (rem&1)){
+            flag = 1;
+            c--;
+            rem--;
+        }
+        bikar = min(c, rem >> 1);
+        c -= bikar;
+        rem -= bikar*2;
+        bikar = min(b, rem >> 1);
+        b -= bikar;
+        rem -= bikar*2;
+        
+        
+        bikar = min(a, rem >> 1);
+        a -= bikar;
+        rem -= bikar*2;
+        
+        string ans;
+        for (int i = 0; i < a; i++){
+            ans += "00";
+        }
+        for (int i = 0; i < b; i++){
+            ans += "01";
+        }
+        for (int i = 0; i < c; i++){
+            ans += "10";
+        }
+        for (int i = 0; i < d; i++){
+            ans += "11";
+        }
+        if (flag) cout <<'0';
+        if (rem > 0){
+            for (int i = 1; i < ans.length(); i++)cout<<ans[i];
+        }
+        else for (char c : ans) cout << c;
+        cout <<'\n';
+    }
+}

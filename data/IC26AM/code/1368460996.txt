@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long MOD = 998244353;
+const int N = 200005;
+int main() {
+	// your code goes here
+    long long v[N] , h[N];
+    v[1] = 1;
+    h[0] = 0;
+    h[1] = 1;
+    
+    for(int i=2; i<N; i++){
+        v[i] = (MOD - (MOD/i) * v[MOD%i] %MOD)%MOD;
+        h[i] = (h[i-1] + v[i])%MOD;
+    }
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        long long fans = 0;
+        for(int j=1; j<=n; j++){
+            long long a;
+            cin>>a;
+            fans = (fans+a*((h[j-1] + h[n-j]) % MOD ) )%MOD;
+        }
+        cout<<fans<<endl;
+    }
+}

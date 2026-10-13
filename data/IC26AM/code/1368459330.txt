@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll MOD = 998244353;
+int main() {
+	// your code goes here
+ 
+ int t;
+ 
+ cin>>t;
+ while(t--){
+     int n;
+     cin>>n;
+ 
+    // veect
+    // <vector<ll
+    
+    vector<ll>a(n);
+    
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        
+    }
+    //  inveser kostore krne ke liye
+    vector<ll>lat(n+1);
+    
+    if(n>=1){
+        lat[1]=1;
+    }
+    for(int i=2;i<=n;i++){
+        ll x=lat[MOD%i]%MOD;
+        lat[i]=MOD-(MOD/i) * x;
+    }
+    
+    vector<ll>h(n+1,0);
+    
+    for(int i=1;i<=n;i++){
+        // lat[i]=h[i-1]*2;
+        // lat[i]=(lat[i]+h[i])&MOD
+         ll z=(h[i-1]+lat[i]);
+        h[i]=z%MOD;
+    }
+    ll res=0;
+
+
+for(int i=0;i<n;i++){
+    //i+1 se start krna hai cuz 0 indexed..
+    
+    // ll mn= ;
+    ll coefficient=(h[i]+h[n-i-1])%MOD;
+    
+    res = (res + (a[i]%MOD)*coefficient)%MOD;
+}
+cout<<res<<endl;
+ }
+ return 0;
+
+}

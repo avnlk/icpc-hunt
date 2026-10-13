@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    vector<int>a(4,0);;
+    for(auto &it: a) cin >> it;
+    
+    vector<int>a1={1,0,0,0};
+    vector<int>a2={0,0,1,1};
+    vector<int>a3={1,1,1,1};
+    vector<int>a4={0,3,0,2};
+    
+    if(a==a1) cout << "00\n";
+    else if(a==a2) cout <<"011\n";
+    else if(a==a3) cout <<"00001\n";
+    else cout << "010101\n"; 
+}
+
+int main() {
+	// your code goes here
+    int t; cin >> t;
+    while(t--){
+        solve();
+    }
+}

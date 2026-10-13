@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long 
+int mod=998244353;
+
+int N=200001;
+
+
+int exp(int x,int n,int m){
+    x%=m;
+    int res=1;
+    while(n>0){
+        if(n%2==1) res=(res*x)%m;
+        x= (x*x)%m;
+        n/=2;
+    }
+    return res;
+}
+
+int inv(int p, int q){
+    return (p*exp(q,mod-2,mod))%mod;
+}
+
+void solve(){
+    int n;
+    cin>>n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++) cin>>a[i];
+    
+    vector<int> ex(n+1),s(n+1),e(n+1);
+    int sm=0;
+    for(int i=0;i<n;i++){
+        sm=(sm+a[i])%mod;
+    }
+    s[1]=(sm+sm-a[0]-a[n-1]+2*mod)%mod;
+    ex[1]=inv(s[1],n-1);
+    e[1]=inv(sm-a[0]-a[n-1],n-2);
+    int S=(sm-a[0]-a[n-1])%mod;
+    for(int i=2;i<=n-2;i++){
+        s[i]=(s[i-1]-e[i-1]+mod)%mod;
+        e[i]=(inv(S,n-i)-inv(e[i-1],n-1-i)+mod)%mod;
+        ex[i]=inv(s[i],n-i);
+        S=(S-ex[i-1]+mod)%mod;
+    }
+    int sum=0;
+    for(int i=1;i<=n-2;i++){
+        sum=(sum+ex[i])%mod;
+    }
+    cout<<sum<<endl;
+    
+    
+    
+}
+
+signed main() {
+	// your code goes here
+	
+	int t;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+
+}

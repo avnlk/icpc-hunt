@@ -1,0 +1,29 @@
+# cook your dish here
+t=int(input())
+for _ in range(t):
+    parts=input().split()
+    c00=int(parts[0])
+    c01=int(parts[1])
+    c10=int(parts[2])
+    c11=int(parts[3])
+    n=c00+c01+c10+c11
+    if c01==0 and c10 ==0:
+        if c00>0:
+            print("0" *(c00+1))
+        else:
+            print("1" *(c11+1))
+    elif c10>0:
+        zero=2*c00+c01+c10
+        if c11>0 or c01>0:
+            zero=min(n,zero)
+        else:
+            zero=min(n+1,zero)
+        ones=(n+1)-zero
+        print("0"*zero+"1"*ones)
+    else:
+        if c00>0:
+            zero=c00+1 
+            ones=(n+1)-zero
+            print("0"*zero+"1"*ones)
+        else:
+            print("01"*c01+"1"*(n+1-2*c01))

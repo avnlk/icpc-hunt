@@ -1,0 +1,35 @@
+import sys
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_Data:
+        return
+    
+    t = int(input_Data[0])
+    idx = 1
+    results = []
+    
+    for _ in range(t):
+        c00 = int(input_data[idx])
+        c01 = int(input_data[idx+1])
+        c10 = int(input_data[idx+2])
+        c11 = int(input_data[idx+3])
+        idx +=4
+        
+        if c00 > 0 or c01 > 0:
+            zeros = '0' * (c00+1)
+            
+            if c10 == 0 and c11 == 0:
+                res = zeros + '1' * c01
+            elif c01 > 0:
+                res= zeros + '1' * c01 + '0'* c10 + '1' * c11
+            else:
+                res = zeros + '1' * c11 + '0' * c10
+        else:
+                if c10> 0:
+                    res = '0' * c10 + '1'* c11
+                else:
+                    res = '1' * (c11 + 1)
+            results.append(res)
+        print('\n'.join(results))
+    if __name__== '__main__':
+        solve()

@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int c1, c2, c3, c4; 
+// void solve(){
+//     cin >> c1 >> c2 >> c3 >> c4; 
+//     // c1 = 00 . 01 . 10 .  c4 11
+//     if(c1 + c2 + c3 + c4 == 0){
+//         cout << string(c3 - 1, '0') + "10";
+//     }
+    
+//     int sav1 = 0, sav2 = 0, sav4 = 0;
+//     if(c1 > 0){
+//         c1--, sav1++;
+//     }
+//     else if(c2 > 0){
+//         c2--, sav2++;
+//     }
+//     else{
+//         c4--, sav4++;
+//     }
+    
+//     while(true){
+//         if(c4 > 0) c4--;
+//         else if(c2 > 0) c2--;
+//         else{
+//             break;
+//         }
+//         if(c1 > 0){
+//         c1--, sav1++;
+//         }
+//         else if(c2 > 0){
+//             c2--, sav2++;
+//         }
+//         else{
+//             break;
+//         }
+//     }
+    
+//     int lz =2*sav1+c1+c3;
+//     int to = 2 * sav4+ c2 + c4;
+    
+//     string res(lz, '0');
+//     for(int i = 0; i < sav2; i++) {
+//         res+="01";
+//     }
+//     res+= string(to, '1');
+//     cout << res << "\n";
+// }
+
+void solve(){
+    cin >> c1 >> c2 >> c3 >> c4; 
+    int n = c1+c2+c3+c4;
+    int s = c1 + c2 + c4;
+    
+    if(s == 0){
+        cout << string(c3 -1, '0') + "10";
+        cout << "\n";
+        return;
+    }
+    
+    int k = min(c4 + c2, (s-1)/2);
+    int sav1 = min(c1, k+1);
+    
+    int rem2 = c2 - max(0LL, k - c4);
+    
+    int sav2 = min(rem2, (k+1) - sav1);
+    
+    int lz, to;
+    
+    lz = c1 + c3 + sav1;
+    to = (n+1) - lz - 2* sav2;
+    
+    string res = string(lz, '0');
+    for(int i = 0; i < sav2; i++ ) {
+        res += "01";
+    }
+    
+    res += string(to, '1');
+    cout << res << "\n";
+}
+
+signed main() {
+	// your code goes here
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int t; 
+    t = 1;
+    cin >> t; 
+    while(t--){
+        solve();
+    }
+}

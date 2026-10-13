@@ -1,0 +1,140 @@
+#include <bits/stdc++.h>
+using namespace std;
+void popf(string&s){
+    reverse(s.begin(), s.end());
+    s.pop_back();
+    reverse(s.begin(), s.end());
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	    int a, b, c, d;
+	    cin>>a>>b>>c>>d;
+	    string s="";
+	    if(a==0){
+	        if(c==0){
+	            if(b==0){
+	                if(d==0){
+	                    cout<<s<<endl;
+	                    continue;
+	                }
+	                else{
+                        for(int i=0; i<d+1; i++)s+="1";
+                        cout<<s<<endl;
+                        continue;
+	                }
+	            }
+	            else{
+	                if(d==0){
+	                    b++;
+	                    while(b){
+	                        s.push_back('0'+b&1);
+	                        b--;
+	                    }
+	                    cout<<s<<endl;
+	                    continue;
+	                }
+	                else{
+	                    s="01";
+	                    b--;
+                	    int mn=min(b,d);
+                	    for(int i=0; i<mn; i++){
+                	        s+="01";
+                	        b--;
+                	        d--;
+                	    }
+                	    if(b>0){
+                	        if(b==1){
+                	            popf(s);
+                	            s+="01";
+                	        }
+                	        else{
+                	            while(b){
+                	                s.push_back('0'+b&1);
+                	                b--;
+                	            }
+                	        }
+                	    }
+                	    else{
+                	        if(d==1){
+                	            popf(s);
+                	            s+="11";
+                	        }
+                	        else{
+                	            for(int i=0; i<d; i++){
+                	                s+="1";
+                	            }
+                	        }
+                	    }
+	                }
+	            }
+	            cout<<s<<endl;
+	            continue;
+	        }
+	        for(int i=0; i<c-1; i++){
+	            s+="0";
+	        }
+	        s+="10";
+    	    if(b>0){
+    	        if(b==1){
+    	            popf(s);
+    	            s+="01";
+    	        }
+    	        else{
+    	            while(b){
+    	                s.push_back('0'+b&1);
+    	                b--;
+    	            }
+    	        }
+    	    }
+    	    else{
+    	        if(d==1){
+    	            popf(s);
+    	            s+="11";
+    	        }
+    	        else{
+    	            for(int i=0; i<d; i++){
+    	                s+="1";
+    	            }
+    	        }
+    	    }
+    	    cout<<s<<endl;
+	        continue;
+	    }
+	    for(int i=0; i<(a==0?0:a+1)+c; i++){
+	        s+="0";
+	    }
+	    int mn=min(b,d);
+	    for(int i=0; i<mn; i++){
+	        s+="01";
+	        b--;
+	        d--;
+	    }
+	    if(b>0){
+	        if(b==1){
+	            s.pop_back();
+	            s+="01";
+	        }
+	        else{
+	            while(b){
+	                s.push_back('0'+b&1);
+	                b--;
+	            }
+	        }
+	    }
+	    else{
+	        if(d==1){
+	            s.pop_back();
+	            s+="11";
+	        }
+	        else{
+	            for(int i=0; i<d; i++){
+	                s+="1";
+	            }
+	        }
+	    }
+	    cout<<s<<endl;
+	}
+
+}

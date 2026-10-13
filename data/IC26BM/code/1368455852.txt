@@ -1,0 +1,187 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+void solve(){
+    vector <int> a(4);
+    int sum = 0;
+    for(auto &x : a) cin >> x , sum += x;
+    sum--;
+    // sum no of operation;
+    while(sum >= 2 && a[3])
+    {
+        sum -= 2; a[3]--;
+    }
+    // sum <=1 or a[3] == 0
+    if(sum == 0)
+    {
+        for(int i = 0 ; i < 4 ; i++){
+            for(int j = 0 ; j < a[i] ; j++){
+                if(i == 0){
+                    cout << "00";
+                }
+                else if(i == 1){
+                    cout << "01";
+                }
+                else if(i == 2){
+                    cout << "10";
+                }
+                else{
+                    cout << "11";
+                }
+            }
+        }
+        cout << "\n";
+        return;
+    }
+    if(a[3] == 0){
+        if(sum % 2 == 0){
+            while(sum > 0 && a[2] > 0){
+                sum -= 2;
+                a[2]--;
+            }
+            while(sum > 0 && a[1] > 0){
+                sum -= 2;
+                a[1]--;
+            }
+            while(sum > 0 && a[0] > 0){
+                sum -= 2;
+                a[1]--;
+            }
+        }
+        else{
+            bool ok = false;
+            while(sum > 1 && a[1] > 0){
+                sum -= 2;
+                a[1]--;
+            }
+            while(sum > 1 && a[2] > 0){
+                sum -= 2;
+                a[2]--;
+            }
+            if(a[2] > 0){
+                // sum == 1;
+                string ans = "0";
+                a[2]--;
+                for(int i = 0 ; i < 4 ; i++){
+                    for(int j = 0 ; j < a[i] ; j++){
+                        if(i == 0){
+                            ans += "00";
+                        }
+                        else if(i == 1){
+                            ans += "01";
+                        }
+                        else if(i == 2){
+                            ans += "10";
+                        }
+                        else{
+                           ans += "11";
+                        }
+                    }
+                }
+                cout << ans << '\n';
+                return;
+            }
+            else{
+                if(a[0] > 0){
+                    string ans = "0";
+                    a[0]--;
+                    for(int i = 0 ; i < 4 ; i++){
+                        for(int j = 0 ; j < a[i] ; j++){
+                            if(i == 0){
+                                ans += "00";
+                            }
+                            else if(i == 1){
+                                ans += "01";
+                            }
+                            else if(i == 2){
+                                ans += "10";
+                            }
+                            else{
+                               ans += "11";
+                            }
+                        }
+                    }
+                    cout << ans << '\n';
+                    return;
+                }
+                else{
+                    string ans = "1";
+                    a[1]--;
+                    for(int i = 0 ; i < 4 ; i++){
+                        for(int j = 0 ; j < a[i] ; j++){
+                            if(i == 0){
+                                ans += "00";
+                            }
+                            else if(i == 1){
+                                ans += "01";
+                            }
+                            else if(i == 2){
+                                ans += "10";
+                            }
+                            else{
+                               ans += "11";
+                            }
+                        }
+                    }
+                    cout << ans << '\n';
+                    return;
+                }
+            }
+        }
+    }
+    else{
+        // sum = 1;
+        if(a[2] > 0){
+            string ans = "0";
+            a[2]--;
+            for(int i = 0 ; i < 4 ; i++){
+                for(int j = 0 ; j < a[i] ; j++){
+                    if(i == 0){
+                        ans += "00";
+                    }
+                    else if(i == 1){
+                        ans += "01";
+                    }
+                    else if(i == 2){
+                        ans += "10";
+                    }
+                    else{
+                       ans += "11";
+                    }
+                }
+            }
+            cout << ans << '\n';
+            return;
+        }
+        else{
+            string ans = "0";
+            a[0]--;
+            for(int i = 0 ; i < 4 ; i++){
+                for(int j = 0 ; j < a[i] ; j++){
+                    if(i == 0){
+                        ans += "00";
+                    }
+                    else if(i == 1){
+                        ans += "01";
+                    }
+                    else if(i == 2){
+                        ans += "10";
+                    }
+                    else{
+                       ans += "11";
+                    }
+                }
+            }
+            cout << ans << '\n';
+            return;
+        }
+    }
+}
+int32_t main() {
+    int t; cin >> t;
+    while(t--){
+        solve();
+    }
+	// your code goes here
+
+}

@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long MOD = 998244353;
+
+const int MAXN = 200005;
+
+long long inv[MAXN], harmonic[MAXN];
+
+int main() {
+    inv[1] = 1;
+    for(int i = 2; i < MAXN; i++){
+        inv[i] = (MOD- MOD/i) * inv[MOD % i] % MOD;
+    }
+    harmonic[0] = 0;
+    for(int i = 1; i < MAXN; i++){
+        harmonic[i] = (harmonic[i - 1] + inv[i] ) % MOD;
+    }
+    
+	int T = 0;
+	cin>>T;
+	while(T--){
+	    int n = 0;
+	    cin >> n;
+	    
+	    long long ans = 0;
+	    for(int j = 1; j <= n; j++){
+	        long long x;
+	        cin >> x;
+	        long long cnt = (harmonic[j - 1] + harmonic[n - j]) % MOD;
+	        ans = (ans + x % MOD * cnt) % MOD;
+	        
+	    }
+	    cout << ans << endl;
+	}
+
+}

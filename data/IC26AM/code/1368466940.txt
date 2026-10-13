@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+const int maxx = 200005;
+const int mod = 998244353;
+
+vector<int> harmonicNum(maxx);
+
+int pw(int a, int b){
+    int r = 1;
+    while(b > 0){
+        if(b&1) r = (r*a)%mod;
+        a = (a*a)%mod;
+        b >>= 1;
+    }
+    return r;
+}
+
+void preCompute(){
+    harmonicNum[0] = 0;
+    
+    for(int i=1; i<maxx; ++i){
+        int inv = pw(i, mod-2);
+        harmonicNum[i] = (harmonicNum[i-1] + inv)%mod;
+    }
+}
+
+void solve(){
+    int n;
+    cin >> n;
+    int total = 0;
+    
+    for(int i=1; i<=n; ++i){
+        int curr;
+        cin >> curr;
+        
+        int mult = (harmonicNum[i-1] + harmonicNum[n-i])%mod;
+        total = (total + curr*mult)%mod;
+    }
+    
+    cout << total << endl;
+}
+
+signed main() {
+    preCompute();
+    
+    int t;
+    cin >> t;
+    
+    while(t--) solve();
+    
+    return 0;
+}

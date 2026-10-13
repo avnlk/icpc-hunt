@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+const int MOD = 998244353;
+int modpow(int a, int b) {
+    int res = 1;
+    a %= MOD;
+    while (b > 0) {
+        if (b & 1) {
+            res = (res * a) % MOD;
+        } 
+        a = (a * a) % MOD;
+        b >>=1;
+    }
+    return res;
+}
+
+int modinv(int a) {
+    return modpow(a, MOD - 2LL);
+}
+
+
+int32_t main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+            sum = (sum + a[i]) % MOD;
+        }
+        vector<int> pref(n);
+        pref[0] = (a[0] + a[n - 1]) % MOD;
+        for (int i = 1; i < n; i++) {
+            pref[i] = (pref[i - 1] + ((a[i] + a[n - 1 - i]) * modinv(n - 1)) % MOD) % MOD;
+        }
+        vector<int> ds(n);
+        ds[0] = (pref[0] * modinv(n - 1)) % MOD;
+        for (int i = 1; i < n - 1; i++) {
+            ds[i] = (pref[i] * modinv(n - i - 1)) % MOD;
+        }
+        int hn = 0;
+        for (int i = 1; i < n; i++) {
+            hn = (hn + modinv(i)) % MOD;
+        }
+        int dssum = 0;
+        for (int i = 0; i < n-1; i++) {
+            dssum = (dssum + ds[i]) % MOD;
+        }
+        int ans = ((2 * sum * hn) % MOD -  dssum + MOD)%MOD;
+        cout << ans << endl;
+    }
+}

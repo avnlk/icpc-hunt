@@ -1,0 +1,48 @@
+# cook your dish here
+import sys
+def sol():
+    input_data=sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    t8=int(input_data[0])
+    ou=[]
+    idx=1
+    
+    
+    for _ in range(t8):
+        c00=int(input_data[idx])
+        c01=int(input_data[idx+1])
+        c10=int(input_data[idx+2])
+        c11=int(input_data[idx+3])
+        idx+=4
+        
+        
+        if c01==0 and c10 == 0:
+            if c00 >0 and c11>0:
+                ans8='0'* (c00+1)+'1'*(c11+1)
+            elif c00>0:
+                ans8='0'* (c00+1)
+            elif c11>0:
+                ans8='1'*(c11 + 1)
+            else:
+                ans8=""
+            ou.append(ans8)
+            continue
+        
+        if c10>0:
+            ze=c00+c10
+            on=c11+c01+1 
+            ans8='0'*ze+'10'+'1'*(on-1)
+            
+        else:
+            ze=c00+1
+            on=c11+c01
+            ans8='0'*ze + '1'*on
+            
+        ou.append(ans8)
+    
+    print('\n'.join(ou))
+    
+if __name__=='__main__':
+    sol()

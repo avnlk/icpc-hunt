@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const long long MOD = 998244353;
+const int MAXN = 200005;
+long long inv[MAXN], H[MAXN];
+
+
+
+int main() {
+	
+    inv[1] = 1;
+    for (int i = 2;i<MAXN; i++){
+        inv[i] = (MOD - (MOD/i)) * inv[MOD%i]%MOD;
+    }
+    H[0] = 0;
+    for (int i = 1; i<MAXN; i++){
+        H[i] = (H[i-1] + inv[i]) % MOD;
+    }
+    
+    int t;
+    cin >> t ;
+    while(t--){
+        int n ;
+        cin >> n ;
+        long long ans = 0;
+        for (int j = 1; j<=n;j++){
+            long long a;
+            cin >> a ;
+            long long coef = (H[j-1] + H[n-j] )%MOD;
+            ans = (ans + a%MOD *coef) % MOD;
+            
+        }
+        cout << ans << endl;
+    }
+    return 0;
+
+}

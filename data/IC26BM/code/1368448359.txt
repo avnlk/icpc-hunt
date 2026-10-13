@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int t;
+    cin >> t;
+    const string piece[4] = {"00", "01", "10" , "11"};
+    
+    while(t--){
+        long long c[4];
+        cin >> c[0] >> c[1] >> c[2] >> c[3];
+        
+        string best;
+        for(int tail = 0; tail < 4; tail++){
+            if(c[tail] == 0) continue;
+        
+        
+            long long a = c[0], b = c[1], cc = c[2] , d = c[3];
+            if(tail == 0) a--;
+            else if(tail == 1) b--;
+            else if(tail == 2) cc--;
+            else d--;
+            
+            long long m = a + b + cc + d;
+            string res;
+            res.reserve(m + 2);
+            
+            long long X = b + d - a;
+            if(X <= 0){
+                res.append(m,'0');
+            }else{
+                res.append(2 * a + cc, '0');
+                long long A = min(b, X/2);
+                for(long long i = 0; i < A; i++) res += "01";
+                res.append(X -2 * A, '1');
+            }
+            res += piece[tail];
+            
+            if(best.empty() || res < best) best = res;
+        }
+        cout << best << "\n";
+    } return 0;
+    
+}

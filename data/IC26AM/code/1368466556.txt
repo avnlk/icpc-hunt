@@ -1,0 +1,7 @@
+M=998244353
+H=[0,1];v=[0,1]
+for i in range(2, 200002):
+    v.append(-(M//i)*v[M%i]%M);H.append((H[-1]+v[-1])%M)
+for _ in range(int(input())):
+    n = int(input())
+    print(sum(a*(H[n-k-1]+H[k]) for k,a in enumerate(map(int, input().split())))%M)

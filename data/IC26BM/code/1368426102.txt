@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+string f(const array<ll,4>& c,int l){
+    array<ll,4>a = c;
+    --a[l];
+    
+    ll z = 0,m=0,u;
+    
+    u=min(a[0],a[3]);
+    z+=u;
+    
+    a[0]-=u;
+    a[3]-=u;
+    
+    u = min(a[0],a[1]);
+    z+=u;
+    a[0]-=u;
+    a[1]-=u;
+    
+    u = min(a[1],a[3]);
+    m+=u;
+    a[1]-=u;
+    a[3]-=u;
+    
+    u = a[1]/2;
+    m+=u;
+    
+    a[1]-=2*u;
+    
+    ll x = a[0] + a[2] +2*z;
+    
+    ll y = a[1]+a[3];
+    
+    string s;
+    s.append(x,'0');
+    
+    for(ll i=0;i<m;i++){
+        s+="01";
+    }
+    
+    s.append(y,'1');
+    
+    static const string e[] = {"00","01","10","11"};
+    s+=e[l];
+    
+    return s;
+    
+    
+}
+
+int main() {
+	// your code goes here
+	
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	int t;
+	cin>>t;
+	
+	
+	while(t--){
+	    array<ll,4>c;
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    
+	    string ans ;
+	    
+	    for(int i=0;i<4;i++){
+	        if(c[i]==0) continue;
+	        
+	        string s = f(c,i);
+	        
+	        if(ans.empty() || s<ans) ans = s;
+	    }
+	    cout<<ans<<'\n';
+	    
+	}
+	
+	return 0;
+	
+
+}

@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+#define int long long int
+using namespace std;
+
+int MAXN = 2e5 + 5;
+int MOD = 998244353;
+vector<int> h(MAXN);
+int binexpo(int base, int ex){
+    int res = 1;
+    base %=MOD;
+    while(ex > 0){
+        if(ex & 1) res = (res * base) % MOD;
+        base =(base * base) % MOD;
+        ex >>= 1;
+    }
+    return res;
+}
+int inv(int val){
+    return binexpo(val, MOD - 2);
+}
+void pre(){
+    h[0] = 0;
+    for(int i = 1; i < MAXN; i++){
+        h[i] = (h[i - 1] + inv(i)) % MOD;
+    }
+}
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    pre();
+	int t;
+	cin>> t;
+	while(t--){
+	    int n;
+	    cin >>n;
+	    vector<int> a(n);
+	    int ex = 0;
+	    for(int i = 0; i < n; i++){
+	        cin >> a[i];
+	        int t1 = (h[i] + h[n - i - 1]) % MOD;
+	        int t2 = ((a[i] % MOD) * t1) % MOD;
+	        ex = (ex + t2) % MOD;
+	   }
+	   cout <<ex << endl;
+	    
+	}
+
+}

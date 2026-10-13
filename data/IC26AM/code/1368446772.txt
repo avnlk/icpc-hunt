@@ -1,0 +1,20 @@
+import sys
+inp=sys.stdin.readline
+mod=998244353
+n=200000
+inv=[0]*(n+1)
+inv[1]=1
+for i in range(2,n+1):
+    inv[i]=mod-(mod//i)*inv[mod % i]%mod 
+h=[0]*(n+1)
+for i in range(1,n+1):
+    h[i]=(h[i-1]+inv[i])%mod
+for i in range(int(input())):
+    v=int(input())
+    a=list(map(int,input().split()))
+    ans=0 
+    for j in range(v):
+        coef=(h[j] + h[v-j-1])%mod 
+        ans=(ans+a[j]*coef)%mod 
+    print(ans)
+    

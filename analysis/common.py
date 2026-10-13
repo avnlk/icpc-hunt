@@ -2,7 +2,7 @@
 
 Layout expected (relative to the repo root):
     selection_pool_2026-10-12.csv        official pool (rank, username, team, college, per-problem scores)
-    ccdump/<PROBLEM>/list.csv            submission list  (id, status page, "cells")
+    ccdump/<PROBLEM>/list.csv            submission list  (id, status page, "cells")   [or data/<PROBLEM>/...]
     ccdump/<PROBLEM>/code/<id>.txt       one file of source code per submission
 """
 import csv, os, re
@@ -10,6 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 POOL_CSV = ROOT / "selection_pool_2026-10-12.csv"
+# downloaded submissions: your own fresh download (ccdump/) if present, else the copy shipped in the repo (data/)
+DATA = ROOT / "ccdump" if (ROOT / "ccdump").exists() else ROOT / "data"
 
 PROBLEMS = {  # contest order P1..P10
     "P1": "PHNCHRG", "P2": "IC26CS", "P3": "IC26MP", "P4": "IC26CB", "P5": "IC26SH",
@@ -27,7 +29,7 @@ def load(prob, include_unattributed=True):
     """Return {submission_id: dict}. Submissions whose username is not in the pool are 'excluded'
     (withdrawn / removed teams: the published submissions include them). Code files that are not
     in list.csv have no username (user '?') -- 'unattributed'."""
-    d = ROOT / "ccdump" / prob
+    d = DATA / prob
     subs = {}
     with open(d / "list.csv", encoding="utf-8") as f:
         for r in csv.DictReader(f):

@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const ll MOD = 998244353;
+ll power(ll a,ll b){
+    ll res = 1;
+    while(b){
+        if(b&1) res = res * a%MOD;
+        a = a * a % MOD;
+        b>>1;
+    }
+    return res;
+}
+int main() {
+	// your code goes here
+    ios:: sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<ll>a(n);
+        for(auto &x: a){
+            cin>>x;
+            x%=MOD;
+        }
+        vector<ll>H(n+1,0);
+        for(int i=1;i<=n;i++){
+            ll inv = power(i,MOD-1);
+            H[i] = (H[i-1]+inv) % MOD;
+        }
+        ll ans = 0;
+        for(int i=0;i<n;i++){
+            ll coeff = (H[i]+H[n-1-i])%MOD;
+            ans = (ans+a[i]*coeff)%MOD;
+        }
+        cout<<ans<<'\n';
+    }
+    return 0;
+}

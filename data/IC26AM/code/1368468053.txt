@@ -1,0 +1,33 @@
+import sys
+
+def f():
+    d = sys.stdin.read().split()
+    
+    if not d :
+        return 
+    t = int(d[0])
+    p = 1
+    m = 998244353
+    x = 200005
+    v = [0] * x
+    v[1] = 1
+    for i in range(2, x):
+        v[i] = (m - m// i) * v[m % i] % m 
+    h =[0] * x 
+    
+    for i in range(1, x):
+        h[i] = (h[i - 1] + v[i]) % m
+    o = []
+    for _ in range(t):
+        n = int(d[p])
+        p+= 1
+        a = 0 
+        for i in range(n):
+            c = (h[i] + h[n - 1 - i]) % m 
+            a = (a + int(d[p]) * c) % m 
+            p += 1
+        o.append(str(a))
+    sys.stdout.write('\n'.join(o) + '\n')
+if __name__ == '__main__':
+    f()
+        

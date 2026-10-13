@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+const long long MOD=998244353;
+long long pow(long long base, long long exp){
+    long long res=1;
+    while(exp>0){
+        if(exp%2){
+            res=(res*base)%MOD;
+        }
+        base=(base*base)%MOD;
+        exp/=2;
+    }
+    return res;
+}
+int main() {
+	// your code goes here
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int> a(n);
+        long long sum=0;
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+            if(i!=0 && i!=n-1) sum+=a[i];
+        }
+        // long long sum=accumulate(a.begin()+1, a.end()-1, 0LL);
+        sum*=2;
+        long long temp=2*n-1;
+        long long num=(temp*(a[0]+a[n-1])+(n*sum)%MOD)%MOD;
+        long long den=n;
+        long long fact=gcd(num,den);
+        num/=fact;
+        den/=fact;
+        cout<<(num*pow(den,MOD-2))%MOD<<endl;
+    }
+}

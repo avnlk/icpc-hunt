@@ -1,0 +1,23 @@
+import sys
+MOD = 998244353
+def main():
+    data = sys.stdin.buffer.read().split()
+    N = 200001
+    inv = [0, 1] + [0] * (N - 1)
+    for i in range(2, N + 1):
+        inv[i] = (MOD - (MOD // i) * inv[MOD % i] % MOD) % MOD
+    H = [0] * (N + 1)
+    for i in range(1, N + 1):
+        H[i] = (H[i - 1] + inv[i]) % MOD
+    t = int(data[0]); p = 1
+    out = []
+    for _ in range(t):
+        n = int(data[p]); p += 1
+        s = 0
+        for j in range(1, n + 1):
+            s += int(data[p + j - 1]) * (H[j - 1] + H[n - j])
+        p += n
+        out.append(s % MOD)
+    print("\n".join(map(str, out)))
+    
+main()

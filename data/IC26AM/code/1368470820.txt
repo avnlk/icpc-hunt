@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+	// your code goes here
+	int s=0,n,T;
+	scanf("%d",&T);
+	for(int d=0;d<T;d++){
+	    scanf("%d",&n);
+	
+	    int A[n];
+	    if(n==1){
+	        printf("0") ;
+	    }else{
+	        for(int i=0;i<n;i++){
+	            scanf("%d",A[i]);
+	        }
+	        for(int j=0;j<n;j++){
+	            if(A[j]!=0){
+	                s=A[j]+A[j+1];
+	                A[j]=s;
+	                for(int k=j+1;k<n-1;k++){
+	                    int temp=A[k];
+	                    A[--k]=temp;
+	                }
+	            }
+	    
+	        }
+        }
+	
+    	printf("%d",s);
+	}
+}

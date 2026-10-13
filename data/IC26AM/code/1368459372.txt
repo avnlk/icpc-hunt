@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+ll mod = 998244353, mx = 2e5 + 69;
+vector<ll> inv(mx), h(mx);
+
+struct _{
+    _() {
+        inv[1] = 1;
+        for(ll i = 2; i < mx; i ++) {
+            inv[i] = (mod - (mod / i) * inv[mod % i] % mod) % mod;
+        }
+        h[0] = 0;
+        for(ll i = 1; i < mx; i++) {
+            h[i] = (h[i - 1] + inv[i]) % mod;
+        }
+    }
+}__;
+
+
+int main() {
+    ll t, n, ans;
+    cin >> t;
+    while(t --) {
+        cin >> n;
+        ans = 0;
+        for(ll i = 1; i <= n; i++) {
+            ll x;
+            cin >> x;
+            ans = (ans + x * ((h[i-1] + h[n - i]) % mod)) % mod;
+        }
+        cout << ans<<"\n";
+    }
+}

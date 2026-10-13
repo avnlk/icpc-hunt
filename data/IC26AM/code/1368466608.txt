@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+# define int long long
+# define mod 998244353
+using namespace std;
+
+int pow(int base, int exp){
+    base = base % mod;
+    
+    if (exp == 0){
+        return 1;
+    }
+    
+    int half = pow(base, exp / 2);
+    int ans = (half * half) % mod;
+    
+    if (exp & 1){
+        ans *= base;
+    }
+    
+    return ans;
+}
+
+int mod_inverse(int x){
+    return pow(x, mod - 2);
+}
+
+vector<int> calc_inverse(int n){
+    vector<long long> inv(n + 1, 0);
+    
+    inv[1] = 1;
+    for (int i = 2; i <= n; i++){
+        inv[i] = (mod - ((mod / i) * inv[mod % i]) % mod) % mod;
+    }
+    
+    return inv;
+}
+
+vector<int> calc_har(vector<int> &inv, int n){
+    vector<int> har(n + 1, 0);
+    
+    for (int i = 1; i <= n; i++){
+        har[i] = (har[i - 1] + inv[i]) % mod;
+    }
+    
+    return har;
+}
+
+int32_t main() {
+    vector<int> inv = calc_inverse(200000 + 1);
+    vector<int> har = calc_har(inv, 200000 + 1);
+    
+	int t;
+	cin >> t;
+	
+	while (t--){
+	    int n;
+	    cin >> n;
+	    
+	    int ans = 0;
+	    
+	    for (int i = 1; i <= n; i++){
+	        int a;
+	        cin >> a;
+	        
+	        int d = (har[i - 1] + har[n - i]) % mod;
+	        ans = (ans + a % mod * d) % mod;
+	    }
+	    
+	    cout << ans << "\n";
+	}
+	
+	return 0;
+}

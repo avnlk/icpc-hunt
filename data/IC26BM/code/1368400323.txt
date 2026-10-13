@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+    string types[4] = {"00","01","10","11"};
+    int t;cin>>t;
+    while(t--){
+        int c00,c01,c10,c11;cin>>c00>>c01>>c10>>c11;
+        int counts[4] = {c00,c01,c10,c11};
+        int n=c00+c01+c10+c11;
+        string small;bool firstCan = true;
+        for(int i = 0;i<4;i++){
+            if(counts[i] == 0) continue;
+            counts[i]--;
+            int leadZero = min(n-1,2*counts[0]+counts[2]);
+            int remLen = n-1-leadZero;
+            int alterPair = min(counts[1],remLen/2);
+            string candidate(leadZero,'0');
+            candidate.reserve(n+1);
+            for(int i = 0;i<alterPair;i++){
+                candidate+="01";
+            }
+            int trilOne = remLen - 2*alterPair;
+            candidate.append(trilOne,'1');
+            candidate+=types[i];
+            if(firstCan || candidate<small){
+                small = move(candidate);
+                firstCan = false;
+            }
+            counts[i]++;
+        }
+        cout<<small<<"\n";
+    }
+}

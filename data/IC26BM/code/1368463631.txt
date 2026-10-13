@@ -1,0 +1,42 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		String line=br.readLine();
+		while(line == null) return;
+		int n=Integer.parseInt(line.trim());
+		long[][] matrix=new long[n][n];
+		long totalsum=0;
+		for(int i=0;i<n;i++){
+		    st=new StringTokenizer(br.readLine());
+		    for(int j=0;j<n;j++){
+		        matrix[i][j]=Long.parseLong(st.nextToken());
+		        totalsum += matrix[i][j];
+		        
+		    }
+		}
+		System.out.println(totalsum);
+		StringBuilder sb=new StringBuilder();
+		for(int i=0;i<n;i++){
+		    for(int j=0;j<n;j++){
+		        sb.append(i+1);
+		        if(j<n-1){
+		            sb.append(" ");
+		            
+		        }
+		    }
+		    sb.append("\n");
+		    
+		}
+		System.out.println(sb.toString());
+		
+
+	}
+}

@@ -1,0 +1,39 @@
+# cook your dish here
+import sys
+def solve():
+    input = sys.stdin.read
+    data = input().split()
+    if not data:
+        return
+    t = int(data[0])
+    idx = 1
+    results = []
+    for _ in range(t):
+        a00 = int(data[idx])
+        a01 = int(data[idx+1])
+        a10 = int(data[idx+2])
+        a11 = int(data[idx+3])
+        idx+=4
+        total_strings = a00+a01+a10+a11
+        if total_strings == 1:
+            if a00 == 1:
+                results.append("00")
+            elif a01 == 1:
+                results.append("01")
+            elif a10 == 1:
+                results.append("10")
+            else:
+                results.append("11")
+            continue
+        zeros = a00 + a10
+        ones = a01 + a11
+        if a00 > 0 or a01 > 0:
+            first_char = '0'
+        else:
+            first_char = '1'
+        res = [first_char] + ['0'] * zeros + ['1'] * ones
+        results.append("".join(res))
+    print("\n".join(results))
+    
+if __name__ == "__main__":
+    solve()

@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+#define pb push_back
+
+void solve(){
+    vector<ll> c(4);
+    ll op = 0;
+    for(int i = 0; i<4; i++){
+        cin>>c[i];
+        op += c[i];  
+    } 
+    
+    op--;
+    while(op>=2 && c[3] > 0){
+        op -= 2;
+        c[3]--;
+    }
+    
+    while(op>=2 && c[1] > 0){
+        op -=  2;
+        c[1]--;
+    }
+    
+    while(op >= 2 && c[2] > 0){
+        op -= 2;
+        c[2]--;
+    }
+    
+    while(op >= 2 && c[0] > 0){
+        op -= 2;
+        c[0]--;
+    }
+    
+    bool xtrazero = false;
+    if(op == 1){
+        op--;
+        if(c[2]>0){
+            xtrazero = true;
+            c[2]--;
+        } 
+    else if(c[0] > 0) c[0]--;
+    }
+    
+    string ans = "";
+    if(xtrazero) ans.pb('0');
+    for(int i = 0; i<c[0]; i++) ans += "00";
+    for(int i = 0; i<c[1]; i++) ans += "01";
+    for(int i = 0; i<c[2]; i++) ans += "10";
+    for(int i = 0; i<c[3]; i++) ans += "11";
+    
+    cout<<ans<<endl;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	
+	ll t = 1;
+	cin>>t;
+	while(t--){
+	    solve();
+	}
+	
+	return 0;
+}

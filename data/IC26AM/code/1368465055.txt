@@ -1,0 +1,29 @@
+import sys
+
+d = sys.stdin.read().split()
+if d:
+    m = 998244353
+    v = [0] * 200005
+    h = [0] * 200005
+    v[1] = h[1] = 1
+    
+    for i in range(2, 200005):
+        v[i] = ( m - m // i) * v[m % i] % m 
+        h[i] = (h[i-1] + v[i]) % m 
+        
+    o = []
+    p = 1 
+    
+    for _ in range(int(d[0])):
+        n = int(d[p])
+        p += 1 
+        
+        if n == 1:
+            o.append(0)
+            p += 1 
+            
+        else:
+            o.append(sum(int(d[p + i]) * (h[i] + h[n - 1 - i]) for i in range(n)) % m)
+            p += n 
+            
+    sys.stdout.write('\n'.join(map(str, o)) + '\n')

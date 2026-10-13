@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+const int MOD= 998244353;
+const int MAXM=200005;
+long long inv[MAXM];
+long long ar[MAXM];
+
+
+
+void compute(){
+    inv[1]=1;
+    for(int i=2;i<MAXM;i++){
+        inv[i]=MOD-(MOD/i)*inv[MOD % i]% MOD;
+    }
+        ar[0]=0;
+        for(int i=1;i<MAXM;i++){
+            ar[i]=(ar[i-1]+inv[i])%MOD;
+        }
+}
+void solve(){
+      int n;
+      cin>>n;
+      long long ans=0;
+      for(int i=1;i<=n;i++){
+          long long x;
+          cin>>x;
+          long long coef=(ar[i-1]+ar[n-i])%MOD;
+          ans=(ans+x*coef)%MOD;
+      }
+      cout<<ans<<endl;
+    }
+int main() {
+	// your code goes here
+	//courtesy of yash,ritik
+	compute();
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}

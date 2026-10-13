@@ -1,0 +1,57 @@
+#include <stdio.h>
+#define MOD 99824435
+#define MAXN 200005
+
+static long long inv[MAXN];
+static long long H[MAXN];
+static long long a[MAXN];
+static inline long long read_long(){
+    long long x=0;
+    int c=getchar_unlocked();
+    while(c<'0' || c>'9'){
+        if (c== EOF) return -1;
+        c=getchar_unlocked();
+        
+    }
+    return x;
+}
+void precompute(){
+    inv[1]=1;
+    for(int i=2;i<MAXN; ++i){
+        inv[i]=(MOD-MOD/i)*inv[MOD % i] % MOD;
+    }
+    H[0]=0;
+    for(int i=1;i<MAXN;++i){
+        H[i]=(H[i-1]+inv[i])% MOD;
+    }
+}
+    void solve(){
+        long long n_val=read_long();
+        if(n_val<=0) return;
+        int n=(int)n_val;
+        for(int i=1;i<=n;++i){
+            a[i]=read_long();
+        }
+        if(n==1){
+            printf("0\n");
+            return;
+        
+        }
+        long long ans=0;
+        for (int i=1;i<=n;++i){
+            long long coeff = (H[i-1] + H[n-1]) % MOD;
+            ans=(ans+(a[i]% MOD )*coeff) % MOD;
+        }
+        printf("%lld\n",ans);
+}
+int main() {
+    precompute();
+    long long t= read_long();
+    while(t-- > 0){
+        solve();
+        
+    }
+	return 0;
+
+}
+

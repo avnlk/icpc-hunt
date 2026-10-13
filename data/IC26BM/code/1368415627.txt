@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		if(!sc.hasNextInt()) return;
+		int t = sc.nextInt();
+		
+		StringBuilder sb = new StringBuilder();
+		while(t--> 0){
+		    int c00 = sc.nextInt();
+		    int c01 = sc.nextInt();
+		    int c10 = sc.nextInt();
+		    int c11 = sc.nextInt();
+		    
+		    if(c01 == 0 && c10 ==0){
+		        if(c00 > 0){
+		            sb.append("0".repeat(c00 + 1));
+		        }else{
+		            sb.append("1".repeat(c11 + 1));
+		        }
+		    }
+		    else{
+		        sb.append("0");
+		        sb.append("1".repeat(c10));
+		        sb.append("0".repeat(c00));
+		        sb.append("1");
+		        sb.append("1".repeat(c11));
+		        sb.append("0".repeat(Math.max(0,c01 - 1)));
+		    }
+		    sb.append("\n");
+		}
+		System.out.print(sb);
+
+	}
+}

@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Cand{
+    array<long long,5>cnt;
+    array<string,5>pat;
+};
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	const array<string,4>name={"00","01","10","11"};
+	
+	while(t--){
+	    array<long long,4>c;
+	    for(auto&x:c)cin>>x;
+	    long long n=c[0]+c[1]+c[2]+c[3];
+	    bool have=false;
+	    Cand best;
+	    for(long long k=0;k<=(n-1)/2;k++){
+	        array<long long ,4>D={0,0,0,0};
+	        D[3]=min(k,c[3]);
+	        D[1]=min(k-D[3],c[1]);
+	        if(D[3]+D[1]<k)continue;
+	        for(int L=0;L<4;L++){
+	            if(c[L]-D[L]<1)continue;
+	            array<long long,4>F={0,0,0,0};
+	            F[L]=1;
+	            long long rem=k;
+	            for(int ty=0;ty<4;ty++){
+	                long long x=min(rem,c[ty]-D[ty]-F[ty]);
+	                F[ty]+=x;
+	                rem-=x;
+	                
+	            }
+	            if(rem)continue;
+	            array<long long,4>f=F;
+	            f[L]--;
+	            long long s0=(c[0]-D[0]-F[0])+(c[2]-D[2]-F[2]);
+	            long long s1=(c[1]-D[1]-F[1])+(c[3]-D[3]-F[3]);
+	            Cand cd;
+	            cd.pat={"0","01","10","1",name[L]};
+	            cd.cnt={s0+2*f[0],f[1],f[2],s1+2*f[3],1};
+	            bool better=false;
+	            if(!have){
+	                better=true;
+	            }
+	            else{
+	                int ia=0,ib=0;
+	                long long oa=0,ob=0;
+	                while(true){
+	                    while(ia<5 && cd.cnt[ia]==0)ia++;
+	                    while(ib<5 && best.cnt[ib]==0)ib++;
+	                    if(ia>=5||ib>=5)break;
+	                    long long la=cd.pat[ia].size(),lb=best.pat[ib].size();
+	                    long long ra=cd.cnt[ia]*la-oa;
+	                    long long rb=best.cnt[ib]*lb-ob;
+	                    long long m=min(ra,rb);
+	                    bool decided=false;
+	                    for(long long i=0;i<min(m,2LL)&&!decided;i++){
+	                        char x=cd.pat[ia][(oa+i)%la];
+	                        char y=best.pat[ib][(ob+i)%lb];
+	                        if(x!=y){
+	                            better=x<y;
+	                            decided=true;
+	                        }
+	                    }
+	                    if(decided)break;
+	                    oa+=m;
+	                    ob+=m;
+	                    if(oa==cd.cnt[ia]*la){ia++;oa=0;}
+	                    if(ob==best.cnt[ib]*lb){ib++;ob=0;}
+	                }
+	            }
+	            if(better){
+	                best=cd;
+	                have=true;
+	            }
+	        }
+	    }
+	    string s;
+	    for(int i=0;i<5;i++)
+	        for(long long j=0;j<best.cnt[i];j++)s+=best.pat[i];
+	    cout<<s<<endl;
+	    }
+	
+
+}

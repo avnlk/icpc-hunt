@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+const ll MOD=998244353;
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int T;
+	cin>>T;
+	vector<ll>H(200005),inv(200005);
+	inv[1]=1;
+	for(int i=2;i<200005;i++)
+	    inv[i]=MOD-(MOD/i)*inv[MOD%i]%MOD;
+	    for(int i=1;i<200005;i++)
+	     H[i]=(H[i-1]+inv[i])%MOD;
+	     
+	    while(T--){
+	        int n;
+	        cin>>n;
+	        
+	        ll ans=0;
+	        for(int i=1;i<=n;i++){
+	            ll x;
+	            cin>>x;
+	            
+	            ans=(ans+x*(H[i-1]+H[n-i]))%MOD;
+	        }
+	        cout<<ans<<'\n';
+	    }
+	
+
+}

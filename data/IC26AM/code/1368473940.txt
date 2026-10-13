@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long 
+
+long long mod=998244353;
+
+
+long long binpow(long long b, long long e){
+    ll ans=1;
+    for(;e;b=b*b%mod,e/=2)
+        if (e&1) ans=ans*b % mod;
+    return ans%mod;
+}
+
+
+
+
+int main() {
+    
+	long long t;
+	cin>>t;
+	while(t--){
+	    
+    	long long n;
+    	cin>>n;
+    	
+    	vector<long long> a;
+    	for(int i=0;i<n;i++){
+    	    long long x;
+    	    cin>>x;
+    	    a.push_back(x);
+    	}
+    	
+    	vector<long long> dp(n+1);
+    	long long factp=1;
+    	long long den=1;
+    	
+    	vector<long long> fa(n+1,0);
+    	fa[0]=1;
+    	fa[1]=1;
+    	dp[0]=0;
+    	
+    	dp[1]=1;
+    	for(ll i=2;i<=n;i++){
+    	    factp=(factp*i)%mod;
+    	    fa[i]=factp%mod;
+    	    den=(den+(binpow(i,mod-2)%mod))%mod;
+    	    dp[i]=(factp*den)%mod;
+    	    
+    	}
+    	
+    	long long ans=0;
+    	
+    // 	for(int i=0;i<=n;i++){
+    // 	    cout<<fa[i]<<" ";
+    // 	}
+    // 	cout<<endl;
+    	
+    // 	for(long long val:dp){
+    // 	    cout<<val<<" ";
+    // 	}
+    // 	cout<<endl;
+    	
+    	for(int i=0;i<n;i++){
+    	    long long t1=0;
+    	    t1+=((((dp[n-i-1]*fa[i])%mod)+(dp[i]*fa[n-i-1])%mod)*a[i])%mod;
+    	    t1=(t1*fa[n-1])%mod;
+    	    t1=(t1*binpow(fa[i],mod-2))%mod;
+    	    t1=(t1*binpow(fa[n-i-1],mod-2))%mod;
+    	    ans=(ans+t1)%mod;
+    	   // cout<<(dp[n-i-1]*fa[i])%mod+(dp[i]*fa[n-i-1])%mod<<endl;
+    	    ans%=mod;
+    	   
+    	    
+    	    
+    	}
+    	
+    	ans=ans*(binpow(fa[n-1],mod-2))%mod;
+    	
+    	cout<<ans%mod<<endl;
+    	
+    	
+    
+    	
+    	
+	
+	}
+	
+}

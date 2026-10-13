@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using int64 = long long;
+const int64 MOD = 998244353;
+const int MAXN = 200000;
+vector < int64 > in(MAXN + 1), h(MAXN + 1);
+
+
+void solve() {
+    int n;
+    cin >> n;
+    int64 ans = 0;
+    
+    for(int i = 1 ; i <= n ; ++i){
+        int64 x;
+        cin >> x;
+        
+        int64 coef = (h[i-1] + h[n-i])%MOD;
+        ans = (ans+(x%MOD) * coef) % MOD;
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+    // your code goes here
+    in [1] = 1;
+
+    for (int i = 2; i <= MAXN; ++i) {
+        in [i] = MOD - (MOD / i) * in [MOD % i] % MOD;
+    }
+    for(int i = 1 ; i <= MAXN ; ++i){
+        h[i] = (h[i-1]+in[i])%MOD;
+    }
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+}

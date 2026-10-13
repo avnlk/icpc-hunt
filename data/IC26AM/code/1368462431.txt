@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+     long long a = 998244353;
+     int b= 200005;
+     vector<long long> inv (b,0);
+     vector<long long>h(b,0);
+     inv[1]=1;
+     for(int i=2;i<b;i++){
+         inv[i]=a-(a/i)*inv[a%i]%a;
+     }
+      for(int i=1;i<b;i++){
+          h[i]=(h[i-1]+inv[i])%a;
+      }
+      int t;
+      cin>>t;
+      while(t--){
+          int n;
+          cin>>n;
+          vector<long long>arr(n);
+          for(int i=0;i<n;i++){
+              cin>>arr[i];
+          }
+           if(n==1){
+               cout<<0<<endl;
+               continue;
+           }
+            long long ans =0 ;
+            for(int i=0;i<n;i++){
+                long long cef=(h[i]+h[n-1-i])%a;
+                long long val = (arr[i]%a+a)%a;
+                ans=(ans+val*cef)%a;
+            }
+             cout<<ans<<endl;
+      }
+       return 0;
+}

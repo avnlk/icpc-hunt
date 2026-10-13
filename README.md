@@ -26,7 +26,7 @@ submissions that looked worth a second pair of eyes. **Please verify before repo
 - **Fill in "need to verify".** Submissions by users no longer in the Selection Pool have no team name in the
   data files. If you know which team a username belongs to, say so.
 - **Read the code.** Groups F and G in the evidence list were only scored, not read by hand.
-- **Add data.** Only P8 (`IC26AM`) and P10 (`IC26BM`) have bulk data and P9 has just its solvers. Problem 7
+- **Add data.** Only P8 (`IC26AM`) and P10 (`IC26BM`) are in `data/` in bulk, and P9 has just its solvers. Problem 7
   (`IC26TM`, ~150 solvers) is the best next one: the leaked booklet has distinctive lines for it
   (see `leak/FINGERPRINTS.md`). `p7_part1.csv` ... `p7_part6.csv` split its solvers into chunks of ~25.
 - **Report** what holds up to the organisers' plagiarism form (linked from indiaicpc.in).
@@ -46,6 +46,7 @@ Open an Issue with the submission ids and what you found.
 
 | Path | What it is |
 |---|---|
+| `data/` | Copies of the downloaded submissions (P8, P10, and the P9 solvers), shared for plagiarism review only. See `data/README.md` for the permission note and file formats. |
 | `evidence/` | Submissions to check (links, team or *need to verify*, copies of the code), write-ups and match CSVs. |
 | `analysis/` | Scripts that compare downloaded submissions. |
 | `cc_dump.py` | Downloads submissions in a visible Chrome window; you complete any Cloudflare check by hand. |
@@ -102,7 +103,7 @@ run `sudo ydotoold --socket-perm=0666`, then `sudo chmod 666 /tmp/.ydotool_socke
 only). Stop with Ctrl+C.
 
 ### Analysing them
-Run from the repo root. A submission whose username is not in the pool is **excluded** (withdrawn or removed
+Run from the repo root; they use `ccdump/` if you have downloaded your own, otherwise the copy in `data/`. A submission whose username is not in the pool is **excluded** (withdrawn or removed
 team; the published submissions include them, and they can be the *source* of a copy). Code files with no row in
 `list.csv` are **unattributed**.
 ```bash

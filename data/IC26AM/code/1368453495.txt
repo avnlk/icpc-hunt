@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+const int MOD=998244353;
+const int N=2e5+11;
+
+int inv[N],precomp[N];
+
+void precompute(){
+    inv[1]=1;
+    for(int i=2;i<N;i++){
+        int val=MOD-MOD/i;
+        inv[i]=val*inv[MOD%i]%MOD;
+    }
+    for(int i=1;i<N;i++){
+        precomp[i]=(precomp[i-1]+inv[i])%MOD;
+    }
+}
+
+void solve(){
+    int n;
+    cin>>n;
+    int res=0;
+    for(int i=1;i<=n;i++){
+        int a;
+        cin>>a;
+        int coefficient=(precomp[i-1]+precomp[n-i])%MOD;
+        res=(res+coefficient*a)%MOD;
+    }
+    
+    cout<<res<<'\n';
+}
+signed main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	precompute();
+    int t;
+    cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}

@@ -1,0 +1,19 @@
+# cook your dish here
+t = int(input())
+mod = 998244353
+while t:
+    t -= 1
+    n = int(input())
+    a = input().split()
+    for i in range(n):
+        a[i] = int(a[i])
+    # a = [int(input()) for _ in range(n)]
+    prefSums = [0 for _ in range(n + 1)]
+    for i in range(1, n+ 1):
+        prefSums[i] = (prefSums[i - 1] + pow(i, -1, mod)) % mod
+    ans = 0
+    for i in range(n):
+        ans += a[i] * (prefSums[i] + prefSums[n - i - 1])
+        ans %= mod
+    print(ans)
+    

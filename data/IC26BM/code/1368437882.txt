@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	ios :: sync_with_stdio(false);
+	cin.tie(nullptr);
+	
+	int t;
+	cin>>t;
+	const string type[]={"00","01","10","11"};
+	while(t--){
+	    long long c[4];
+	    for(int i=0;i<4;++i)cin>>c[i];
+        string ans;
+        for(int l=0;l<4;++l){
+            if(c[l]==0)continue;
+            long long a[4];
+            for(int i=0;i<4;++i){
+                a[i]=c[i];
+            }
+            --a[l];
+            long long c00=a[0],c01=a[1],c10=a[2],c11=a[3];
+            long long ne= c01+c11;
+            
+            long long z,alt;
+            if(c00<=ne){
+                z=2*c00+c10;
+                alt=min(c01,(ne-c00)/2);
+            }
+            else{
+                
+                z=c00+c10+ne;
+                alt=0;
+            }
+            long long r=(c00+c01+c10+c11)-z-2*alt;
+            string cur;
+            cur.reserve((size_t)(z+2*alt+r+2));
+            cur.append((size_t)z,'0');
+            for(long long i=0;i<alt;++i)cur+="01";
+            cur.append((size_t)r,'1');
+            cur+=type[l];
+            if(ans.empty()||cur<ans){
+                ans=move(cur);
+            }
+	            
+	            
+	    }
+	    cout<<ans<<endl;
+	}
+	return 0;
+
+}

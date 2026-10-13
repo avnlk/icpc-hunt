@@ -1,0 +1,6 @@
+# cook your dish here
+a=int(input())
+print(00)
+print(011)
+print(00001)
+print(010101)

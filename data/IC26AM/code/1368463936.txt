@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+#define ll long long 
+using namespace std;
+vector<ll> fact(1e6+1);
+vector<ll> ifact(1e6+1);
+ll mod =998244353;
+ll pow(ll a, ll pw){
+     a%=mod;
+    ll res =1;
+    while(pw>0){
+        if(pw%2){
+            res= (res*a)%mod;
+        }
+        pw= pw/2;
+        a= (a*a)%mod;
+    }
+    return res;
+}
+ll inv(ll a){
+    return pow(a,mod-2);
+}
+ll ncr(ll n, ll r){
+    if(r>n||r<0) return 0;
+    return (fact[n]*((ifact[r]*ifact[n-r])%mod))%mod;
+}
+int main() {
+	int tt;
+	cin>>tt;
+	fact[0]=1;
+	for(int i =1;i<=1e6;i++){
+	    fact[i]=fact[i-1]*i;
+	    fact[i]%=mod;
+	}
+	ifact[(ll)1e6] = inv(fact[(ll)1e6]);
+	for(int i = ((ll)1e6)-1;i>=0;i--){
+	    ifact[i] = (ifact[i+1]*(i+1))%mod;
+	}
+	while(tt--){
+	    int n;
+	    cin>>n;
+	    vector<ll> v(n+1);
+	    for(int i =1;i<=n;i++) cin>>v[i];
+	    ll ans =0;
+	    ll temp =0;
+	    for(int i = 0;i<n-1;i++){
+	        temp+= inv(n-1-i);
+	        temp%=mod;
+	    }
+	    temp*=2;
+	    temp%=mod;
+	    ll ans2=0;
+	    for(int i =1;i<=n;i++){
+	        ans+=(v[i]*temp)%mod;
+	        for(int j = 0;j<n-1;j++){
+	            ll temp2=0;
+	            temp2+= ncr(j,i-1)+ncr(j,n-i);
+	            temp2%=mod;
+	            temp2*= inv(ncr(n-1,i-1)*(n-1-j));
+	            temp2%=mod;
+	            ans2+=(temp2*v[i])%mod;
+	            ans2%=mod;
+	        }
+	    }
+	    cout<<(ans-ans2+mod)%mod<<endl;
+	}
+
+}

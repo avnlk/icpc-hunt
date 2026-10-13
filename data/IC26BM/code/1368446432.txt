@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+string solve(long long c[4]){
+    string type = "001011"; 
+    string ans = "";
+    for(int  last = 0;last < 4;last++){
+        if(c[last] == 0)continue; 
+        long long p = c[1]; 
+        long long q = c[3]; 
+        long long u = c[0]; 
+        long long v = c[2];
+        if(last == 0)u--; 
+        if(last == 1)p--; 
+        if(last == 2)v--; 
+        if(last == 3)q--; 
+        long long x = min(u,p + q);
+        long long use11 = min(q,x); 
+        long long use01 = x - use11; 
+        p -= use01; 
+        q -= use11; 
+        long long y = (p + min(p,q))/2; 
+        long long A = u + v + x; 
+        long long B = y; 
+        long long n = c[0] + c[1] + c[2] + c[3]; 
+        long long D = n - 1 - A - 2 * B; 
+        string cur; 
+        cur.append(A,'0'); 
+        for(long long i = 0;i < B;i++)cur += "01";
+        cur.append(D,'1'); 
+        if(last == 0)cur += "00";
+        if(last == 1)cur += "01"; 
+        if(last == 2)cur += "10"; 
+        if(last == 3)cur += "11"; 
+        if(ans.empty() || cur < ans)ans = cur; }
+        return ans;
+}
+int main() {
+	// your code goes here
+	int t; 
+	cin>>t; 
+	while(t--){
+	    long long c[4]; 
+	    cin>>c[0]>>c[1]>>c[2]>>c[3]; 
+	    cout<<solve(c)<<endl;
+	}
+}

@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll=long long;
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	     int a,b,c,d;
+	     cin>>a>>b>>c>>d;
+	     int n=a+b+c+d;
+	     int nn=n-1;
+	     string s="";
+	     int val=min(d,nn/2);
+	         d-=val;
+	         nn-=val*2;
+	         val=min(c,nn/2);
+	         c-=val;
+	         nn-=val*2;
+	        val=min(b,nn/2);
+	        b-=val;
+	        nn-=val*2;
+	        val=min(a,nn/2);
+	        a-=val;
+	        nn-=val*2;
+	        if(n%2==0){
+	            if(c) {
+	             c--;
+	             s+="0";
+	         }
+	         else if(a){
+	             a--;
+	             s+="0";
+	         }
+	         else if(d){
+	             d--;
+	             s+="1";
+	         }
+	         else{
+	             b--;
+	             s+="1";
+	         }
+	        }
+	     
+	     while(a--){
+	         s+="00";
+	     }
+	     while(b--){
+	         s+="01";
+	     }
+	     while(c--){
+	         s+="10";
+	     }
+	     while(d--){
+	         s+="11";
+	     }
+	     cout<<s<<endl;
+	}
+   
+}

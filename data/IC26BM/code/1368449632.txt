@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+int solve() {
+    long long a,b,c,d;
+    if (!(cin >> a >> b >> c >> d)) return;
+    
+    if (a < b || b < c || c < d) {
+        cout << -1 << "\n";
+        return;
+    }
+    
+    if (a ==b) {
+        cout << 2 << "\n";
+    }
+    else {
+        cout << 11 << "\n";
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int T;
+    if (cin >> T){
+        while (T--) {
+            solve();
+        }
+    }
+    return 0;
+}

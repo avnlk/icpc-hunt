@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string>type={"00","01","10","11"};
+
+string solve(vector<int>c,int f){
+    c[f]--;
+    
+    int z=c[0]+c[2];
+    int x=min(c[0],c[1]+c[3]);
+    
+    z+=x;
+    
+    int d=min(x,c[3]);
+    c[3]-=d;
+    x-=d;
+    
+    c[1]-=x;
+    
+    int o=c[1]+c[3];
+    int y=min(c[1],o/2);
+    
+    string s;
+    s.append(z,'0');
+    
+    for(int i=0;i<y;i++){
+        s+="01";
+    }
+    
+    s.append(o-2*y,'1');
+    
+    if(f==0) s+="00";
+    if(f==1) s+="01";
+    if(f==2) s+="10";
+    if(f==3) s+="11";
+    
+    return s;
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    vector<int>c(4);
+	    cin>>c[0]>>c[1]>>c[2]>>c[3];
+	    
+	    int n=c[0]+c[1]+c[2]+c[3];
+	    
+	    string ans;
+	    
+	    for(int i=0;i<4;i++){
+	        if(c[i]==0) continue;
+	        
+	        string cur=solve(c,i);
+	       // cout<<cur<<" "<<ans<<endl;
+	        if(ans.empty()||cur<ans){
+	            ans=cur;
+	        }
+	    }
+	    
+	    cout<<ans<<endl;
+	}
+	
+	return 0;
+
+}

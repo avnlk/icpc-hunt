@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+const ll MOD = 998244353;
+const int MAXN = 200005;
+
+ll inv[MAXN], H[MAXN];
+
+void solve(){
+	int n;
+	cin>> n;
+	
+	ll ans = 0;
+	for(int i=1;i<=n;i++){
+	    ll a;
+	    cin>> a;
+	    ll mult = (H[i-1] + H[n-i]) % MOD;
+	    ans = (ans + a % MOD * mult) % MOD;
+	}
+	cout<<ans<<endl;
+}
+
+int main() {
+    inv[1] = 1;
+    for(int i = 2; i<MAXN;i++) inv[i] = (MOD - (MOD/i) * inv[MOD % i] % MOD) % MOD;
+    
+    H[0] = 0;
+    for(int i = 1; i<MAXN;i++) H[i] = (H[i-1] + inv[i]) % MOD;
+    
+    int t;
+    cin >> t;
+    while(t--){
+        solve();
+    }
+    
+}

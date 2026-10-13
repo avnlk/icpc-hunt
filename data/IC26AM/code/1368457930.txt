@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+#define py cout << "YES" << endl 
+#define pn cout << "NO" << endl 
+int MAXN = 2000003;
+const int MOD = 998244353;
+
+vector<int> inv_mod(MAXN + 10);
+vector<int> prefix(MAXN + 10);
+
+void pre() {
+    inv_mod[1] = 1;
+    for(int i=2;i<=MAXN;i++) {
+        inv_mod[i] = MOD - (MOD / i) * (inv_mod[MOD % i]) % MOD;
+    }
+    
+    prefix[0] = 0;
+    for(int i=1;i<=MAXN;i++) {
+        prefix[i] = prefix[i-1] + inv_mod[i] % MOD;
+    }
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    
+    vector<int> arr(n);
+    for(int i=0;i<n;i++) {
+        cin >> arr[i];
+    }
+    
+    int ans = 0;
+    for(int i=0;i<n;i++) {
+        int mul = (prefix[i]) % MOD + (prefix[n - i - 1]) % MOD;
+        ans = (ans % MOD + (mul * arr[i]) % MOD);
+    }
+    
+    cout << ans % MOD << '\n';
+}
+
+signed main() {
+
+    int t;
+	cin >> t ; 
+	pre();
+	while(t--)
+	{
+
+	    solve() ; 
+	}
+
+}

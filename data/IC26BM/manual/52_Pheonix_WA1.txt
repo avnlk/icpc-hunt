@@ -1,0 +1,51 @@
+t=int(input())
+for _ in range(t):
+    c=list(map(int,input().split()))
+    n=sum(c)
+    tp=['00','01','10','11']
+    bt=None
+    ch=None
+    for l in range(4):
+        if c[l]==0:
+            continue
+        for j in range((n-1)//2+1):
+            love=max(0,j-c[0]+(l==0))
+            hive=min(j,c[1]-(l==1))
+            if love>hive:
+                continue
+            if love==hive:
+                ans=(love,)
+            else:
+                ans=(love,hive)
+            
+            
+            for p in ans:
+                f=c[1]-p-(l==1)
+                f+=c[3]-(l==3)
+                b=max(0,j-f)
+                
+                ct=(c[0]+c[2]-(l in (0,2))+(j-p)-b)
+                ky=(-ct,-p,tp[l])
+                
+                if bt is None or ky<bt:
+                    bt=ky
+                    ch=(j,l,p)
+    g,l,p=ch
+    fl=[j-p+(l==0),p+(l==1),l==2,l==3]
+    emt=[0,0,0,0]
+    nd=j
+    
+    
+    for i in [1,3,0,2]:
+        tk=min(nd,c[i]-fl[i])
+        emt[i]=tk
+        nd-=tk
+    sg=[c[i]-fl[i]-emt[i] for i in range(4)]
+    ct=sg[0]+sg[2]+2*(fl[0]-(l==0))
+    o=sg[1]+sg[3]
+    fans=("0"*ct+"01"*p+"1"*o+tp[l])
+    
+    print(fans)
+    
+                
+            

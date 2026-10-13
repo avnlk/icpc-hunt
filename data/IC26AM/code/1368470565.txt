@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const ll MOD = 998244353;
+const int N = 200005;
+ll inv[N],h[N];
+int main() {
+	// your code goes here 
+	inv[1] = 1;
+	for(int i = 2;i<N;i++) {
+	    inv[i] = MOD - (MOD/i)*inv[MOD%i]%MOD;
+	}
+	h[0] = 0;
+	for(int i = 1;i<N;i++) {
+	    h[i] = (h[i-1] + inv[i]) % MOD;
+	}
+    int t;
+    cin>>t;
+    while(t--) {
+        int n;
+        cin>>n;
+        vector<ll>a(n);
+        for(int i = 0;i<n;i++) {
+            cin>>a[i];
+        }
+        ll ans = 0;
+        for(int i = 0;i<n;i++) {
+            ll e = (h[i] + h[n-1-i])%MOD;
+            ans = (ans + a[i] * e) % MOD;
+        }
+        cout<<ans<<endl;
+    }
+}

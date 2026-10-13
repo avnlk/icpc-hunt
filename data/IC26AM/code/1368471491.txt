@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+const int mod = 998'244'353;
+
+int modpow(int b, int e) {
+    int a = 1;
+    while (e) {
+        if (e&1) a = a * b % mod;
+        b = b * b % mod;
+        e >>= 1;
+    }
+    return a;
+}
+
+int harm[2'00'001];
+
+signed main() {
+	// your code goes here
+    harm[0] = 0;
+    for (int i = 1; i <= 2'00'000; i++) {
+        harm[i] = (harm[i-1] + modpow(i, mod-2))%mod;
+    }
+    int t; cin >> t;
+    
+    while (t--) {
+        int n; cin >> n;
+        vector<int> a(n); for (auto& u : a) cin >> u;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            int vi = (harm[i]+harm[n-i-1])%mod;
+            ans = (ans + (vi*a[i]%mod)) % mod;
+        }
+        cout << ans << '\n';
+    }
+}

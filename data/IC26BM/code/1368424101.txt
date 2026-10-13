@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Tuple {
+    int z, p, q;
+};
+
+static bool betterTuple(const Tuple& a, const Tuple &b){
+    if(a.z != b.z){
+        return a.z > b.z;
+    }
+    if(a.p != b.p) return a.p > b.p;
+    return a.q > b.q;
+}
+
+Tuple bestRestTuple(const array<int, 4> & c){
+    int c00 = c[0], c01 = c[1], c10 = c[2], c11 = c[3];
+    int m = c00 + c01 + c10 + c11;
+    int neutral = c01 + c11;
+    Tuple best{-1, -1, -1};
+    for(int q = 0; q<=m/2; ++q){
+        int x = min(q, c00);
+        int remainingFull = q-x;
+        int loss = max(0, 2*q - x - neutral);
+        int p = min(remainingFull, c01);
+        int qq = min({
+            c10, remainingFull - p, loss
+        });
+        int z = c00 + c10 + x - loss;
+        Tuple cur{z, p, qq};
+        if(best.z == -1 || betterTuple(cur, best)) best = cur;
+    }
+    return best;
+}
+
+string buildRest(const array<int, 4> &c){
+    int m = c[0] +c[1]+c[2]+c[3];
+    Tuple best = bestRestTuple(c);
+    int ones = m - best.z - 2*best.p - 2*best.q;
+    string ans;
+    ans.reserve(m);
+    ans.append(best.z, '0');
+    for(int i=0; i<best.p; ++i) ans+="01";
+    for(int i=0; i<best.q; ++i) ans+="10";
+    ans.append(ones, '1');
+    return ans;
+}
+
+int main() {
+	// your code goes here
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t; 
+    cin>>t;
+    static const string type[4] = {
+        "00", "01", "10", "11"
+    };
+    while(t--){
+        array<int, 4> c;
+        cin>> c[0]>>c[1]>>c[2]>>c[3];
+        int n = c[0]+c[1]+c[2]+c[3];
+        if(n==1){
+            for(int i=0; i<4; ++i){
+                if(c[i]){
+                    cout<<type[i]<<endl;
+                    break;
+                }
+            }
+            continue;
+        }
+        string answer;
+        bool first = true;
+        for(int finalType = 0; finalType <4; finalType++){
+            if(c[finalType] == 0) continue;
+            auto restCounts = c;
+            --restCounts[finalType];
+            string rest = buildRest(restCounts);
+            string candidate = rest + type[finalType];
+            if(first || candidate < answer){
+                answer = move(candidate);
+                first = false;
+            }
+        }
+        cout<<answer<<endl;
+    }
+    return 0;
+}

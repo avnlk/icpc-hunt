@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define M 998244353
+#define N 200005
+#define F(i,a,b) for(int i=a;i<=b;i++)
+ll inv[N] , H[N];
+void pre(){
+    inv[1] = 1;
+    F(i,2,N-1){
+        inv[i] = M-(M/i)*inv[M%i]%M;
+        
+    }
+    H[0] = 0;
+    F(i,1,N-1){
+        H[i]=(H[i-1]+inv[i])%M;
+    }
+}
+void solve(){
+    int n;
+    if(!(cin>>n)) return ;
+    
+    vector<ll>a(n+1);
+    F(i,1,n)cin>>a[i];
+    if(n==1){
+        cout<<0<<endl;
+        return;
+    }
+    ll ans = 0;
+    F(k,1,n){
+        ll e = (H[k-1]+H[n-k])%M;
+        ans = (ans+a[k]%M*e)%M;
+    }
+    cout<<(ans%M+M)%M<<endl;
+}
+
+int main() {
+	// your code goes here
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+// 	pre();
+	int t;cin>>t;
+	while(t--){
+	    solve();
+	}
+
+}

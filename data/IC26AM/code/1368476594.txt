@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+const int mod = 998244353;
+
+
+ll power(ll a, ll b){
+    ll ans = 0;
+    while(b){
+        if(b & 1) ans = (ans + a) % MOD;
+        a = (a + a) % MOD:
+        
+        b/=2;
+        
+    }
+    return ans;
+}
+
+ll mod_div(ll a, ll b){
+    return (a *  power(b, MOD-2)) % MOD;
+}
+
+int main() {
+	// your code goes here
+    
+    int t;cin >> t;
+    while(t--){
+        int n;cin >> n;
+        
+        vector<ll> a(n, 0);
+        for (int i=0; i<n; i++){
+            cin >> a[i];
+        }
+        
+        ll sum = std::accumulate(a.begin(), a.end(), 0ll);
+        sum *= 2ll;
+        
+        ll f = a.front();
+        ll s = a.back();
+        
+        ll cur = 0ll;
+        
+        for (int i=0; i<n - 1; i++){
+            cur = mod_div((sum - f - s), (n - i - 1));
+            
+            f += mod_div(a[i + 1], (n - i));
+            s += mod_div(a[n - i - 2], (n - i));
+            
+            // if()
+        }
+        
+        
+        
+        cout << cur << "\n";;
+        
+        
+    }
+}

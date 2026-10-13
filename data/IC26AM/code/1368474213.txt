@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+ll binexpo(ll val, ll expo, ll mod){
+    ll ans = 1;
+    ll curr = val;
+    while(expo){
+        if (expo&1){
+            ans = (ans*curr)%mod;
+        }
+        expo = expo>>1;
+        curr = (curr*curr)%mod;
+    }
+    return ans;
+}
+
+ll facto(ll val,ll mod){
+    ll ans = 1;
+    for (ll i = 2;i<=val;i++){
+        ans = (ans*i)%mod;
+    }
+    return ans;
+}
+
+ll modinv(ll val,ll mod){
+    return binexpo(val,mod-2,mod);
+}
+
+int main() {
+	int t;cin >> t;
+	ll mod = 998244353;
+	while(t--){
+	    int n;cin >> n;
+	    ll sum = 0;
+	    for (int i = 0;i<n;i++){
+	        ll val;cin >> val;
+	        sum = (sum+val)%mod;
+	    }
+	    if (n==1){cout << 0 << "\n";}
+	    else {cout << (((n*(n-1))-1)%mod)*sum*modinv(facto(n-1,mod),mod) << "\n";}
+	}
+
+}

@@ -1,0 +1,31 @@
+# cook your dish here
+
+import sys
+def main():
+    d = sys.stdin.buffer.read().split()
+    t = int(d[0]); p = 1
+    names = ['00','01','10','11']
+    out = []
+    for _ in range(t):
+        c = [int(x) for x in d[p:p + 4]];p+=4
+        best = None
+        for zi in range(4):
+            if c[zi] == 0:
+                continue
+            a = c[:]
+            a[zi] -= 1
+            a00,a01,a10,a11 = a
+            o = a01 + a11
+            m1 = min(a00,o)
+            d11 = min(a11,m1)
+            r01 = a01 - (m1 - d11)
+            r11 = a11 - d11
+            rem = r01 + r11
+            m2 = min(r01,rem//2)
+            r = rem - 2*m2
+            s = '0'*(a00 + a10 + m1) + '01' *m2 + '1'*r + names[zi]
+            if best is None or s < best:
+                best = s
+        out.append(best)
+    print("\n".join(out))
+main()

@@ -1,0 +1,13 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+int t;
+cin>>t;
+while(t-->0){
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    cout<<"111001"<<endl;
+}
+}

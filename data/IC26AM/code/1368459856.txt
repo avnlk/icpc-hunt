@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long int
+int mod = 998244353;
+
+int mod_exp(int n, int pow) {
+    int ans = 1;
+    while(true) {
+        if(pow == 0) break;
+        if(pow & 1) {
+            ans = (ans * n) % mod;
+        }
+        n = (n*n) % mod;
+        pow = pow/2;
+    }
+    return ans;
+}
+
+int mod_inv(int n) {
+    if(n == 1) return 1;
+    return mod_exp(n, mod - 2);
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n + 1);
+    for(int i = 1; i <= n; ++i) cin >> a[i];
+    
+    int cur = 0;
+    for(int i = 1; i <= n - 1; ++i) {
+        cur += mod_inv(i);
+        cur %= mod;
+        // cout << i << ' ' << mod_inv(i) << '\n';
+    }
+    // cout << "cur : " << cur << '\n';
+    int ans = 0;
+    for(int i = 1; i <= n; ++i) {
+        ans += a[i] * cur;
+        ans %= mod;
+        cur += mod_inv(i) - mod_inv(n - i);
+        cur = (cur + mod) % mod;
+    }
+    
+    cout << ans << '\n';
+}
+
+int32_t main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    while(t--) {
+        solve();
+    }
+    // cout << mod_exp(2, 1) << '\n';
+}

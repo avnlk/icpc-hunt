@@ -1,0 +1,37 @@
+# cook your dish here
+import sys
+def body(a,b,c,d):
+    n = a+b+c+d
+    t = b+d
+    if t<=a:
+        return '0'*n
+    f1 = min(b, (t-a) // 2)
+    k = t - a - 2*f1
+    return '0' * (2*a+c) + '01'*f1 + '1'*k
+    
+def main():
+    data = sys.stdin.read().split()
+    t = int(data[0])
+    idx = 1
+    out = []
+    names = ["00","01","10","11"]
+    for _ in range(t):
+        cnt = [int(x) for x in data[idx:idx+4]]
+        idx+=4
+        n= sum(cnt)
+        if n==1:
+            out.append(names[cnt.index(1)])
+            continue
+        best = None
+        for i in range(4):
+            if cnt[i] == 0:
+                continue
+            cnt[i] -=1
+            cand = body(*cnt) + names[i]
+            cnt[i]+=1
+            if best is None or cand<best:
+                best = cand
+        out.append(best)
+    print("\n".join(out))
+main()
+        

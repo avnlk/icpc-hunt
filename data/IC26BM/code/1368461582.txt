@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    vector<int> c(4);
+    for (int i = 0; i < 4; i++) {
+        cin >> c[i];
+    }
+    int st = 0;
+    string ans;
+    bool flag = true;
+    for (int i = 0; i < c[3]; i++) {
+        ans += "11";
+        st++;
+        if (flag) {
+            st--;
+            flag = false;
+        }
+    }
+    for (int i = 0; i < c[1]; i++) {
+        ans += "01";
+        st++;
+        if (flag) {
+            st--;
+            flag = false;
+        }
+    }
+    int rem = 0;
+    for (int i = st; i < (int)ans.size(); i++) {
+        if (ans[i] == '0') break;
+        rem++;
+    }
+    if (rem <= c[0]) {
+        for (int i = 0; i < c[0]; i++) {
+            ans += "00";
+            st++;
+            if (flag) {
+                st--;
+                flag = false;
+            }
+        }
+        int quota = 0;
+        for (int i = (int)ans.size() - 1; i >= st; i--) {
+            if (ans[i] == '1') {
+                quota = (int)ans.size() - 1 - i;
+                break;
+            }
+        }
+        // cerr << ans << ' ';
+        int rem = (int)ans.size() - st - quota;
+        rem = min(rem, quota);
+        int r = (int)ans.size() - rem;
+        for (int i = st; i < st + rem; i++) {
+            swap(ans[i], ans[r]);
+            r++;
+        }
+        // cerr << ans << endl;
+        ans = ans.substr(st);
+    } else {
+        ans = string(c[0], '0') + ans.substr(st);
+        if (flag) {
+            if (c[0]) {
+                ans = '0' + ans;
+                flag = false;
+            }
+        }
+    }
+    ans = string(c[2], '0') + ans;
+    if (flag) {
+        ans = string(c[2] - 1, '0');
+        if (c[2]) ans += "10";
+    }
+    cout << ans << '\n';
+}
+
+int main() {
+	// your code goes here
+    int tt;
+    cin >> tt;
+    while (tt--) {
+        solve();
+    }
+}

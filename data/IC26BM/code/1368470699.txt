@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int c00, c01, c10, c11;
+    cin>>c00>>c01>>c10>>c11;
+    int total = c00 + c01 + c10 + c11;
+    int f = 0, h = 0;
+    if(total % 2 == 1)
+    {
+        f = (total - 1) / 2;
+        h = 0;
+    }
+    else
+    {
+        f = (total - 2) / 2;
+        h = 1;
+    }
+    
+    string ans = "";
+    if(h == 1)
+    {
+        if(c10 > 0)
+        {
+            c10--;
+            ans = "0";
+        }
+        else if(c00 > 0)
+        {
+            c00--;
+            ans = "0";
+        }
+        else if(c11 > 0)
+        {
+            c11--;
+            ans = "1";
+        }
+        else 
+        {
+            c01--;
+            ans = "1";
+        }
+    }
+    
+    int drop11 = min(f, c11);
+    c11 -= drop11;
+    f -= drop11;
+    
+    int drop10 = min(f, c10);
+    c10 -= drop10;
+    f -= drop10;
+    
+    int drop01 = min(f, c01);
+    c01 -= drop01;
+    f -= drop01;
+    
+    int drop00 = min(f, c00);
+    c00 -= drop00;
+    f -= drop00;
+    
+    for(int i = 0; i < c00; i++)
+        ans += "00";
+    for(int i = 0; i < c01; i++)
+        ans += "01";
+    for(int i = 0; i < c10; i++)
+        ans += "10";
+    for(int i = 0; i < c11; i++)
+        ans += "11";
+    
+    cout << ans << "\n";
+}
+
+int main() {
+	int t; cin >> t;
+	while(t--) solve();
+}

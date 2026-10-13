@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll MOD = 998244353;
+const int N = 200005;
+
+
+ll inverse_[N], Hero[N];
+
+int main() {
+	// marlboro RED.
+	
+	inverse_[1]=1;
+	for(int i=2;i<N;i++) inverse_[i] =(MOD -(MOD/i)*inverse_[MOD%i]%MOD) %MOD;
+	Hero[0]=0;
+	for(int i=1;i<N;i++) Hero[i] = Hero[i-1] + inverse_[i] % MOD;
+	
+    int t;
+    cin >> t;
+    while(t--){
+        
+        int n;
+        cin >> n;
+        
+        ll ans = 0;
+        
+        for(int j=1;j<=n;j++){
+            ll a;
+            cin >> a;
+            ll c = (Hero[j-1]+Hero[n-j])%MOD;
+            ans = (ans +a%MOD *c)%MOD;
+        }
+        cout<<ans<<endl;
+    }
+}

@@ -1,0 +1,114 @@
+# cook your dish here
+import heapq
+t = int(input())
+
+
+def heap_up_A(h, item):
+    h.append(item)
+    i = len(h)-1
+    while i > 0:
+        if h[i][1::] < h[(i-1)//2][1::]:
+            h[i], h[(i-1)//2] = h[(i-1)//2], h[i]
+            i = (i-1)//2
+        else:
+            break
+    return h
+    
+def heap_up_B(h, item):
+    h.append(item)
+    i = len(h)-1
+    while i > 0:
+        if h[i] < h[(i-1)//2]:
+            h[i], h[(i-1)//2] = h[(i-1)//2], h[i]
+            i = (i-1)//2
+        else:
+            break
+    return h
+
+def extract_min_A(h):
+    i = 0
+    z = h[0]
+    h[0] = h[-1]
+    h.pop()
+    n = len(h)
+    while 2*i + 1 < n:
+        if 2*i + 2 < n:
+            if h[2*i+1][1::] > h[2*i+2][1::] and h[2*i+2][1::] < h[i][1::]:
+                h[i], h[2*i + 2] = h[2*i + 2], h[i]
+                i = 2*i + 2
+            elif h[2*i+1][1::] < h[i][1::]:
+                h[i], h[2*i+1] = h[2*i+1], h[i]
+                i = 2*i+1
+            else:
+                break
+        elif h[2*i+1][1::] < h[i][1::]:
+                h[i], h[2*i+1] = h[2*i+1], h[i]
+                i = 2*i+1
+        else:
+            break
+    return z
+    
+def extract_min_B(h):
+    i = 0
+    z = h[0]
+    h[0] = h[-1]
+    h.pop()
+    n = len(h)
+    while 2*i + 1 < n:
+        if 2*i + 2 < n:
+            if h[2*i+1] > h[2*i+2] and h[2*i+2] < h[i]:
+                h[i], h[2*i + 2] = h[2*i + 2], h[i]
+                i = 2*i + 2
+            elif h[2*i+1] < h[i]:
+                h[i], h[2*i+1] = h[2*i+1], h[i]
+                i = 2*i+1
+            else:
+                break
+        elif h[2*i+1] < h[i]:
+                h[i], h[2*i+1] = h[2*i+1], h[i]
+                i = 2*i+1
+        else:
+            break
+    return z
+    
+for _ in range(t):
+    a,b,c,d = list(map(int, input().split()))
+    lst_A = ['00']*a + ['01']*b + ['10']*c + ['11']*d
+    lst_B = ['00']*a + ['01']*b + ['10']*c + ['11']*d
+    
+    dic = {}
+    dic['00'] = a
+    dic['01'] = b
+    dic['10'] = c
+    dic['11'] = d
+    count = a+b+c+d
+    if count == 1:
+        if a == 1:
+            print ('00')
+        elif b == 1:
+            print ('01')
+        elif c == 1:
+            print ('10')
+        elif d == 1:
+            print ('11')
+        continue
+        
+    while count != 1:
+        found_A = False
+        while not found_A:
+            ideal_A = extract_min_A(lst_A)
+            if dic[ideal_A] > 0:
+                dic[ideal_A] -= 1
+            found_A = True
+        found_B = False
+        while not found_B:
+            ideal_B = extract_min_B(lst_B)
+            if dic[ideal_B] > 0:
+                dic[ideal_B] -= 1
+            found_B = True
+        new = ideal_A[1::] + ideal_B
+        dic[new] = dic.get(new, 0) + 1
+        heap_up_A(lst_A, new)
+        heap_up_B(lst_B, new)
+    print(new)
+        

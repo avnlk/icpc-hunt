@@ -1,0 +1,19 @@
+# cook your dish here
+import sys
+def main():
+    d=sys.stdin.read().split();o=[]
+    for i in range(int(d[0])):
+        c=list(map(int,d[1+4*i:5+4*i]))
+        if sum(c) == 1:
+            o.append(format(c.index(1),'02b'));continue
+        b=None
+        for j in range(4):
+            if c[j]:
+                e = c[:];e[j]-=1;p,q,r,s=e
+                J=q+s;u=min(p,J);x=min(q,(J-u)//2);F=u+x
+                f1=min(s,F);f0=F-f1;w=q-x-f0+s-f1
+                st='0'*(p+r+u)+'01'*x+'1'*w+format(j,'02b')
+                if b is None or st<b:b=st
+        o.append(b)
+    print("\n".join(o))
+main()

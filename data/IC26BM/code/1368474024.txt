@@ -1,0 +1,109 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#define endl "\n"
+#define int long long
+
+void solve()
+{
+    int n = 0, op = 0, extra = 0;
+    string ans;
+    vector <int> c(4, 0);
+    for (int i = 0; i < 4; i++)
+    {
+        cin >> c[i];
+        n += c[i];
+    }
+    op = n-1;
+    while(op > 0)
+    {
+        if(c[2])
+        {
+            ans.push_back('0');
+            op--;
+            c[2]--;
+        }
+        else
+            break;
+    }
+    while(op > 1)
+    {
+        if(c[3])
+        {
+            c[3]--;
+            op -= 2;
+        }
+        else
+            break;
+    }
+    while(op > 1)
+    {
+        if(c[1])
+        {
+            c[1]--;
+            op -= 2;
+        }
+        else
+            break;
+    }
+    if(op == 1)
+    {
+        if(c[2])
+        {
+            ans.push_back('0');
+            c[2]--;
+            op--;
+        }
+        else if(c[0])
+        {
+            ans.push_back('0');
+            c[0]--;
+            op--;
+        }
+        else if(c[1])
+        {
+            extra = 1;
+            c[1]--;
+            op--;
+        }
+        else
+        {
+            extra = 1;
+            c[3]--;
+            op--;
+        }
+    }
+    while(c[0]--)
+    {
+        ans.push_back('0');
+        ans.push_back('0');
+    }
+    
+    while(c[1]--)
+    {
+        ans.push_back('0');
+        ans.push_back('1');
+    }
+    
+    while(c[2]--)
+    {
+        ans.push_back('1');
+        ans.push_back('0');
+    }
+    
+    while(c[3]--)
+    {
+        ans.push_back('1');
+        ans.push_back('1');
+    }
+    if(extra)
+        ans.push_back('1');
+    cout << ans << endl;
+}
+
+signed main() {
+    cin.tie(0) -> sync_with_stdio(0);
+    int t;
+    cin >> t;
+    while(t--) solve();
+}

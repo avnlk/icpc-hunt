@@ -1,0 +1,9 @@
+t = int(input())
+for _ in range(t):
+    a , b , c , d = map(int,input().split())
+    n = a + b + c + d 
+    if d:
+        print('0' * ( a + c - b // 2)+ '1' * ( n + 1 - ( a + c - b // 2 )))
+    else:
+        print('o' * ( n + 1 - b ) + '1' * b)
+            

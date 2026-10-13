@@ -1,0 +1,69 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    static String makeCandidate(int[] cnt,int last){
+        if(cnt[last] == 0){
+            return null;
+        }
+        int[] c = cnt.clone();
+        c[last]--;
+        int n = cnt[0]+cnt[1]+cnt[2]+cnt[3];
+        int m = n-1;
+        int zeros = Math.min(m,2*c[0]+c[2]);
+        int remaining = m - zeros;
+        int pairs01  = Math.min(c[1],remaining/2);
+        remaining-=2*pairs01;
+        int ones = remaining;
+        StringBuilder ans = new StringBuilder(n+1);
+        for(int i =0;i<zeros;i++){
+            ans.append('0');
+        }
+        for(int i = 0;i<pairs01;i++){
+            ans.append("01");
+        }
+        for(int i =0;i<ones;i++){
+            ans.append('1');
+        }
+        if(last == 0){
+            ans.append("00");
+        }
+        else if(last==1){
+            ans.append("01");
+        }
+        else if (last == 2){
+            ans.append("10");
+        }
+        else{
+            ans.append("11");
+        }
+        return ans.toString();
+        
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+        while(t-->0){
+            int[] cnt = new int[4];
+            cnt[0] = scanner.nextInt();
+            cnt[1] = scanner.nextInt();
+            cnt[2] = scanner.nextInt();
+            cnt[3] = scanner.nextInt();
+            String answer = null;
+            for(int last = 0;last<4;last++){
+                String candidate = makeCandidate(cnt,last);
+                if(candidate!=null){
+                    if(answer==null || candidate.compareTo(answer)<0){
+                        answer = candidate;
+                    }
+                }
+            }
+                System.out.println(answer);
+            }
+            scanner.close();
+        }
+	}
+

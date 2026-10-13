@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define pii pair<int, int>
+#define sz(x) (int)(x.size())
+
+const int MOD = 998244353;
+const int NMAX = 200001;
+vector<int> harmonic(NMAX, 0);
+
+int binpow(int a, int b) {
+    int res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = (res * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return res;
+}
+
+int inv(int x) {
+    return binpow(x, MOD - 2);
+}
+
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i];
+    int ans = 0;
+    for (int i = 1; i <= n; ++i) {
+        int coeff = (harmonic[i - 1] + harmonic[n - i]) % MOD;
+        ans = (ans + a[i] * coeff) % MOD;
+    }
+    cout << ans << '\n';
+}
+
+int32_t main() {
+	ios_base::sync_with_stdio(0);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	harmonic[1] = 1;
+	for (int i = 2; i < NMAX; ++i) {
+	    harmonic[i] = (harmonic[i - 1] + inv(i)) % MOD;
+	}
+	
+	int t;
+	cin >> t;
+	while (t--) {
+	    solve();
+	}
+    return 0;
+}

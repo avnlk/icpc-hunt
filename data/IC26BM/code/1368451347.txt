@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    vector<int> vals(4);
+    int n = 0;
+    for (auto &vi : vals) {
+        cin >> vi;
+        n += vi;
+    }
+    
+    // cout << n << endl;
+    
+    if (n % 2 == 0) {
+        int lastrem = -1;
+        if (vals[2] > 0) {
+            lastrem = 2;
+            vals[2]--;
+        }
+        else if (vals[0] > 0) {
+            lastrem = 0;
+            vals[0]--;
+        }
+        else if (vals[3] > 0) {
+            lastrem = 3;
+            vals[3]--;
+        }
+        else {
+            lastrem = 1;
+            vals[1]--;
+        }
+        
+        int toberemoved = (n - 2) / 2;
+        int currind = 3;
+        while (toberemoved--) {
+            if (vals[currind] > 0) vals[currind]--;
+            else {
+                currind--;
+                vals[currind]--;
+            }
+        }
+        
+        string s;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < vals[i]; j++) {
+                if (i == 0) s += "00";
+                if (i == 1) s += "01";
+                if (i == 2) s += "10";
+                if (i == 3) s += "11";
+            }
+        }
+        
+        if (lastrem == 0) s = "0" + s;
+        else if (lastrem == 1) s = "1" + s;
+        else if (lastrem == 2) s = "0" + s;
+        else s = "1" + s;
+        
+        cout << s << endl;
+    }
+    else {
+        int toberemoved = (n - 1) / 2;
+        int currind = 3;
+        while (toberemoved--) {
+            if (vals[currind] > 0) vals[currind]--;
+            else {
+                currind--;
+                vals[currind]--;
+            }
+        }
+        
+        string s;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < vals[i]; j++) {
+                if (i == 0) s += "00";
+                if (i == 1) s += "01";
+                if (i == 2) s += "10";
+                if (i == 3) s += "11";
+            }
+        }
+        
+        cout << s << endl;
+    }
+}
+
+int main() {
+	// your code goes here
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        solve();
+    }
+}

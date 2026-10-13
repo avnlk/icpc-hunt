@@ -1,0 +1,31 @@
+import sys
+
+def solve():
+    input = sys.stdin.read 
+    data = input().split()
+    if not data:
+        return
+    
+    t = int(data[0])
+    idx = 1
+    out = []
+    
+    for _ in range(t):
+        c00, c01, c10, c11 = map(int, data[idx:idx+4])
+        idx += 4
+        
+        if c00 == 0 and c01 == 0 and c10 == 0:
+            out.append('1' * (c11 + 1))
+        elif c00 == 0 and c10 == 0:
+            out.append('0' + '1' * c11 + '01' * (c01 - 1) + '1')
+        elif c01 == 0 and c10 == 0:
+            out.append('0' * (c00 + 1) + '1' * c11)
+        elif c10 == 0:
+            out.append('0' * (c00 + 1) + '1' * c11 + '01' * (c01 - 1) + '1')
+        else:
+            out.append('0' * (c00 + c10) + '01' * c01 + '1' * (c11 + 1))
+    
+    sys.stdout.write('\n'.join(out) + '\n')
+    
+if __name__ == '__main__':
+    solve()

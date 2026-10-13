@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string get(vector<int>c,int f){
+    string s[4] = {"00","01","10","11"};
+    if(c[f] == 0) return "";
+    c[f]--;
+    
+    vector<int>p(4,0);
+    int x;
+    x = min(c[3],c[0]);
+    c[3] -= x;
+    c[0] -= x;
+    p[0] += x;
+    
+    x = min(c[3],c[1]);
+    c[3] -= x;
+    c[1] -= x;
+    p[1] += x;
+    
+    x = min(c[1] , c[0]);
+    c[1] -= x;
+    c[0] -= x;
+    p[0] += x;
+    
+    x = c[1] / 2;
+    c[1] -= 2 * x;
+    p[1] += x;
+    vector<string>v;
+    for(int i = 0;i<p[0];i++){
+        v.push_back("00");
+    }
+    for(int i = 0;i < c[0];i++){
+        v.push_back("0");
+    }
+    for(int i = 0;i<p[1];i++){
+        v.push_back("01");
+    }
+    for(int i = 0;i<c[2];i++){
+        v.push_back("0");
+    }
+    for(int i = 0;i<c[1];i++){
+        v.push_back("1");
+    }
+    for(int i = 0;i<c[3];i++){
+        v.push_back("1");
+    }
+    sort(v.begin(),v.end(),[](string a,string b){
+        return a+b < b+a;
+    });
+    string r;
+    for(string x : v){
+        r += x;
+    }
+    r += s[f];
+    return r;
+    
+}
+
+int main() {
+	// your code goes here
+	
+	int t;
+	cin >> t;
+	while(t--){
+	    vector<int>c(4);
+	    for(int i = 0;i<4;i++){
+	        cin >> c[i];
+	    }
+	    string ans = "";
+	    for(int f = 0;f<4;f++){
+	        if(c[f] == 0) continue;
+	        string x =get(c,f);
+	        
+	        if(ans.empty() || x < ans){
+	            ans = x;
+	        }
+	    }
+	    cout << ans << endl;
+	}
+	
+}

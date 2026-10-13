@@ -1,0 +1,24 @@
+# cook your dish here
+t=int(input())
+for _ in range(t):
+    c=list(map(int,input().split()))
+    types=["00","01","10","11"]
+    ans=None
+    for last in range(4):
+            if c[last]==0:
+                continue
+            d=c[:]
+            d[last]-=1
+            rem=sum(d)
+            p=0
+            for k in range(rem//2+1):
+                if 2*k-min(k,d[0])-min(k,d[3])<=d[1]:
+                    p=k
+            x=min(p,d[0])
+            y=min(p,d[3])
+            s=('0'*(d[0]-x+d[2])+'00'*x+'01'*(p-x)+'1'*(d[1]-(p-x)-(p-y)+d[3]-y)+types[last])
+            if ans is None or s<ans:
+                ans=s
+    print(ans)
+                
+             

@@ -1,0 +1,23 @@
+# cook your dish here
+M = 998244353
+inv = [0]*(2*(10**5)+10)
+def inc(inv):
+    for i in range(1,200010):
+        inv[i] = inv[i-1] + pow(i,-1,M)
+        inv[i] %= M 
+
+inc(inv)
+    
+    
+
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    lis = list(map(int,input().split()))
+    ans = 0 
+    for i in range(n):
+        mul = inv[i]+inv[n-i-1]
+        ans += lis[i]*mul
+        ans %= M
+    print(ans)
+    

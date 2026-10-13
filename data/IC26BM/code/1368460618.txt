@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+static const char* NM[4] = {"00", "01","10", "11"};
+struct Cand{
+    ll z, p1, p2, m; int l; bool ok = false;
+    ll b[5];
+    void fin(){
+        b[0] = z; b[1] = b[0] + 2 * p1; b[2] = b[1] + 2*p2; b[3] = b[2] + m; b[4] = b[3] + 2;
+    }
+    char at(ll pos) const {
+        if(pos < b[0]) return '0';
+        if(pos<b[1]) return ((pos - b[0])%2 == 0) ? '0':'1';
+        if(pos<b[2]) return ((pos - b[1])%2 == 0)? '1' : '0';
+        if(pos<b[3]) return '1';
+        return NM[1][pos - b[3]];
+    }
+};
+int cmpC(Cand& x, const Cand& y){
+    vector<ll> br;
+    for(int i = 0; i < 5; i++){
+        br.push_back(x.b[i]); br.push_back(y.b[i]);}
+        
+        br.push_back(0);
+        sort(br.begin(),br.end());
+        br.erase(unique(br.begin(), br.end()),br.end());
+        for(size_t i = 0; i+1 < br.size(); i++){
+            ll l = br[i], r = br[i + 1];
+            for(ll p = l; p < min(r, l+2); p++){
+                char a = x.at(p), c = y.at(p);
+                if(a != c) return a < c ? -1 : 1;
+            }
+        }
+        return 0;
+    
+}
+int main() {
+	// your code goes here
+	int t;
+	scanf("%d", &t);
+	while(t--){
+	    ll c[4];
+	    scanf("%lld %lld %lld %lld", &c[0], &c[1], &c[2], &c[3]);
+	    ll n = c[0] + c[1] + c[2] + c[3];
+	    if(n == 1){
+	        for(int i = 0; i< 4; i++ ) if (c[i]) puts(NM[i]);
+	        continue;
+	    }
+	    Cand best;
+	    for(ll a = 0; a <= n / 2; a++){
+	        ll d3 = min(c[3], a), d1 = a - d3;
+	        if (d1 > c[1]) continue;
+	        ll rem[4] = {c[0], c[1] - d1, c[2], c[3] - d3};
+	        for(int l = 0; l<4; l++){
+	            if(rem[l] < 1) continue;
+	            ll p[4] = {0,0,0,0};
+	            p[l] = 1;
+	            ll need = a;
+	            ll r2[4] = {rem[0], rem[1], rem[2], rem[3]};
+	            r2[l]--;
+	            for(int tt = 0; tt < 4; tt++){
+	                ll k = min(r2[tt], need);
+	                p[tt] += k;
+	                need -= k;
+	            }
+	            if(need > 0) continue;
+	            ll pp[4], s[4];
+	            for(int i =0; i<4; i++) {pp[i] = p[i] - (i == l); s[i] = rem[i] - p[i];}
+	            Cand cd;
+	            cd.z = s[0] + s[2] + 2*pp[0];
+	            cd.p1 = pp[1];
+	            cd.p2 = pp[2];
+	            cd.m = s[1] + s[3] + 2*pp[3];
+	            cd.l = l;
+	            cd.fin();
+	            cd.ok = true;
+	            if(!best.ok || cmpC(cd, best)<0) best = cd;
+	            
+	        }
+	}
+	string out; 
+	out.reserve(n + 2);
+	out.append(best.z, '0');
+	for(ll i = 0; i< best.p1; i++) out += "01";
+	for(ll i = 0; i< best.p2; i++) out += "10";
+	out.append(best.m, '1');
+	out += NM[best.l];
+	puts(out.c_str());
+}
+}

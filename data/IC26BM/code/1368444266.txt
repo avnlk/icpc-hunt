@@ -1,0 +1,36 @@
+t=int(input())
+for i in range(t):
+    c=list(map(int,input().split()))
+    ans=None
+    for last in range(4):
+        if c[last]==0:
+            continue
+        a=c.copy()
+        a[last]-=1
+        c1,c2,c3,c4=a
+        f1=f2=0
+        x=min(c1,c4)
+        f1+=x
+        c1-=x
+        c4-=x
+        x=min(c1,c2)
+        f1+=x
+        c1-=x
+        c2-=x
+        x=min(c2,c4)
+        f2+=x
+        c2-=x
+        c4-=x
+        x=c2//2
+        f2+=x
+        c2-=2*x
+        s='00'*f1
+        s+='0'*(c1+c3)
+        s+='01'*f2
+        s+='1'*(c2+c4)
+        s+=['00','01','10','11'][last]
+        if ans is None or s<ans:
+            ans=s
+    print(ans)
+        
+        

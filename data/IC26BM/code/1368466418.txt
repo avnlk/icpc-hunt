@@ -1,0 +1,27 @@
+t = int(input())
+
+for _ in range(t):
+    c00, c01, c10, c11 = map(int, input().split())
+    n = c00 + c01 + c10 + c11
+    
+    ans = None
+    
+    for last in ["00", "01", "10", "11"]:
+        c = [c00, c01, c10, c11]
+        idx = ["00", "01", "10", "11"].index(last)
+    
+    if c[idx] == 0:
+        continue
+
+    c[idx] -= 1
+    s = ' '
+    
+    for x, cnt in zip(["00", "01", "10", "11"], c):
+        s += x * cnt
+        
+        while len(s) > n-1:
+            s = s[1:]
+            if ans is None or s<ans:
+                ans = s
+                
+print(ans)
