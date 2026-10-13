@@ -37,8 +37,7 @@ submissions that looked worth a second pair of eyes. **Please verify before repo
    code? If you can show it is, that group matters less.
 2. Do the same excluded usernames recur across problems? (Group A's usernames, for example.)
 3. Which pool teams in group F / G, once read, look like independent solutions?
-4. Did last year's selection use an explicit solve cutoff? (See `docs/selection_rules.md`.)
-5. Is the booklet in `leak/` authentic, and when was it handed out?
+4. Is the booklet in `leak/` authentic, and when was it handed out?
 
 Open an Issue with the submission ids and what you found.
 
@@ -56,7 +55,6 @@ Open an Issue with the submission ids and what you found.
 | `p7_part*.csv`, `p8_part*.csv`, `p9_p10_all_solvers.csv` | Teams that solved a problem, with status-page links, in chunks so several people can share the work. |
 | `anomaly_review_list_v2.csv` | Teams that solved a hard problem (P7-P10) while skipping two or more problems that more teams solved. A reason to read their code, nothing more. |
 | `leak/` | Typed-in solutions from an alleged coach-distributed booklet, plus grep patterns. |
-| `docs/selection_rules.md` | The published regional selection rules, in plain terms. |
 | `.github/workflows/fetch.yml` | Tried the downloader on GitHub Actions. **Does not work**: Cloudflare challenges GitHub's servers. Kept for reference. |
 
 Problem codes: P1 `PHNCHRG`, P2 `IC26CS`, P3 `IC26MP`, P4 `IC26CB`, P5 `IC26SH`, P6 `IC26LR`, P7 `IC26TM`,
