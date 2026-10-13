@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define MOD 998244353LL
+#define  MAXN 200005
+
+long long v[MAXN],h[MAXN];
+void pc(void){
+    v[1]=1;
+    for(int i=2;i<MAXN;i++) v[i]=(MOD-MOD/i)*v[MOD%i]%MOD;
+    h[0]=0;
+    for(int i=1;i<MAXN;i++) h[i]=(h[i-1]+v[i])%MOD;
+}
+ 
+void s(void){
+    int n;
+    if (scanf("%d",&n)!=1) return ;
+    long long a=0;
+    for(int k=1;k<=n;k++){
+        long long l;
+        scanf("%lld",&l);
+        long long coeff=(h[k-1]+h[n-k])%MOD;
+        a=(a+(l%MOD)*coeff)%MOD;
+    }
+    printf("%lld\n",a);
+}
+int main(void) {
+	// your code goes here
+	pc();
+	int t;
+	if(scanf("&d",&t)==1) while(t--) s();
+	return 0;
+
+}
+

@@ -1,0 +1,18 @@
+# cook your dish here
+import sys
+def solve(c):
+    bst=None 
+    for L,s in enumerate(("00","01","10","11")):
+        if c[L]==0:
+            continue
+        a,b,C,d = c 
+        a-=L==0 ; b-=L==1; C-=L==2;d-=L==3
+        x=min(a,b+d)
+        y=min(b,(b+d-x)//2)
+        res="0"*(a+C+x) + "01"*y+"1"*(b+d-x-2*y)+s
+        if bst is None or res<bst:
+            bst=res
+    return bst 
+d=sys.stdin.buffer.read().split()
+t=int(d[0])
+print("\n".join(solve(list(map(int,d[1+4*i:5+4*i]))) for i in range(t)))

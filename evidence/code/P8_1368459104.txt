@@ -1,0 +1,34 @@
+# cook your dish here
+import sys
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    MOD = 9982244353
+    MAXN = 200005
+    
+    inv = [0] * MAXN
+    inv[1] = 1
+    
+    for i in range(2,MAXN):
+        inv[i] = (MOD - MOD // i) * inv[MOD % i] % MOD
+        
+    H = [0] * MAXN
+    for i in range(1,MAXN):
+        H[i] = (H[i-1] + inv[i]) % MOD
+    iterator = iter(input_data)
+    t = int(next(iterator))
+    out = []
+    for _ in range(t):
+        n = int(next(iterator))
+        a = [int(next(iterator)) for _ in range(n)]
+        ans = 0 
+        for i in range(n):
+            expected_depth = (H[i] + H[n-1-i]) % MOD
+            ans = (ans + a[i] * expected_depth) % MOD
+            
+        out.append(str(ans))
+    sys.stdout.write('\n'.join(out) + '\n')
+if __name__ == '__main__':
+    solve()
+    

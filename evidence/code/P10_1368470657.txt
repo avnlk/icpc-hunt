@@ -1,0 +1,17 @@
+import sys
+def solve(c):
+    besttt=None
+    for l,s in enumerate(("00","01","10","11")):
+        if c[l]==0:
+            continue
+        a,b,C,d=c 
+        a-=l==0; b-=l==1; C-=l==2; d-=l==3
+        x=min(a,b+d)
+        y=min(b,(b+d-x)//2)
+        res="0"*(a+C+x)+ "01"*y + "1" *(b+d-x-2*y)+s
+        if besttt is None or res < besttt:
+            besttt=res 
+    return besttt 
+d=sys.stdin.buffer.read().split()
+t=int(d[0])
+print("\n".join(solve(list(map(int,d[1+4*i: 5+4*i]))) for i in range(t)))

@@ -1,0 +1,19 @@
+# virtualenv / caches
+.venv/
+__pycache__/
+*.pkl
+
+# downloaded submissions (re-create with the downloader); evidence copies live in evidence/code/
+ccdump/
+
+# browser profiles hold login sessions and cookies -- NEVER commit
+cc_profile/
+cc_profile_chrome/
+cc_chrome_profile/
+*profile*/
+
+# personal helper not part of this repo
+cc_visible_fetch.py
+
+# personal notes and lists tied to one team -- keep local
+private_notes/

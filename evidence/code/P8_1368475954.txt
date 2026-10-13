@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define MOD 998244353LL
+#define MAXN 200005
+long long inv[MAXN],H[MAXN];
+void precomute(void){
+    inv[1]=1;
+    for(int i=2;i<MAXN;i++) inv[i]=(MOD-MOD/i)*inv[MOD%i]%MOD;
+    H[0]=0;
+    for(int i=1;i<MAXN;i++) H[i]=H[i-1]+inv[1]%MOD;
+}
+void solve(void){
+    int n; 
+    if (scanf("%d",&n)!=1) return ;
+    long long ans=0;
+    for(int k=1;k<=n;k++){
+        long long val;
+        scanf("%lld",&val);
+        long long coeff=(H[k-1]+H[n-k])%MOD;
+        ans=(ans+(val%MOD)*coeff)%MOD;
+        
+    }
+    printf("%lld\n", ans);
+}
+int main(void) {
+	precomute();
+	int t;
+	if(scanf("%d",&t)==1) while(t--) solve();
+	return 0;
+}
+

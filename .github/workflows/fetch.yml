@@ -1,0 +1,35 @@
+name: fetch-submissions
+on:
+  workflow_dispatch:
+    inputs:
+      problems:
+        description: "Space-separated problem codes (P1=PHNCHRG P2=IC26CS P3=IC26MP P4=IC26CB P5=IC26SH P6=IC26LR P7=IC26TM P8=IC26AM P9=IC26MM P10=IC26BM)"
+        default: "IC26BM"
+      list_only:
+        description: "Only fetch submission lists, no code (true/false)"
+        default: "false"
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - name: Fetch
+        env:
+          CI: "1"
+        run: |
+          FLAG=""; [ "${{ inputs.list_only }}" = "true" ] && FLAG="--list-only"
+          set +e
+          python3 cc_dump.py $FLAG ${{ inputs.problems }} 2>&1 | tee run.log
+          if grep -q Traceback run.log; then echo "::error::$(grep -A30 Traceback run.log | tail -8 | tr '\n' ' ' | cut -c1-900)"; fi
+          mkdir -p ccdump && cp run.log ccdump/
+          find ccdump -type f | wc -l; for d in ccdump/*/; do echo "$d: $(ls $d/code 2>/dev/null | wc -l) code files, $(($(wc -l < $d/list.csv)-1)) rows"; done
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: ccdump-${{ github.run_number }}
+          path: ccdump/

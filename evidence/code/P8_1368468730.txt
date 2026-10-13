@@ -1,0 +1,56 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+const int MOD = 998244353;
+const int MAXN = 200005;
+
+long long inv[MAXN];
+long long H[MAXN];
+
+void precompute() {
+    inv[1] = 1;
+    for (int i=2; i<MAXN;++i) {
+        inv[i] = (MOD - (MOD / i)*inv[MOD%i] % MOD) % MOD;
+    }
+    
+    H[0] = 0;
+    for(int i = 1; i < MAXN; ++i) {
+        H[i] = (H[i - 1] + inv[i]) % MOD;
+    }
+}
+
+void solve () {
+    int n;
+    if(!(cin>>n)) return;
+    
+    vector <long long> a(n+1);
+    for(int i = 1; i<=n; i++) {
+        cin >> a[i];
+    }
+    
+    long long ans = 0;
+    for(int i = 1; i<=n; ++i) {
+        long long coef = (H[i-1] + H[n-i]) % MOD;
+        ans = (ans + coef * a[i]) % MOD;
+    }
+    
+    cout<<ans<<"\n";
+    
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr); 
+    
+    precompute();
+    
+    int t;
+    if(cin>>t) {
+        while (t--) {
+            solve();
+        }
+    }
+    return 0;
+}

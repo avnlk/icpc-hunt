@@ -1,0 +1,28 @@
+t = int(input())
+
+for _ in range(t):
+    c00, c01, c10, c11 = map(int, input().split())
+    
+    n = c00 + c01 + c10 + c11
+    z = c00 + c10
+    o = c01 + c11
+    
+    if 0> 0:
+        
+        if c01 > 0:
+            last = "01"
+        else:
+            last = "11"
+            
+        ans = "0" * z + "1" * (0 - 1) + last
+        
+    else:
+        
+        if c00 > 0:
+            last = "00"
+        else:
+            last = "10"
+            
+        ans = "0" * (n - 1) + last 
+        
+    print(ans)
