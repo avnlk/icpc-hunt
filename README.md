@@ -26,7 +26,7 @@ submissions that looked worth a second pair of eyes. **Please verify before repo
 - **Fill in "need to verify".** Submissions by users no longer in the Selection Pool have no team name in the
   data files. If you know which team a username belongs to, say so.
 - **Read the code.** Groups F and G in the evidence list were only scored, not read by hand.
-- **Add data.** Only P8 (`IC26AM`) and P10 (`IC26BM`) are in `data/` in bulk, and P9 has just its solvers. Problem 7
+- **Add data.** Only P8 (`IC26AM`) and P10 (`IC26BM`) are in `data/`. Problem 7
   (`IC26TM`, ~150 solvers) is the best next one: the leaked booklet has distinctive lines for it
   (see `leak/FINGERPRINTS.md`). `p7_part1.csv` ... `p7_part6.csv` split its solvers into chunks of ~25.
 - **Report** what holds up to the organisers' plagiarism form (linked from indiaicpc.in).
@@ -46,7 +46,7 @@ Open an Issue with the submission ids and what you found.
 
 | Path | What it is |
 |---|---|
-| `data/` | Copies of the downloaded submissions (P8, P10, and the P9 solvers), shared for plagiarism review only. See `data/README.md` for the permission note and file formats. |
+| `data/` | Copies of the downloaded submissions (P8 and P10), shared for plagiarism review only. See `data/README.md` for the permission note and file formats. |
 | `evidence/` | Submissions to check (links, team or *need to verify*, copies of the code), write-ups and match CSVs. |
 | `analysis/` | Scripts that compare downloaded submissions. |
 | `cc_dump.py` | Downloads submissions in a visible Chrome window; you complete any Cloudflare check by hand. |

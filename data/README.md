@@ -10,8 +10,9 @@ here only for plagiarism review. Please do not reuse it for anything else, and d
 | Path | Contents |
 |---|---|
 | `IC26AM/` (P8) | `list.csv` and `code/<id>.txt` for 419 submissions |
-| `IC26BM/` (P10) | `list.csv` and `code/<id>.txt` for 557 submissions, plus `manual/` (17 files copied by hand, named `<rank>_<team>_<AC\|WA><n>.txt`) |
-| `IC26MM/` (P9) | `manual/` only: 10 files for the 7 solvers, copied by hand |
+| `IC26BM/` (P10) | `list.csv` and `code/<id>.txt` for 557 submissions |
+
+Only P8 and P10 are included. There is no data for the other problems.
 
 - `list.csv` columns: `id`, `status_page` (the page it was read from), `cells` (id | age | result glyph, then
   username | points | runtime | memory | language). "(100)" in the points field means accepted.
