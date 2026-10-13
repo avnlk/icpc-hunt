@@ -26,7 +26,7 @@ This page lists what to look at. It is not a finding that anyone copied anything
 
 ## B. P10: CoreX and an excluded user (all wrong attempts)
 
-**What matched:** Same brute force (`pop(i)`, `pop(j)`, `f(tuple(sorted(y)))`, `r=z if r is None or z<r else r`). CoreX's version has garbled text (`functoolsimportlru_cache`, `tuples`, `sorted9y`). Closest pair: 1368462543 and 1368456405 (0.94).
+**What matched:** Same brute force (`pop(i)`, `pop(j)`, `f(tuple(sorted(y)))`, `r=z if r is None or z<r else r`). CoreX's version has garbled text (`functoolsimportlru_cache`, `tuples`, `sorted9y`). Closest pair: [1368462543](https://www.codechef.com/viewsolution/1368462543) and [1368456405](https://www.codechef.com/viewsolution/1368456405) (0.94).
 
 | Submission | Verdict | Team (rank) | Username | Code |
 |---|---|---|---|---|
@@ -38,7 +38,7 @@ This page lists what to look at. It is not a finding that anyone copied anything
 
 ## C. P10: Code Nova win and an excluded user (all wrong attempts)
 
-**What matched:** Both build up to four candidate strings from `z=c00+c10`, `o=c01+c11` and print the `min`. Closest pair: 1368474166 and 1368454398 (0.98 names ignored, 0.73 raw text).
+**What matched:** Both build up to four candidate strings from `z=c00+c10`, `o=c01+c11` and print the `min`. Closest pair: [1368474166](https://www.codechef.com/viewsolution/1368474166) and [1368454398](https://www.codechef.com/viewsolution/1368454398) (0.98 names ignored, 0.73 raw text).
 
 | Submission | Verdict | Team (rank) | Username | Code |
 |---|---|---|---|---|
@@ -83,7 +83,7 @@ This page lists what to look at. It is not a finding that anyone copied anything
 
 ## G. P8: Byte Forge and an excluded user (both wrong, C)
 
-**What matched:** 0.91 names kept, 0.99 names ignored. Code not yet read by hand.
+**What matched:** 0.90 names kept, 0.99 names ignored. Code not yet read by hand.
 
 | Submission | Verdict | Team (rank) | Username | Code |
 |---|---|---|---|---|
@@ -106,6 +106,6 @@ These looked like matches but the earlier submission belongs to the same user, s
 ## Other files here
 
 - [`P10_python_cluster.md`](P10_python_cluster.md) and [`P8_precompute_solve_group.md`](P8_precompute_solve_group.md): write-ups of groups A and D.
-- [`P8_matches.csv`](P8_matches.csv): all 1,599 cross-user P8 pairs scoring 0.80 or higher, both scores, ids and status.
+- [`P8_matches.csv`](P8_matches.csv): all 1,533 cross-user P8 pairs scoring 0.80 or higher, both scores, ids, links and status.
 - [`P8_matches_by_pool_team.csv`](P8_matches_by_pool_team.csv): each pool team's best P8 match.
 - Regenerate with `analysis/matches_csv.py` (see the top-level README).

@@ -28,9 +28,10 @@ for a, b in itertools.combinations(N, 2):
         continue
     kept = difflib.SequenceMatcher(None, a["r"], b["r"], autojunk=False).ratio()
     v = lambda s: "AC" if s["ac"] else "WA"
+    U = "https://www.codechef.com/viewsolution/"
     rows.append(dict(score_names_ignored=round(sc, 3), score_names_kept=round(kept, 3),
-                     a_id=a["id"], a_verdict=v(a), a_lang=a["lang"], a_status=status(a), a_user=a["user"],
-                     b_id=b["id"], b_verdict=v(b), b_lang=b["lang"], b_status=status(b), b_user=b["user"]))
+                     a_id=a["id"], a_link=U + a["id"], a_verdict=v(a), a_lang=a["lang"], a_status=status(a), a_user=a["user"],
+                     b_id=b["id"], b_link=U + b["id"], b_verdict=v(b), b_lang=b["lang"], b_status=status(b), b_user=b["user"]))
 rows.sort(key=lambda r: (-r["score_names_kept"], -r["score_names_ignored"]))
 with open(out, "w", newline="") as f:
     w = csv.DictWriter(f, fieldnames=list(rows[0]))
@@ -46,9 +47,9 @@ for r in rows:
             best[k] = (r, me, ot)
 with open(out.replace(".csv", "_by_pool_team.csv"), "w", newline="") as f:
     w = csv.writer(f)
-    w.writerow(["pool_rank", "team", "best_score_names_kept", "score_names_ignored", "my_submission",
-                "my_verdict", "matched_submission", "matched_verdict", "matched_status"])
+    w.writerow(["pool_rank", "team", "best_score_names_kept", "score_names_ignored", "submission", "submission_link",
+                "verdict", "matched_submission", "matched_link", "matched_verdict", "matched_status"])
     for k, (r, me, ot) in sorted(best.items(), key=lambda kv: int(kv[0].split("#")[1].split()[0])):
         w.writerow([k.split("#")[1].split()[0], " ".join(k.split()[2:]), r["score_names_kept"], r["score_names_ignored"],
-                    r[me + "_id"], r[me + "_verdict"], r[ot + "_id"], r[ot + "_verdict"], r[ot + "_status"]])
+                    r[me + "_id"], r[me + "_link"], r[me + "_verdict"], r[ot + "_id"], r[ot + "_link"], r[ot + "_verdict"], r[ot + "_status"]])
 print(len(best), "pool teams with a match")
